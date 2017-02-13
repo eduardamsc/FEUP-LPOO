@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Hero extends Characters{
 
 	public static boolean openLever(char[][] map)
@@ -10,8 +8,14 @@ public class Hero extends Characters{
 				{
 					if (map[i-1][j]=='H'|| map[i+1][j]=='H'|| map[i][j-1]=='H' || map[i][j+1]=='H')
 					{
-						map[5][0]='S';
-						map[6][0]='S';
+						for (int k = 0; k < map.length; k++) {
+							for (int z = 0; z < map[k].length; z++) {
+								if (map[k][z] == 'I')
+								{
+									map[k][z] = 'S';
+								}
+							}
+						}
 						return true;
 					}
 				}
@@ -20,7 +24,7 @@ public class Hero extends Characters{
 		return false;
 	}
 
-	public static boolean movement(char[][] map, char direction)
+	public static void movement(char[][] map, char direction)
 	{
 		switch(direction)
 		{
@@ -44,7 +48,5 @@ public class Hero extends Characters{
 		}
 		
 		Map.printMap(map);
-		
-		return Guard.catchHero(map);
 	}
 }

@@ -21,6 +21,32 @@ public class Map {
 		return map;
 	}
 	
+	public static char[][] secondMap()
+	{
+		System.out.println(
+				  "******************\n"
+				+ "* X - wall       *\n"
+				+ "* I - exit door  *\n"
+				+ "* O - crazy ogre *\n"
+				+ "* k - key        *\n"
+				+ "******************\n");
+
+		char[][] map = { 
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ 'I', ' ', ' ', ' ', 'O', ' ', ' ', 'k', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'} };
+		
+		Map.printMap(map);
+
+		return map;
+	}
+	
 	public static void printMap(char[][] map)
 	{
 		for (int i = 0; i < map.length; i++) {
