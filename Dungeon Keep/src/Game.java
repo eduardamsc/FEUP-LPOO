@@ -45,6 +45,7 @@ public class Game {
 		Scanner s = new Scanner(System.in);
 		while (end != true) {
 			System.out.println("Press 'u' for up, 'd' for down, 'l' for left and 'r' for right.");
+			//linha seguinte da erro. nao percebo porque
 			char direction = s.next().charAt(0);
 
 			Hero.movement(map, direction);
