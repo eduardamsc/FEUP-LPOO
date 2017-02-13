@@ -47,6 +47,7 @@ public class Map {
 			}
 			
 			Map.openLever(map);
+			end=Guard.catchHero(map);
 			
 			Map.printMap(map);
 			if (map[5][0]=='S' && map[6][0]=='S')
