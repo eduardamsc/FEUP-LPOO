@@ -2,6 +2,9 @@
 public class Map {
 
 	public static void main(String[] args) {
+		System.out.println(
+				"*************\n* X - wall  *\n* I - door  *\n* H - guard *\n* K - lever *\n*************\n");
+
 		char[][] map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 				{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
 				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
@@ -19,6 +22,6 @@ public class Map {
 			}
 			System.out.println();
 		}
-		 
+
 	}
 }
