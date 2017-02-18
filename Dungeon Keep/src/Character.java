@@ -72,22 +72,26 @@ public abstract class Character {
 	{
 		if (direction == 'w')
 		{
-			if (map.getMap()[y-1][x] == 'X' || map.getMap()[y-1][x] == 'k' || map.getMap()[y-1][x] == 'I') return false;
+			if (map.getMap()[y-1][x] == 'X' || map.getMap()[y-1][x] == 'k' || map.getMap()[y-1][x] == 'I'
+					|| map.getMap()[y-1][x] == 'G'|| map.getMap()[y-1][x] == 'H' || map.getMap()[y-1][x] == 'O') return false;
 		}
 		
 		if (direction == 's')
 		{
-			if (map.getMap()[y+1][x] == 'X' || map.getMap()[y+1][x] == 'k' || map.getMap()[y+1][x] == 'I') return false;
+			if (map.getMap()[y+1][x] == 'X' || map.getMap()[y+1][x] == 'k' || map.getMap()[y+1][x] == 'I'
+					|| map.getMap()[y+1][x] == 'G'|| map.getMap()[y+1][x] == 'H' || map.getMap()[y+1][x] == 'O') return false;
 		}
 		
 		if (direction == 'a')
 		{
-			if (map.getMap()[y][x-1] == 'X' || map.getMap()[y][x-1] == 'k' || map.getMap()[y][x-1] == 'I') return false;
+			if (map.getMap()[y][x-1] == 'X' || map.getMap()[y][x-1] == 'k' || map.getMap()[y][x-1] == 'I'
+					|| map.getMap()[y][x-1] == 'G'|| map.getMap()[y][x-1] == 'H' || map.getMap()[y][x-1] == 'O') return false;
 		}
 		
 		if (direction == 'd')
 		{
-			if (map.getMap()[y][x+1] == 'X' || map.getMap()[y][x+1] == 'k' || map.getMap()[y][x+1] == 'I') return false;
+			if (map.getMap()[y][x+1] == 'X' || map.getMap()[y][x+1] == 'k' || map.getMap()[y][x+1] == 'I'
+					|| map.getMap()[y][x+1] == 'G'|| map.getMap()[y][x+1] == 'H' || map.getMap()[y][x+1] == 'O') return false;
 		}
 		
 		return true;

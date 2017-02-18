@@ -39,16 +39,15 @@ public class Game {
 		hero.setY(1);
 		map.insertCharacter(hero);
 		
-		map.printMap();
-		
 		System.out.println("-----LEVEL 1-----");
 		
+		map.printMap();
 		
 		Scanner s = new Scanner(System.in);
 		boolean end = false;
 
 		while (end != true) {
-			System.out.println("Play with the keys a,w,s,d..");
+			System.out.println("Play with the keys a,w,s,d.");
 			char direction = s.next().charAt(0);
 
 			eraseTrail(hero);
@@ -65,39 +64,73 @@ public class Game {
 				updateObjectPosition(exits.get(1));
 			}
 
+			map.printMap();
+			
 			end = catchHero();
-
+			
 			if ((exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY()) ||
 					(exits.get(1).getX() == hero.getX() && exits.get(1).getY() == hero.getY())) {
 				System.out.println("YOU WIN");
 				end = true;
 			}
-			map.printMap();
+			
 		}
 	}
 
-	/*public void levelTwo() {
+	public void levelTwo() {
 		
-		map= new Map(2);
+		map = new Map(2);
+		lever = new Lever();
+		lever.setX(7);
+		lever.setY(1);
+		map.insertObject(lever);
+		
+		exits = new Vector<Exit>();
+		exits.add(new Exit(0,1));
+		
+		for (int i=0; i<exits.size();i++)
+		{
+			map.insertObject(exits.get(i));
+		}
+		
+		ogre.setX(4);
+		ogre.setY(1);
+		map.insertCharacter(ogre);
+		hero.setX(1);
+		hero.setY(7);
+		map.insertCharacter(hero);
+		
 		System.out.println("-----LEVEL 2-----");
-		map.secondMap();
-
+		map.printMap();
+		
 		boolean end = false;
 
 		while (end != true) {
-			System.out.println("Press 'u' for up, 'd' for down, 'l' for left and 'r' for right.");
+			System.out.println("Play with the keys a,w,s,d.");
 			Scanner s = new Scanner(System.in);
 			char direction = s.next().charAt(0);
 
-			Hero.movement(map, direction);
-			end = Ogre.catchHero(map);
-
-			if (map[1][0] == 'H') {
+			eraseTrail(hero);
+			hero.movement(map, direction);
+			updateCharacterPosition(hero);
+			
+			openLever();
+			
+			if (lever.getOpen())
+			{
+				exits.get(0).open();
+				updateObjectPosition(exits.get(0));
+			}
+			
+			map.printMap();
+			end = catchHero();
+			
+			if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY()){
 				System.out.println("YOU WIN");
 				end = true;
 			}
 		}
-	}*/
+	}
 
 	
 	//Gets and sets

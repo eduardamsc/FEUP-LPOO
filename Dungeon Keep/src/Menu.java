@@ -9,9 +9,9 @@ public class Menu {/*ola*/
 		
 		Game g = new Game();
 		
-		g.levelOne();
+		//g.levelOne();
 		
-		//g.levelTwo();
+		g.levelTwo();
 	}
 
 }
