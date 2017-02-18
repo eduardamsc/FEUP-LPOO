@@ -1,8 +1,14 @@
 
-public class Ogre extends Characters {
+public class Ogre extends Character {
 
 	public Ogre() {
-		// TODO Auto-generated constructor stub
+		super();
+		defineSymbol();
+	}
+	
+	public void defineSymbol()
+	{
+		this.symbol='O';
 	}
 
 	public static boolean catchHero(char[][] map) {

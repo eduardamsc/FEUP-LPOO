@@ -1,51 +1,66 @@
 public class Map {
-
-	public Map() {
-		// TODO Auto-generated constructor stub
+	
+	private char[][] map;
+	
+	public char[][] getMap() {
+		return map;
 	}
 
-	public static char[][] firstMap() {
-		System.out
-				.println("*************\n* X - wall  *\n* I - door  *\n* H - guard *\n* k - lever *\n*************\n");
+	public void setMap(char[][] map) {
+		this.map = map;
+	}
 
-		char[][] map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-				{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
+	public Map(int level) {
+		if (level==1) firstMap();
+		if (level==2) secondMap();
+	}
+
+	public char[][] firstMap() {
+		System.out.println("*************\n* X - wall  *\n* I - door  *\n* H - guard *\n* k - lever *\n*************\n");
+
+		this.map = new char[][] { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', 'X', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', 'X', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
-				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', 'X', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-
-		Map.printMap(map);
 
 		return map;
 	}
 
-	public static char[][] secondMap() {
+	public char[][] secondMap() {
 		System.out.println("******************\n" + "* X - wall       *\n" + "* I - exit door  *\n"
 				+ "* O - crazy ogre *\n" + "* k - key        *\n" + "******************\n");
 
-		char[][] map = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-				{ 'I', ' ', ' ', ' ', 'O', ' ', ' ', 'k', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+		this.map = new char[][] { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-
-		Map.printMap(map);
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 		return map;
 	}
 
-	public static void printMap(char[][] map) {
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				System.out.print(map[i][j] + " ");
+	public void printMap() {
+		for (int i = 0; i < this.map.length; i++) {
+			for (int j = 0; j < this.map[i].length; j++) {
+				System.out.print(this.map[i][j] + " ");
 			}
 			System.out.println();
 		}
 	}
 
+	public void insertCharacter(Character c)
+	{
+		map[c.getY()][c.getX()]=c.getSymbol();
+	}
+	
+	public void insertObject(Object o)
+	{
+		map[o.getY()][o.getX()]=o.getSymbol();
+	}
 }
