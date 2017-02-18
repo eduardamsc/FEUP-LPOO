@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -10,7 +11,8 @@ public class Game {
 	private Vector<Exit> exits;
 
 	//Levels
-	public void levelOne() {
+	public boolean levelOne() {
+		boolean nextLevel = true;
 		
 		map = new Map(1);
 		lever = new Lever();
@@ -66,15 +68,18 @@ public class Game {
 
 			map.printMap();
 			
-			end = catchHero();
+			if (catchHero()) {
+				end = true;
+				nextLevel = false;
+			}
 			
 			if ((exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY()) ||
 					(exits.get(1).getX() == hero.getX() && exits.get(1).getY() == hero.getY())) {
 				System.out.println("YOU WIN");
 				end = true;
 			}
-			
 		}
+		return nextLevel;
 	}
 
 	public void levelTwo() {
@@ -114,6 +119,16 @@ public class Game {
 			hero.movement(map, direction);
 			updateCharacterPosition(hero);
 			
+			Random n = new Random();
+			int value = n.nextInt(4);
+			if (value==0) direction = 'a';
+			if (value==1) direction = 'w';
+			if (value==2) direction = 's';
+			if (value==3) direction = 'd';
+			eraseTrail(ogre);
+			ogre.movement(map, direction);
+			updateCharacterPosition(ogre);
+			
 			openLever();
 			
 			if (lever.getOpen())
@@ -132,7 +147,6 @@ public class Game {
 		}
 	}
 
-	
 	//Gets and sets
 	public Hero getHero() {
 		return hero;
@@ -191,6 +205,7 @@ public class Game {
 		return false;
 	}
 	
+	//update map
 	public void eraseTrail(Character c)
 	{
 		map.getMap()[c.getY()][c.getX()]=' ';
@@ -205,4 +220,5 @@ public class Game {
 	{
 		map.insertObject(o);
 	}
+	
 }

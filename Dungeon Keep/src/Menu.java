@@ -1,5 +1,5 @@
 
-public class Menu {/*ola*/
+public class Menu {
 
 	public static void main(String[] args) {
 		
@@ -9,9 +9,11 @@ public class Menu {/*ola*/
 		
 		Game g = new Game();
 		
-		//g.levelOne();
+		boolean nextLevel;
 		
-		g.levelTwo();
+		nextLevel = g.levelOne();
+		
+		if (nextLevel) g.levelTwo();
 	}
 
 }
