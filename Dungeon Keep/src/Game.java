@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -6,6 +5,7 @@ public class Game {
 	private Hero hero = new Hero();
 	private Guard guard = new Guard();
 	private Ogre ogre = new Ogre();
+	private Club club = new Club();
 	private Map map;
 	private Lever lever;
 	private Vector<Exit> exits;
@@ -29,7 +29,7 @@ public class Game {
 			System.out.println("Play with the keys a,w,s,d.");
 			char direction = s.next().charAt(0);
 
-			eraseTrail(hero); //deletes trail when hero moves
+			eraseTrailC(hero); //deletes trail when hero moves
 			hero.movement(map, direction);
 			updateCharacterPosition(hero); //updates hero's position on the map
 			
@@ -38,7 +38,7 @@ public class Game {
 			if (i>23) i=0;
 			direction = guard.fixedTrajectory(i);
 			
-			eraseTrail(guard); //erases guard's trail as it changes position
+			eraseTrailC(guard); //erases guard's trail as it changes position
 			guard.movement(map, direction);
 			updateCharacterPosition(guard); //updates guard's position on map
 			
@@ -76,16 +76,39 @@ public class Game {
 			Scanner s = new Scanner(System.in);
 			char direction = s.next().charAt(0);
 
-			eraseTrail(hero);
+			eraseTrailC(hero);
 			hero.movement(map, direction);
 			updateCharacterPosition(hero);
 			
 			//generates ogre's trajectory randomly
 			direction = ogre.randomTrajectory();
 			
-			eraseTrail(ogre); //erases ogre's trail as it changes position
+			eraseTrailC(ogre); //erases ogre's trail as it changes position
 			ogre.movement(map, direction);
 			updateCharacterPosition(ogre); //updates ogre's position on map
+			
+			//generates club's position randomly
+			direction = club.randomTrajectory();
+			
+			eraseTrailC(club);
+			if (direction =='w' && club.wall(map, direction))
+			{
+				club.setX(ogre.getX()-1);
+				club.setY(ogre.getY());
+			} else if (direction =='s' && club.wall(map, direction))
+			{
+				club.setX(ogre.getX()+1);
+				club.setY(ogre.getY());
+			} else if (direction =='a' && club.wall(map, direction))
+			{
+				club.setX(ogre.getX());
+				club.setY(ogre.getY()-1);
+			} else if (direction =='d' && club.wall(map, direction))
+			{
+				club.setX(ogre.getX());
+				club.setY(ogre.getY()+1);
+			}
+			updateCharacterPosition(club);
 			
 			pickKey(); //checks if hero has picked up key and updates
 			nearKey(); //checks if ogre is near key and updates
@@ -159,6 +182,21 @@ public class Game {
 			ogre.setSymbol('O');
 			updateCharacterPosition(ogre);
 		}
+		
+		if ((key.getX() - 1 == club.getX() && key.getY() == club.getY())
+				|| (key.getX() + 1 == club.getX() && key.getY() == club.getY())
+				|| (key.getX() == club.getX() && key.getY() - 1 == club.getY())
+				|| (key.getX() == club.getX() && key.getY() + 1 == club.getY()))
+		//if club is near key (up,down,left,right)
+		{
+			//club turns to $ and updates
+			club.setSymbol('$');
+			updateCharacterPosition(club);
+		} else {
+			//otherwise, club goes back to * and updates
+			club.setSymbol('*');
+			updateCharacterPosition(club);
+		}
 	}
 	
 	public boolean catchHero()
@@ -187,13 +225,30 @@ public class Game {
 			return true;
 		}
 		
+		if ((club.getX()-1 == hero.getX() && club.getY() == hero.getY()) ||
+				(club.getX()+1 == hero.getX() && club.getY() == hero.getY()) ||
+				(club.getX() == hero.getX() && club.getY()-1 == hero.getY()) ||
+				(club.getX() == hero.getX() && club.getY()+1 == hero.getY()))
+		{
+			System.out.println("***********");
+			System.out.println("*GAME OVER*");
+			System.out.println("***********");
+			System.out.println("You just got caught!");
+			return true;
+		}
+		
 		return false;
 	}
 	
 	//update map
-	public void eraseTrail(Character c)
+	public void eraseTrailC(Character c)
 	{
 		map.getMap()[c.getX()][c.getY()]=' ';
+	}
+	
+	public void eraseTrailO(Object o)
+	{
+		map.getMap()[o.getX()][o.getY()]=' ';
 	}
 	
 	public void updateCharacterPosition(Character c)
@@ -264,6 +319,27 @@ public class Game {
 		ogre.setX(1);
 		ogre.setY(4);
 		map.insertCharacter(ogre);
+		
+		//ogre's club
+		char direction = club.randomTrajectory();
+		if (direction =='w')
+		{
+			club.setX(ogre.getX()-1);
+			club.setY(ogre.getY());
+		} else if (direction =='s')
+		{
+			club.setX(ogre.getX()+1);
+			club.setY(ogre.getY());
+		} else if (direction =='a')
+		{
+			club.setX(ogre.getX());
+			club.setY(ogre.getY()-1);
+		} else if (direction =='d')
+		{
+			club.setX(ogre.getX());
+			club.setY(ogre.getY()+1);
+		}
+		map.insertCharacter(club);
 		
 		//hero
 		hero.setX(7);
