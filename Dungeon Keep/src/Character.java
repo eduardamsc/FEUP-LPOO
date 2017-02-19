@@ -53,45 +53,45 @@ public abstract class Character {
 	
 	//movimentos
 	public void moveUp() {
-		y--;
-	}
-
-	public void moveDown() {
-		y++;
-	}
-
-	public void moveLeft() {
 		x--;
 	}
 
-	public void moveRight() {
+	public void moveDown() {
 		x++;
+	}
+
+	public void moveLeft() {
+		y--;
+	}
+
+	public void moveRight() {
+		y++;
 	}
 	
 	public boolean wall(Map map, char direction)
 	{
 		if (direction == 'w')
 		{
-			if (map.getMap()[y-1][x] == 'X' || map.getMap()[y-1][x] == 'k' || map.getMap()[y-1][x] == 'I'
-					|| map.getMap()[y-1][x] == 'G'|| map.getMap()[y-1][x] == 'H' || map.getMap()[y-1][x] == 'O') return false;
+			if (map.getMap()[x-1][y] == 'X' || map.getMap()[x-1][y] == 'k' || map.getMap()[x-1][y] == 'I'
+					|| map.getMap()[x-1][y] == 'G'|| map.getMap()[x-1][y] == 'H' || map.getMap()[x-1][y] == 'O') return false;
 		}
 		
 		if (direction == 's')
 		{
-			if (map.getMap()[y+1][x] == 'X' || map.getMap()[y+1][x] == 'k' || map.getMap()[y+1][x] == 'I'
-					|| map.getMap()[y+1][x] == 'G'|| map.getMap()[y+1][x] == 'H' || map.getMap()[y+1][x] == 'O') return false;
+			if (map.getMap()[x+1][y] == 'X' || map.getMap()[x+1][y] == 'k' || map.getMap()[x+1][y] == 'I'
+					|| map.getMap()[x+1][y] == 'G'|| map.getMap()[x+1][y] == 'H' || map.getMap()[x+1][y] == 'O') return false;
 		}
 		
 		if (direction == 'a')
 		{
-			if (map.getMap()[y][x-1] == 'X' || map.getMap()[y][x-1] == 'k' || map.getMap()[y][x-1] == 'I'
-					|| map.getMap()[y][x-1] == 'G'|| map.getMap()[y][x-1] == 'H' || map.getMap()[y][x-1] == 'O') return false;
+			if (map.getMap()[x][y-1] == 'X' || map.getMap()[x][y-1] == 'k' || map.getMap()[x][y-1] == 'I'
+					|| map.getMap()[x][y-1] == 'G'|| map.getMap()[x][y-1] == 'H' || map.getMap()[x][y-1] == 'O') return false;
 		}
 		
 		if (direction == 'd')
 		{
-			if (map.getMap()[y][x+1] == 'X' || map.getMap()[y][x+1] == 'k' || map.getMap()[y][x+1] == 'I'
-					|| map.getMap()[y][x+1] == 'G'|| map.getMap()[y][x+1] == 'H' || map.getMap()[y][x+1] == 'O') return false;
+			if (map.getMap()[x][y+1] == 'X' || map.getMap()[x][y+1] == 'k' || map.getMap()[x][y+1] == 'I'
+					|| map.getMap()[x][y+1] == 'G'|| map.getMap()[x][y+1] == 'H' || map.getMap()[x][y+1] == 'O') return false;
 		}
 		
 		return true;

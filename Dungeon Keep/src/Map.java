@@ -56,11 +56,11 @@ public class Map {
 
 	public void insertCharacter(Character c)
 	{
-		map[c.getY()][c.getX()]=c.getSymbol();
+		map[c.getX()][c.getY()]=c.getSymbol();
 	}
 	
 	public void insertObject(Object o)
 	{
-		map[o.getY()][o.getX()]=o.getSymbol();
+		map[o.getX()][o.getY()]=o.getSymbol();
 	}
 }

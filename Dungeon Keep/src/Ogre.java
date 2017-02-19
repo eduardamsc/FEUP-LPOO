@@ -11,6 +11,11 @@ public class Ogre extends Character {
 	{
 		this.symbol='O';
 	}
+	
+	public void key()
+	{
+		this.symbol='$';
+	}
 
 	public void movement(Map map, char direction) {
 		
