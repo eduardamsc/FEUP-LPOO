@@ -46,7 +46,7 @@ public class Game {
 
 			map.printMap();
 			
-			if (catchHero()) { //checks if guard has caught hero
+			if (catchHero(guard)) { //checks if guard has caught hero
 				end = true;
 				nextLevel = false; //if hero is caught, you can't move on to level2
 			}
@@ -88,26 +88,8 @@ public class Game {
 			updateCharacterPosition(ogre); //updates ogre's position on map
 			
 			//generates club's position randomly
-			direction = club.randomTrajectory();
-			
 			eraseTrailC(club);
-			if (direction =='w' && club.wall(map, direction))
-			{
-				club.setX(ogre.getX()-1);
-				club.setY(ogre.getY());
-			} else if (direction =='s' && club.wall(map, direction))
-			{
-				club.setX(ogre.getX()+1);
-				club.setY(ogre.getY());
-			} else if (direction =='a' && club.wall(map, direction))
-			{
-				club.setX(ogre.getX());
-				club.setY(ogre.getY()-1);
-			} else if (direction =='d' && club.wall(map, direction))
-			{
-				club.setX(ogre.getX());
-				club.setY(ogre.getY()+1);
-			}
+			club.movement(map, ogre.getX(), ogre.getY());
 			updateCharacterPosition(club);
 			
 			pickKey(); //checks if hero has picked up key and updates
@@ -121,7 +103,7 @@ public class Game {
 			}
 			
 			map.printMap();
-			end = catchHero(); //checks if ogre has caught hero
+			end = catchHero(ogre); //checks if ogre has caught hero
 			
 			if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
 			//if hero is on top of stairs, you win
@@ -168,10 +150,10 @@ public class Game {
 
 	public void nearKey()
 	{
-		if ((key.getX() - 1 == ogre.getX() && key.getY() == ogre.getY())
+		if (((key.getX() - 1 == ogre.getX() && key.getY() == ogre.getY())
 				|| (key.getX() + 1 == ogre.getX() && key.getY() == ogre.getY())
 				|| (key.getX() == ogre.getX() && key.getY() - 1 == ogre.getY())
-				|| (key.getX() == ogre.getX() && key.getY() + 1 == ogre.getY()))
+				|| (key.getX() == ogre.getX() && key.getY() + 1 == ogre.getY())) && !key.getPickedUp())
 		//if ogre is near key (up,down,left,right)
 		{
 			//ogre turns to $ and updates
@@ -183,10 +165,10 @@ public class Game {
 			updateCharacterPosition(ogre);
 		}
 		
-		if ((key.getX() - 1 == club.getX() && key.getY() == club.getY())
+		if (((key.getX() - 1 == club.getX() && key.getY() == club.getY())
 				|| (key.getX() + 1 == club.getX() && key.getY() == club.getY())
 				|| (key.getX() == club.getX() && key.getY() - 1 == club.getY())
-				|| (key.getX() == club.getX() && key.getY() + 1 == club.getY()))
+				|| (key.getX() == club.getX() && key.getY() + 1 == club.getY())) && !key.getPickedUp())
 		//if club is near key (up,down,left,right)
 		{
 			//club turns to $ and updates
@@ -199,12 +181,12 @@ public class Game {
 		}
 	}
 	
-	public boolean catchHero()
+	public boolean catchHero(Character c)
 	{
-		if ((guard.getX()-1 == hero.getX() && guard.getY() == hero.getY()) ||
-				(guard.getX()+1 == hero.getX() && guard.getY() == hero.getY()) ||
-				(guard.getX() == hero.getX() && guard.getY()-1 == hero.getY()) ||
-				(guard.getX() == hero.getX() && guard.getY()+1 == hero.getY()))
+		if ((c.getX()-1 == hero.getX() && c.getY() == hero.getY()) ||
+				(c.getX()+1 == hero.getX() && c.getY() == hero.getY()) ||
+				(c.getX() == hero.getX() && c.getY()-1 == hero.getY()) ||
+				(c.getX() == hero.getX() && c.getY()+1 == hero.getY()))
 		{
 			System.out.println("***********");
 			System.out.println("*GAME OVER*");
@@ -213,30 +195,21 @@ public class Game {
 			return true;
 		}
 		
-		if ((ogre.getX()-1 == hero.getX() && ogre.getY() == hero.getY()) ||
-				(ogre.getX()+1 == hero.getX() && ogre.getY() == hero.getY()) ||
-				(ogre.getX() == hero.getX() && ogre.getY()-1 == hero.getY()) ||
-				(ogre.getX() == hero.getX() && ogre.getY()+1 == hero.getY()))
+		if (c == ogre)
 		{
-			System.out.println("***********");
-			System.out.println("*GAME OVER*");
-			System.out.println("***********");
-			System.out.println("You just got caught!");
-			return true;
+			if ((club.getX()-1 == hero.getX() && club.getY() == hero.getY()) ||
+					(club.getX()+1 == hero.getX() && club.getY() == hero.getY()) ||
+					(club.getX() == hero.getX() && club.getY()-1 == hero.getY()) ||
+					(club.getX() == hero.getX() && club.getY()+1 == hero.getY()))
+			{
+				System.out.println("***********");
+				System.out.println("*GAME OVER*");
+				System.out.println("***********");
+				System.out.println("You just got caught!");
+				return true;
+			}
+			
 		}
-		
-		if ((club.getX()-1 == hero.getX() && club.getY() == hero.getY()) ||
-				(club.getX()+1 == hero.getX() && club.getY() == hero.getY()) ||
-				(club.getX() == hero.getX() && club.getY()-1 == hero.getY()) ||
-				(club.getX() == hero.getX() && club.getY()+1 == hero.getY()))
-		{
-			System.out.println("***********");
-			System.out.println("*GAME OVER*");
-			System.out.println("***********");
-			System.out.println("You just got caught!");
-			return true;
-		}
-		
 		return false;
 	}
 	
@@ -321,24 +294,9 @@ public class Game {
 		map.insertCharacter(ogre);
 		
 		//ogre's club
-		char direction = club.randomTrajectory();
-		if (direction =='w')
-		{
-			club.setX(ogre.getX()-1);
-			club.setY(ogre.getY());
-		} else if (direction =='s')
-		{
-			club.setX(ogre.getX()+1);
-			club.setY(ogre.getY());
-		} else if (direction =='a')
-		{
-			club.setX(ogre.getX());
-			club.setY(ogre.getY()-1);
-		} else if (direction =='d')
-		{
-			club.setX(ogre.getX());
-			club.setY(ogre.getY()+1);
-		}
+		club.setX(0);
+		club.setY(0);
+		club.movement(map, ogre.getX(), ogre.getY());
 		map.insertCharacter(club);
 		
 		//hero

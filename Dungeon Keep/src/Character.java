@@ -65,25 +65,29 @@ public abstract class Character {
 		if (direction == 'w')
 		{
 			if (map.getMap()[x-1][y] == 'X' || map.getMap()[x-1][y] == 'k' || map.getMap()[x-1][y] == 'I'
-					|| map.getMap()[x-1][y] == 'G'|| map.getMap()[x-1][y] == 'H' || map.getMap()[x-1][y] == 'O') return false;
+					|| map.getMap()[x-1][y] == 'G'|| map.getMap()[x-1][y] == 'H' || map.getMap()[x-1][y] == 'O'
+					|| x-1<0 || y<0 || x-1>map.getMap().length || y>map.getMap()[x-1].length) return false;
 		}
 		
 		if (direction == 's')
 		{
 			if (map.getMap()[x+1][y] == 'X' || map.getMap()[x+1][y] == 'k' || map.getMap()[x+1][y] == 'I'
-					|| map.getMap()[x+1][y] == 'G'|| map.getMap()[x+1][y] == 'H' || map.getMap()[x+1][y] == 'O') return false;
+					|| map.getMap()[x+1][y] == 'G'|| map.getMap()[x+1][y] == 'H' || map.getMap()[x+1][y] == 'O'
+					|| x+1<0 || y<0 || x+1>map.getMap().length || y>map.getMap()[x-1].length) return false;
 		}
 		
 		if (direction == 'a')
 		{
 			if (map.getMap()[x][y-1] == 'X' || map.getMap()[x][y-1] == 'k' || map.getMap()[x][y-1] == 'I'
-					|| map.getMap()[x][y-1] == 'G'|| map.getMap()[x][y-1] == 'H' || map.getMap()[x][y-1] == 'O') return false;
+					|| map.getMap()[x][y-1] == 'G'|| map.getMap()[x][y-1] == 'H' || map.getMap()[x][y-1] == 'O'
+					|| x<0 || y-1<0 || x>map.getMap().length || y>map.getMap()[x].length) return false;
 		}
 		
 		if (direction == 'd')
 		{
 			if (map.getMap()[x][y+1] == 'X' || map.getMap()[x][y+1] == 'k' || map.getMap()[x][y+1] == 'I'
-					|| map.getMap()[x][y+1] == 'G'|| map.getMap()[x][y+1] == 'H' || map.getMap()[x][y+1] == 'O') return false;
+					|| map.getMap()[x][y+1] == 'G'|| map.getMap()[x][y+1] == 'H' || map.getMap()[x][y+1] == 'O'
+					|| x<0 || y-1<0 || x>map.getMap().length || y>map.getMap()[x].length) return false;
 		}
 		
 		return true;
