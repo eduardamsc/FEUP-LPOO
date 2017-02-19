@@ -135,6 +135,8 @@ public class Game {
 			{
 				exits.get(0).open();
 				updateObjectPosition(exits.get(0));
+				hero.key();
+				updateCharacterPosition(hero);
 			}
 			
 			map.printMap();

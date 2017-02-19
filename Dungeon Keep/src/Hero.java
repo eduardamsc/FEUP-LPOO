@@ -10,6 +10,11 @@ public class Hero extends Character {
 		this.symbol='H';
 	}
 	
+	public void key()
+	{
+		this.symbol='K';
+	}
+	
 	public void movement(Map map, char direction) {
 		
 		if (wall(map, direction)) {
