@@ -13,69 +13,48 @@ public class Game {
 
 	//Levels
 	public boolean levelOne() {
-		boolean nextLevel = true;
+		boolean nextLevel = true; //permission to play level 2
 		
-		map = new Map(1);
-		lever = new Lever();
-		lever.setX(8);
-		lever.setY(7);
-		map.insertObject(lever);
-		
-		exits = new Vector<Exit>();
-		exits.add(new Exit(5,0));
-		exits.add(new Exit(6,0));
-		exits.add(new Exit(1,4));
-		exits.add(new Exit(3,4));
-		exits.add(new Exit(3,2));
-		exits.add(new Exit(8,2));
-		exits.add(new Exit(8,4));
-		
-		for (int i=0; i<exits.size();i++)
-		{
-			map.insertObject(exits.get(i));
-		}
-		
-		guard.setX(1);
-		guard.setY(8);
-		map.insertCharacter(guard);
-		hero.setX(1);
-		hero.setY(1);
-		map.insertCharacter(hero);
+		loadElementsLevel1(); //generates all elements for level1
 		
 		System.out.println("-----LEVEL 1-----");
-		
 		map.printMap();
 		
 		Scanner s = new Scanner(System.in);
 		boolean end = false;
+		
+		int i=-1;
 
 		while (end != true) {
 			System.out.println("Play with the keys a,w,s,d.");
 			char direction = s.next().charAt(0);
 
-			eraseTrail(hero);
+			eraseTrail(hero); //deletes trail when hero moves
 			hero.movement(map, direction);
-			updateCharacterPosition(hero);
+			updateCharacterPosition(hero); //updates hero's position on the map
 			
-			openLever();
+			//generates guard's fixed trajectory
+			i++;
+			if (i>23) i=0;
+			direction = guard.fixedTrajectory(i);
 			
-			if (lever.getOpen())
-			{
-				exits.get(0).open();
-				updateObjectPosition(exits.get(0));
-				exits.get(1).open();
-				updateObjectPosition(exits.get(1));
-			}
+			eraseTrail(guard); //erases guard's trail as it changes position
+			guard.movement(map, direction);
+			updateCharacterPosition(guard); //updates guard's position on map
+			
+			openLever(); //checks to see if lever can be opened and updates
 
 			map.printMap();
 			
-			if (catchHero()) {
+			if (catchHero()) { //checks if guard has caught hero
 				end = true;
-				nextLevel = false;
+				nextLevel = false; //if hero is caught, you can't move on to level2
 			}
 			
 			if ((exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY()) ||
-					(exits.get(1).getX() == hero.getX() && exits.get(1).getY() == hero.getY())) {
+					(exits.get(1).getX() == hero.getX() && exits.get(1).getY() == hero.getY())) 
+			// if hero is on the exit, you win
+				{
 				System.out.println("YOU WIN");
 				end = true;
 			}
@@ -85,26 +64,7 @@ public class Game {
 
 	public void levelTwo() {
 		
-		map = new Map(2);
-		key = new Key();
-		key.setX(1);
-		key.setY(7);
-		map.insertObject(key);
-		
-		exits = new Vector<Exit>();
-		exits.add(new Exit(1,0));
-		
-		for (int i=0; i<exits.size();i++)
-		{
-			map.insertObject(exits.get(i));
-		}
-		
-		ogre.setX(1);
-		ogre.setY(4);
-		map.insertCharacter(ogre);
-		hero.setX(7);
-		hero.setY(1);
-		map.insertCharacter(hero);
+		loadElementsLevel2(); ////generates all elements for level2
 		
 		System.out.println("-----LEVEL 2-----");
 		map.printMap();
@@ -120,61 +80,50 @@ public class Game {
 			hero.movement(map, direction);
 			updateCharacterPosition(hero);
 			
-			Random n = new Random();
-			int value = n.nextInt(4);
-			if (value==0) direction = 'a';
-			if (value==1) direction = 'w';
-			if (value==2) direction = 's';
-			if (value==3) direction = 'd';
-			eraseTrail(ogre);
-			ogre.movement(map, direction);
-			updateCharacterPosition(ogre);
+			//generates ogre's trajectory randomly
+			direction = ogre.randomTrajectory();
 			
-			pickKey();
-			nearKey();
+			eraseTrail(ogre); //erases ogre's trail as it changes position
+			ogre.movement(map, direction);
+			updateCharacterPosition(ogre); //updates ogre's position on map
+			
+			pickKey(); //checks if hero has picked up key and updates
+			nearKey(); //checks if ogre is near key and updates
 			
 			if (exits.get(0).getX() == hero.getX() && exits.get(0).getY()+1 == hero.getY() && key.getPickedUp()){
+				//if hero is close to exit and has the key
+				//the exit turns to stairs
 				exits.get(0).open();
 				updateObjectPosition(exits.get(0));
 			}
 			
 			map.printMap();
-			end = catchHero();
+			end = catchHero(); //checks if ogre has caught hero
 			
-			if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY()){
+			if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
+			//if hero is on top of stairs, you win
+			{
 				System.out.println("YOU WIN");
 				end = true;
 			}
 		}
 	}
 
-	//Gets and sets
-	public Hero getHero() {
-		return hero;
-	}
-	
-	public void setHero(Hero hero) {
-		this.hero = hero;
-	}
-	
-	public Guard getGuard() {
-		return guard;
-	}
-	
-	public void setGuard(Guard guard) {
-		this.guard = guard;
-	}
-
-	//extras
-	
+	//useful functions
 	public void openLever()
 	{
 		if ((lever.getX()-1 == hero.getX() && lever.getY() == hero.getY()) ||
 				(lever.getX()+1 == hero.getX() && lever.getY() == hero.getY()) ||
 				(lever.getX() == hero.getX() && lever.getY()-1 == hero.getY()) ||
 				(lever.getX() == hero.getX() && lever.getY()+1 == hero.getY()))
+			//if hero is near lever (up,down,right,left)
 		{
+			//lever opens, exits open and both are updated
 			lever.open();
+			exits.get(0).open();
+			updateObjectPosition(exits.get(0));
+			exits.get(1).open();
+			updateObjectPosition(exits.get(1));
 		}
 	}
 	
@@ -183,10 +132,13 @@ public class Game {
 		if ((key.getX() - 1 == hero.getX() && key.getY() == hero.getY())
 				|| (key.getX() + 1 == hero.getX() && key.getY() == hero.getY())
 				|| (key.getX() == hero.getX() && key.getY() - 1 == hero.getY())
-				|| (key.getX() == hero.getX() && key.getY() + 1 == hero.getY())) {
+				|| (key.getX() == hero.getX() && key.getY() + 1 == hero.getY()))
+		//if hero is near key (up,down,right,left)
+		{
+			//key gets picked up, disappears, hero turns to K and all is updated
 			key.pickedUp();
 			updateObjectPosition(key);
-			hero.key();
+			hero.hasKey();
 			updateCharacterPosition(hero);
 		}
 	}
@@ -196,10 +148,14 @@ public class Game {
 		if ((key.getX() - 1 == ogre.getX() && key.getY() == ogre.getY())
 				|| (key.getX() + 1 == ogre.getX() && key.getY() == ogre.getY())
 				|| (key.getX() == ogre.getX() && key.getY() - 1 == ogre.getY())
-				|| (key.getX() == ogre.getX() && key.getY() + 1 == ogre.getY())) {
+				|| (key.getX() == ogre.getX() && key.getY() + 1 == ogre.getY()))
+		//if ogre is near key (up,down,left,right)
+		{
+			//ogre turns to $ and updates
 			ogre.setSymbol('$');
 			updateCharacterPosition(ogre);
 		} else {
+			//otherwise, ogre goes back to O and updates
 			ogre.setSymbol('O');
 			updateCharacterPosition(ogre);
 		}
@@ -250,4 +206,68 @@ public class Game {
 		map.insertObject(o);
 	}
 	
+	//load elements
+	public void loadElementsLevel1()
+	{
+		//map
+		map = new Map(1);
+		
+		//lever
+		lever = new Lever(8,7);
+		map.insertObject(lever);
+		
+		//exits
+		exits = new Vector<Exit>();
+		exits.add(new Exit(5,0));
+		exits.add(new Exit(6,0));
+		exits.add(new Exit(1,4));
+		exits.add(new Exit(3,4));
+		exits.add(new Exit(3,2));
+		exits.add(new Exit(8,2));
+		exits.add(new Exit(8,4));
+		
+		for (int i=0; i<exits.size();i++)
+		{
+			map.insertObject(exits.get(i));
+		}
+		
+		//guard
+		guard.setX(1);
+		guard.setY(8);
+		map.insertCharacter(guard);
+		
+		//hero
+		hero.setX(1);
+		hero.setY(1);
+		map.insertCharacter(hero);
+	}
+	
+	public void loadElementsLevel2()
+	{
+		//map
+		map = new Map(2);
+		
+		//key
+		key = new Key(1,7);
+		map.insertObject(key);
+		
+		//exits
+		exits = new Vector<Exit>();
+		exits.add(new Exit(1,0));
+		
+		for (int i=0; i<exits.size();i++)
+		{
+			map.insertObject(exits.get(i));
+		}
+		
+		//ogre
+		ogre.setX(1);
+		ogre.setY(4);
+		map.insertCharacter(ogre);
+		
+		//hero
+		hero.setX(7);
+		hero.setY(1);
+		map.insertCharacter(hero);
+	}
 }

@@ -1,25 +1,16 @@
 
 public abstract class Character {
 
-	//x->colunas y->linhas
-	protected int x;
-	protected int y;
-	protected char symbol;
-	
-	
+	protected int x; //columns
+	protected int y; //lines
+	protected char symbol; //defines character on map
 
+	
 	public Character() {
 		x=0;
 		y=0;
 	}
 	
-	public Character(int x, int y)
-	{
-		this.x=x;
-		this.y=y;
-	}
-	
-	//gets e sets coordenadas
 	public int getX()
 	{
 		return x;
@@ -40,7 +31,6 @@ public abstract class Character {
 		this.y=y;
 	}
 	
-	
 	public char getSymbol() {
 		return symbol;
 	}
@@ -51,7 +41,7 @@ public abstract class Character {
 	
 	public abstract void defineSymbol();
 	
-	//movimentos
+	//Movements
 	public void moveUp() {
 		x--;
 	}
@@ -68,6 +58,8 @@ public abstract class Character {
 		y++;
 	}
 	
+	
+	//checks if there's a wall
 	public boolean wall(Map map, char direction)
 	{
 		if (direction == 'w')
@@ -95,6 +87,27 @@ public abstract class Character {
 		}
 		
 		return true;
+	}
+	
+	//combines all movements and wall checking
+	public void movement(Map map, char direction) {
+		
+		if (wall(map, direction)) {
+			switch (direction) {
+			case 'w':
+				moveUp();
+				break;
+			case 's':
+				moveDown();
+				break;
+			case 'a':
+				moveLeft();
+				break;
+			case 'd':
+				moveRight();
+				break;
+			}
+		}
 	}
 
 	

@@ -9,6 +9,14 @@ public class Key extends Object {
 		defineSymbol();
 	}
 	
+	public Key(int x, int y)
+	{
+		this.x=x;
+		this.y=y;
+		pickedUp = false;
+		defineSymbol();
+	}
+	
 	public void defineSymbol()
 	{
 		this.symbol='k';

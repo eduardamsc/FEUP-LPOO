@@ -11,13 +11,6 @@ public abstract class Object {
 			y=0;
 		}
 		
-		public Object(int x, int y)
-		{
-			this.x=x;
-			this.y=y;
-		}
-		
-		//gets e sets coordenadas
 		public int getX()
 		{
 			return x;
@@ -37,7 +30,6 @@ public abstract class Object {
 		{
 			this.y=y;
 		}
-		
 		
 		public char getSymbol() {
 			return symbol;

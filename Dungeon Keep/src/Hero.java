@@ -10,28 +10,8 @@ public class Hero extends Character {
 		this.symbol='H';
 	}
 	
-	public void key()
+	public void hasKey()
 	{
 		this.symbol='K';
-	}
-	
-	public void movement(Map map, char direction) {
-		
-		if (wall(map, direction)) {
-			switch (direction) {
-			case 'w':
-				moveUp();
-				break;
-			case 's':
-				moveDown();
-				break;
-			case 'a':
-				moveLeft();
-				break;
-			case 'd':
-				moveRight();
-				break;
-			}
-		}
 	}
 }

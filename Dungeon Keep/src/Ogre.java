@@ -16,24 +16,17 @@ public class Ogre extends Character {
 	{
 		this.symbol='$';
 	}
-
-	public void movement(Map map, char direction) {
+	
+	public char randomTrajectory()
+	{
+		char direction=' ';
+		Random n = new Random();
+		int value = n.nextInt(4);
+		if (value==0) direction = 'a';
+		if (value==1) direction = 'w';
+		if (value==2) direction = 's';
+		if (value==3) direction = 'd';
 		
-		if (wall(map, direction)) {
-			switch (direction) {
-			case 'w':
-				moveUp();
-				break;
-			case 's':
-				moveDown();
-				break;
-			case 'a':
-				moveLeft();
-				break;
-			case 'd':
-				moveRight();
-				break;
-			}
-		}
+		return direction;
 	}
 }

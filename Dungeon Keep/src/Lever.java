@@ -9,6 +9,14 @@ public class Lever extends Object{
 		defineSymbol();
 	}
 	
+	public Lever(int x, int y)
+	{
+		this.x=x;
+		this.y=y;
+		open = false;
+		defineSymbol();
+	}
+	
 	public void defineSymbol()
 	{
 		this.symbol='k';
