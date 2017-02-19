@@ -11,8 +11,8 @@ public class Menu {
 		
 		boolean nextLevel;
 		
-		//nextLevel = g.levelOne();
+		nextLevel = g.levelOne();
 		
-		/*if (nextLevel)*/ g.levelTwo();
+		if (nextLevel) g.levelTwo();
 	}
 }
