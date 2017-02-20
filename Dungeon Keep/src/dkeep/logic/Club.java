@@ -1,3 +1,6 @@
+package dkeep.logic;
+import dkeep.cli.Map;
+
 public class Club extends Ogre {
 
 	public Club() {

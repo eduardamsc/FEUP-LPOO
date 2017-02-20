@@ -1,5 +1,16 @@
+package dkeep.cli;
 import java.util.Scanner;
 import java.util.Vector;
+
+import dkeep.logic.Character;
+import dkeep.logic.Club;
+import dkeep.logic.Exit;
+import dkeep.logic.Guard;
+import dkeep.logic.Hero;
+import dkeep.logic.Key;
+import dkeep.logic.Lever;
+import dkeep.logic.Object;
+import dkeep.logic.Ogre;
 
 public class Game {
 	private Hero hero = new Hero();

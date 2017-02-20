@@ -1,3 +1,6 @@
+package dkeep.logic;
+import dkeep.cli.Map;
+
 public abstract class Character {
 
 	protected int x; // columns

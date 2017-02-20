@@ -1,3 +1,7 @@
+package dkeep.cli;
+import dkeep.logic.Character;
+import dkeep.logic.Object;
+
 public class Map {
 
 	private char[][] map;
