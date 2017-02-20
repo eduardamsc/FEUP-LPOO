@@ -5,21 +5,19 @@ public class Key extends Object {
 
 	public Key() {
 		super();
-		pickedUp=false;
-		defineSymbol();
-	}
-	
-	public Key(int x, int y)
-	{
-		this.x=x;
-		this.y=y;
 		pickedUp = false;
 		defineSymbol();
 	}
-	
-	public void defineSymbol()
-	{
-		this.symbol='k';
+
+	public Key(int x, int y) {
+		this.x = x;
+		this.y = y;
+		pickedUp = false;
+		defineSymbol();
+	}
+
+	public void defineSymbol() {
+		this.symbol = 'k';
 	}
 
 	public boolean getPickedUp() {
@@ -27,7 +25,7 @@ public class Key extends Object {
 	}
 
 	public void pickedUp() {
-		this.symbol=' ';
+		this.symbol = ' ';
 		pickedUp = true;
 	}
 }

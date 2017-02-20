@@ -4,14 +4,12 @@ public class Hero extends Character {
 		super();
 		defineSymbol();
 	}
-	
-	public void defineSymbol()
-	{
-		this.symbol='H';
+
+	public void defineSymbol() {
+		this.symbol = 'H';
 	}
-	
-	public void hasKey()
-	{
-		this.symbol='K';
+
+	public void hasKey() {
+		this.symbol = 'K';
 	}
 }

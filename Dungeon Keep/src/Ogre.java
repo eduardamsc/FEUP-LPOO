@@ -25,8 +25,9 @@ public class Ogre extends Character {
 		if (value==0) direction = 'a';
 		if (value==1) direction = 'w';
 		if (value==2) direction = 's';
-		if (value==3) direction = 'd';
-		
+		if (value == 3)
+			direction = 'd';
+
 		return direction;
 	}
 }
