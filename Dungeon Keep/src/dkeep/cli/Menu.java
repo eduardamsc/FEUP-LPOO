@@ -1,5 +1,7 @@
 package dkeep.cli;
 
+import dkeep.logic.Game;
+
 public class Menu {
 
 	public static void main(String[] args) {

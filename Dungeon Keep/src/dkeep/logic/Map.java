@@ -1,6 +1,4 @@
-package dkeep.cli;
-import dkeep.logic.Character;
-import dkeep.logic.Object;
+package dkeep.logic;
 
 public class Map {
 
