@@ -18,10 +18,14 @@ public class Guard extends Character {
 		this.symbol = 'G';
 	}
 
-	public boolean isAsleep() {
+	public void isAsleep() {
 		this.awake=false;
 		this.symbol='g';
-		return true;
+	}
+	
+	public boolean getAwake()
+	{
+		return this.awake;
 	}
 
 	public char fixedTrajectory(int i) {

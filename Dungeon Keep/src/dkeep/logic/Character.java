@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.util.Random;
+
 public abstract class Character {
 
 	protected int x; // columns
@@ -108,5 +110,19 @@ public abstract class Character {
 				break;
 			}
 		}
+	}
+	
+	public char randomTrajectory()
+	{
+		char direction=' ';
+		Random n = new Random();
+		int value = n.nextInt(4);
+		if (value==0) direction = 'a';
+		if (value==1) direction = 'w';
+		if (value==2) direction = 's';
+		if (value == 3)
+			direction = 'd';
+
+		return direction;
 	}
 }

@@ -1,12 +1,18 @@
 package dkeep.logic;
 
-public class Club extends Ogre {
+public class Club extends Character{
 
 	public Club() {
 		super();
 		defineSymbol();
 	}
 
+	public Club(int x, int y) {
+		this.x = x;
+		this.y = y;
+		defineSymbol();
+	}
+	
 	public void defineSymbol() {
 		this.symbol = '*';
 	}

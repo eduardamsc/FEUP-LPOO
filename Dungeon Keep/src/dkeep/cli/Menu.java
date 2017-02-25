@@ -16,15 +16,20 @@ public class Menu {
 
 		boolean nextLevel=true;
 		nextLevel = level1(g);
-		if (nextLevel) level2(g);
+		if (nextLevel) 
+			level2(g);
 	}
 	
 	public static boolean level1(Game g)
 	{
 		boolean nextLevel = true; // permission to play level 2
 		
+		System.out.println("-----LEVEL 1-----");
+		System.out
+		.println("*************\n* X - wall  *\n* I - door  *\n* H - guard *\n* k - lever *\n*************\n");
+		System.out.println("Play with the keys a,w,s,d.");
+		
 		g.loadElementsLevel1();
-		legendaLevel1();
 		printMap(g.getMap());
 		
 		Scanner s = new Scanner(System.in);
@@ -52,8 +57,12 @@ public class Menu {
 	
 	public static void level2(Game g)
 	{	
+		System.out.println("-----LEVEL 2-----");
+		System.out.println("******************\n" + "* X - wall       *\n" + "* I - exit door  *\n"
+				+ "* O - crazy ogre *\n" + "* k - key        *\n" + "******************\n");
+		System.out.println("Play with the keys a,w,s,d.");
+		
 		g.loadElementsLevel2();
-		legendaLevel2();
 		printMap(g.getMap());
 		
 		Scanner s = new Scanner(System.in);
@@ -69,22 +78,6 @@ public class Menu {
 				System.out.println("YOU WIN");
 			}
 		}
-	}
-	
-	public static void legendaLevel1()
-	{
-		System.out.println("-----LEVEL 1-----");
-		System.out
-		.println("*************\n* X - wall  *\n* I - door  *\n* H - guard *\n* k - lever *\n*************\n");
-		System.out.println("Play with the keys a,w,s,d.");
-	}
-	
-	public static void legendaLevel2()
-	{
-		System.out.println("-----LEVEL 2-----");
-		System.out.println("******************\n" + "* X - wall       *\n" + "* I - exit door  *\n"
-				+ "* O - crazy ogre *\n" + "* k - key        *\n" + "******************\n");
-		System.out.println("Play with the keys a,w,s,d.");
 	}
 	
 	public static void printMap(Map map)

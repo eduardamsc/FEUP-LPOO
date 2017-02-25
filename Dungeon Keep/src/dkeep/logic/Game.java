@@ -8,12 +8,13 @@ public class Game {
 	private Hero hero = new Hero();
 	private Vector<Guard> guards;
 	private Ogre ogre = new Ogre();
-	private Club club = new Club();
+	private Vector<Club> clubs;
 	private Map map;
 	private Lever lever;
 	private Vector<Exit> exits;
 	private Key key;
 
+	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	public Map getMap() {
 		return map;
 	}
@@ -22,6 +23,7 @@ public class Game {
 		this.map = map;
 	}
 
+	/////////////////////////////////////////LEVELS//////////////////////////////////////
 	public boolean logicLevel1(char direction, int i) {
 		moveHero(direction);
 		moveGuard(i);
@@ -31,9 +33,14 @@ public class Game {
 		if (catchHero(guards.get(0))) { // checks if guard Rookie has caught hero
 			return true;
 		}
-		if (catchHero(guards.get(1))) { // checks if guard Drunken has caught hero
+		
+		if (guards.get(1).getAwake())
+		{
+			if (catchHero(guards.get(1))) { // checks if guard Drunken has caught hero
 			return true;
+			}
 		}
+			
 		if (catchHero(guards.get(2))) { // checks if guard Suspicious has caught hero
 			return true;
 		}
@@ -47,6 +54,7 @@ public class Game {
 
 		pickKey(); // checks if hero has picked up key and updates
 		nearKey(); // checks if ogre is near key and updates
+		stunOgre(); //checks if hero stuns ogre
 
 		if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() + 1 == hero.getY() && key.getPickedUp()) {
 			// if hero is close to exit and has the key
@@ -54,14 +62,14 @@ public class Game {
 			exits.get(0).open();
 			updateObjectPosition(exits.get(0));
 		}
-
+		
 		if (catchHero(ogre)) { // checks if guard has caught hero
 			return true;
 		}
 		return false;
 	}
 
-	//check victory
+	///////////////////////////////////////////////////////////////////////////////
 	public boolean checkVictoryLevel1() {
 		if ((exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
 				|| (exits.get(1).getX() == hero.getX() && exits.get(1).getY() == hero.getY()))
@@ -81,19 +89,91 @@ public class Game {
 		return false;
 	}
 
-	//moves
+	/////////////////////////////////////////HERO//////////////////////////////////////
 	public void moveHero(char direction) {
 		eraseTrailC(hero); // deletes trail when hero moves
 		hero.movement(map, direction);
 		updateCharacterPosition(hero); // updates hero's position on the map
+		
+		pickClub(); // checks if hero has picked up club and updates
+		// generates club's position randomly
+		if (hero.getArmed()) {
+			eraseTrailC(clubs.get(1));
+			clubs.get(1).movement(map, hero.getX(), hero.getY());
+			updateCharacterPosition(clubs.get(1));
+		}
 	}
 
+	public void openLever() {
+		if ((lever.getX() - 1 == hero.getX() && lever.getY() == hero.getY())
+				|| (lever.getX() + 1 == hero.getX() && lever.getY() == hero.getY())
+				|| (lever.getX() == hero.getX() && lever.getY() - 1 == hero.getY())
+				|| (lever.getX() == hero.getX() && lever.getY() + 1 == hero.getY()))
+		// if hero is near lever (up,down,right,left)
+		{
+			// lever opens, exits open and both are updated
+			lever.open();
+			exits.get(0).open();
+			updateObjectPosition(exits.get(0));
+			exits.get(1).open();
+			updateObjectPosition(exits.get(1));
+		}
+	}
+	
+	public void pickKey() {
+		if ((key.getX() - 1 == hero.getX() && key.getY() == hero.getY())
+				|| (key.getX() + 1 == hero.getX() && key.getY() == hero.getY())
+				|| (key.getX() == hero.getX() && key.getY() - 1 == hero.getY())
+				|| (key.getX() == hero.getX() && key.getY() + 1 == hero.getY()))
+		// if hero is near key (up,down,right,left)
+		{
+			// key gets picked up, disappears, hero turns to K and all is
+			// updated
+			key.pickedUp();
+			updateObjectPosition(key);
+			hero.hasKey();
+			updateCharacterPosition(hero);
+		}
+	}
+
+	public void pickClub() {
+		if ((clubs.get(1).getX() - 1 == hero.getX() && clubs.get(1).getY() == hero.getY())
+				|| (clubs.get(1).getX() + 1 == hero.getX() && clubs.get(1).getY() == hero.getY())
+				|| (clubs.get(1).getX() == hero.getX() && clubs.get(1).getY() - 1 == hero.getY())
+				|| (clubs.get(1).getX() == hero.getX() && clubs.get(1).getY() + 1 == hero.getY()))
+		// if hero is near clubs.get(1) (up,down,right,left)
+		{
+			// clubs.get(1) gets picked up, disappears, hero turns to A and all is updated
+			hero.isArmed();
+			updateCharacterPosition(hero);
+		}
+	}
+	
+	public void stunOgre()
+	{
+		if (((clubs.get(1).getX() - 1 == ogre.getX() && clubs.get(1).getY() == ogre.getY())
+				|| (clubs.get(1).getX() + 1 == ogre.getX() && clubs.get(1).getY() == ogre.getY())
+				|| (clubs.get(1).getX() == ogre.getX() && clubs.get(1).getY() - 1 == ogre.getY())
+				|| (clubs.get(1).getX() == ogre.getX() && clubs.get(1).getY() + 1 == ogre.getY())) && hero.getArmed())
+		// if ogre is near hero's club (up,down,left,right) and hero is armed with it
+		{
+			// ogre turns to 8 and updates
+			ogre.setSymbol('8');
+			updateCharacterPosition(ogre);
+		} else {
+			// otherwise, ogre goes back to O and updates
+			ogre.setSymbol('O');
+			updateCharacterPosition(ogre);
+		}
+	}
+	
+	/////////////////////////////////////////GUARD//////////////////////////////////////
 	public void moveGuard(int i) {
 		moveGuardRookie(i);
 		moveGuardDrunken(i);
 		moveGuardSuspicious(i);
-	}
-	
+	}	
+
 	public void moveGuardRookie(int i)
 	{
 		char direction = guards.get(0).fixedTrajectory(i);
@@ -162,6 +242,7 @@ public class Game {
 		}
 	}
 	
+	/////////////////////////////////////////OGRE//////////////////////////////////////
 	public void moveOgre() {
 		// generates ogre's trajectory randomly
 		char direction = ogre.randomTrajectory();
@@ -171,102 +252,52 @@ public class Game {
 		updateCharacterPosition(ogre); // updates ogre's position on map
 
 		// generates club's position randomly
-		eraseTrailC(club);
-		club.movement(map, ogre.getX(), ogre.getY());
-		updateCharacterPosition(club);
+		eraseTrailC(clubs.get(0));
+		clubs.get(0).movement(map, ogre.getX(), ogre.getY());
+		updateCharacterPosition(clubs.get(0));
 	}
 	
-	// useful functions
-	public void openLever() {
-		if ((lever.getX() - 1 == hero.getX() && lever.getY() == hero.getY())
-				|| (lever.getX() + 1 == hero.getX() && lever.getY() == hero.getY())
-				|| (lever.getX() == hero.getX() && lever.getY() - 1 == hero.getY())
-				|| (lever.getX() == hero.getX() && lever.getY() + 1 == hero.getY()))
-		// if hero is near lever (up,down,right,left)
-		{
-			// lever opens, exits open and both are updated
-			lever.open();
-			exits.get(0).open();
-			updateObjectPosition(exits.get(0));
-			exits.get(1).open();
-			updateObjectPosition(exits.get(1));
-		}
-	}
-
-	public void pickKey() {
-		if ((key.getX() - 1 == hero.getX() && key.getY() == hero.getY())
-				|| (key.getX() + 1 == hero.getX() && key.getY() == hero.getY())
-				|| (key.getX() == hero.getX() && key.getY() - 1 == hero.getY())
-				|| (key.getX() == hero.getX() && key.getY() + 1 == hero.getY()))
-		// if hero is near key (up,down,right,left)
-		{
-			// key gets picked up, disappears, hero turns to K and all is
-			// updated
-			key.pickedUp();
-			updateObjectPosition(key);
-			hero.hasKey();
-			updateCharacterPosition(hero);
-		}
-	}
-
+	/////////////////////////////////////////USEFUL FUNCTIONS//////////////////////////////////////
 	public void nearKey() {
-		if (((key.getX() - 1 == ogre.getX() && key.getY() == ogre.getY())
-				|| (key.getX() + 1 == ogre.getX() && key.getY() == ogre.getY())
-				|| (key.getX() == ogre.getX() && key.getY() - 1 == ogre.getY())
-				|| (key.getX() == ogre.getX() && key.getY() + 1 == ogre.getY())) && !key.getPickedUp())
-		// if ogre is near key (up,down,left,right)
-		{
-			// ogre turns to $ and updates
-			ogre.setSymbol('$');
-			updateCharacterPosition(ogre);
-		} else {
-			// otherwise, ogre goes back to O and updates
-			ogre.setSymbol('O');
-			updateCharacterPosition(ogre);
-		}
-
-		if (((key.getX() - 1 == club.getX() && key.getY() == club.getY())
-				|| (key.getX() + 1 == club.getX() && key.getY() == club.getY())
-				|| (key.getX() == club.getX() && key.getY() - 1 == club.getY())
-				|| (key.getX() == club.getX() && key.getY() + 1 == club.getY())) && !key.getPickedUp())
-		// if club is near key (up,down,left,right)
-		{
-			// club turns to $ and updates
-			club.setSymbol('$');
-			updateCharacterPosition(club);
-		} else {
-			// otherwise, club goes back to * and updates
-			club.setSymbol('*');
-			updateCharacterPosition(club);
-		}
-	}
-
-	public boolean catchHero(Character c) {
-		
-		if ((c.getX() - 1 == hero.getX() && c.getY() == hero.getY())
-				|| (c.getX() + 1 == hero.getX() && c.getY() == hero.getY())
-				|| (c.getX() == hero.getX() && c.getY() - 1 == hero.getY())
-				|| (c.getX() == hero.getX() && c.getY() + 1 == hero.getY())) {
-			System.out.println("***********");
-			System.out.println("*GAME OVER*");
-			System.out.println("***********");
-			System.out.println("You just got caught!");
-			return true;
-		}
-		
-		if (c== guards.get(1))
-		{
-			if (guards.get(1).isAsleep())
+			if (((key.getX() - 1 == ogre.getX() && key.getY() == ogre.getY())
+					|| (key.getX() + 1 == ogre.getX() && key.getY() == ogre.getY())
+					|| (key.getX() == ogre.getX() && key.getY() - 1 == ogre.getY())
+					|| (key.getX() == ogre.getX() && key.getY() + 1 == ogre.getY())) && !key.getPickedUp())
+			// if ogre is near key (up,down,left,right)
 			{
-				return false;
+				// ogre turns to $ and updates
+				ogre.setSymbol('$');
+				updateCharacterPosition(ogre);
+			} else {
+				// otherwise, ogre goes back to O and updates
+				ogre.setSymbol('O');
+				updateCharacterPosition(ogre);
+			}
+
+			for (int i=0; i<clubs.size(); i++)
+			{
+				if (((key.getX() - 1 == clubs.get(0).getX() && key.getY() == clubs.get(0).getY())
+						|| (key.getX() + 1 == clubs.get(0).getX() && key.getY() == clubs.get(0).getY())
+						|| (key.getX() == clubs.get(0).getX() && key.getY() - 1 == clubs.get(0).getY())
+						|| (key.getX() == clubs.get(0).getX() && key.getY() + 1 == clubs.get(0).getY())) && !key.getPickedUp())
+				// if club is near key (up,down,left,right)
+				{
+					// club turns to $ and updates
+					clubs.get(0).setSymbol('$');
+					updateCharacterPosition(clubs.get(0));
+				} else {
+					// otherwise, club goes back to * and updates
+					clubs.get(0).setSymbol('*');
+					updateCharacterPosition(clubs.get(0));
+				}
 			}
 		}
 
-		if (c == ogre) {
-			if ((club.getX() - 1 == hero.getX() && club.getY() == hero.getY())
-					|| (club.getX() + 1 == hero.getX() && club.getY() == hero.getY())
-					|| (club.getX() == hero.getX() && club.getY() - 1 == hero.getY())
-					|| (club.getX() == hero.getX() && club.getY() + 1 == hero.getY())) {
+	public boolean catchHero(Character c) {
+			if ((c.getX() - 1 == hero.getX() && c.getY() == hero.getY())
+					|| (c.getX() + 1 == hero.getX() && c.getY() == hero.getY())
+					|| (c.getX() == hero.getX() && c.getY() - 1 == hero.getY())
+					|| (c.getX() == hero.getX() && c.getY() + 1 == hero.getY())) {
 				System.out.println("***********");
 				System.out.println("*GAME OVER*");
 				System.out.println("***********");
@@ -274,28 +305,23 @@ public class Game {
 				return true;
 			}
 
+			if (c == ogre) {
+				if ((clubs.get(0).getX() - 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
+						|| (clubs.get(0).getX() + 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
+						|| (clubs.get(0).getX() == hero.getX() && clubs.get(0).getY() - 1 == hero.getY())
+						|| (clubs.get(0).getX() == hero.getX() && clubs.get(0).getY() + 1 == hero.getY())) {
+					System.out.println("***********");
+					System.out.println("*GAME OVER*");
+					System.out.println("***********");
+					System.out.println("You just got caught!");
+					return true;
+				}
+
+			}
+			return false;
 		}
-		return false;
-	}
-
-	// update map
-	public void eraseTrailC(Character c) {
-		map.getMap()[c.getX()][c.getY()] = ' ';
-	}
-
-	public void eraseTrailO(Object o) {
-		map.getMap()[o.getX()][o.getY()] = ' ';
-	}
-
-	public void updateCharacterPosition(Character c) {
-		map.insertCharacter(c);
-	}
-
-	public void updateObjectPosition(Object o) {
-		map.insertObject(o);
-	}
-
-	// load elements
+	
+	/////////////////////////////////////////UPDATE MAP//////////////////////////////////////
 	public void loadElementsLevel1() {
 		// map
 		map = new Map(1);
@@ -356,14 +382,35 @@ public class Game {
 		map.insertCharacter(ogre);
 
 		// ogre's club
-		club.setX(0);
-		club.setY(0);
-		club.movement(map, ogre.getX(), ogre.getY());
-		map.insertCharacter(club);
+		clubs = new Vector<Club>();
+		clubs.add(new Club(0,0)); //ogre's club
+		clubs.add(new Club(7,3)); //hero's club
+		clubs.get(0).movement(map, ogre.getX(), ogre.getY());
+		
+		for (int i = 0; i < clubs.size(); i++) {
+			map.insertCharacter(clubs.get(i));
+		}
 
 		// hero
 		hero.setX(7);
 		hero.setY(1);
 		map.insertCharacter(hero);
 	}
-}
+
+	public void eraseTrailC(Character c) {
+		map.getMap()[c.getX()][c.getY()] = ' ';
+	}
+
+	public void eraseTrailO(Object o) {
+		map.getMap()[o.getX()][o.getY()] = ' ';
+	}
+
+	public void updateCharacterPosition(Character c) {
+		map.insertCharacter(c);
+	}
+
+	public void updateObjectPosition(Object o) {
+		map.insertObject(o);
+	}
+
+	}
