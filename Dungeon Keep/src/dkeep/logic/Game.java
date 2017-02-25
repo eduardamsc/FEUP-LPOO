@@ -1,4 +1,5 @@
 package dkeep.logic;
+
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -8,74 +9,66 @@ public class Game {
 	private Ogre ogre = new Ogre();
 	private Club club = new Club();
 	private Map map;
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
 	private Lever lever;
 	private Vector<Exit> exits;
 	private Key key;
 
-	// Levels
-	public boolean levelOne() {
-		boolean nextLevel = true; // permission to play level 2
-
-		loadElementsLevel1(); // generates all elements for level1
-
-		System.out.println("-----LEVEL 1-----");
-		map.printMap();
-
-		Scanner s = new Scanner(System.in);
-		boolean end = false;
-
-		int i = -1;
-
-		while (end != true) {
-			System.out.println("Play with the keys a,w,s,d.");
-			char direction = s.next().charAt(0);
-
-			eraseTrailC(hero); // deletes trail when hero moves
-			hero.movement(map, direction);
-			updateCharacterPosition(hero); // updates hero's position on the map
-
-			// generates guard's fixed trajectory
-			i++;
-			if (i > 23)
-				i = 0;
-			direction = guard.fixedTrajectory(i);
-
-			eraseTrailC(guard); // erases guard's trail as it changes position
-			guard.movement(map, direction);
-			updateCharacterPosition(guard); // updates guard's position on map
-
-			openLever(); // checks to see if lever can be opened and updates
-
-			map.printMap();
-
-			if (catchHero(guard)) { // checks if guard has caught hero
-				end = true;
-				nextLevel = false; // if hero is caught, you can't move on to
-									// level2
-			}
-
-			if ((exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
-					|| (exits.get(1).getX() == hero.getX() && exits.get(1).getY() == hero.getY()))
-			// if hero is on the exit, you win
-			{
-				System.out.println("YOU WIN");
-				end = true;
-			}
-		}
-		return nextLevel;
+	public void moveHero(char direction) {
+		eraseTrailC(hero); // deletes trail when hero moves
+		hero.movement(map, direction);
+		updateCharacterPosition(hero); // updates hero's position on the map
 	}
 
+	public void moveGuard(int i) {
+		
+		char direction = guard.fixedTrajectory(i);
+		eraseTrailC(guard); // erases guard's trail as it changes position
+		guard.movement(map, direction);
+		updateCharacterPosition(guard); // updates guard's position on map
+	}
+	
+	public boolean logicLevel1(char direction, int i)
+	{
+		moveHero(direction);
+		moveGuard(i);
+		
+		openLever(); // checks to see if lever can be opened and updates
+		
+		if (catchHero(guard)) { // checks if guard has caught hero
+			return true;
+		}
+		
+		return false;
+	}
+
+	public boolean checkVictory()
+	{
+		if ((exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
+				|| (exits.get(1).getX() == hero.getX() && exits.get(1).getY() == hero.getY()))
+		// if hero is on the exit, you win
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public void levelTwo() {
 
 		loadElementsLevel2(); //// generates all elements for level2
 
-		System.out.println("-----LEVEL 2-----");
-		map.printMap();
-
+		
 		boolean end = false;
 
 		while (end != true) {
-			System.out.println("Play with the keys a,w,s,d.");
 			Scanner s = new Scanner(System.in);
 			char direction = s.next().charAt(0);
 
@@ -105,7 +98,7 @@ public class Game {
 				updateObjectPosition(exits.get(0));
 			}
 
-			map.printMap();
+			
 			end = catchHero(ogre); // checks if ogre has caught hero
 
 			if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
