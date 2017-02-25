@@ -1,14 +1,18 @@
 package dkeep.logic;
 
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
 
 public class Game {
 	private Hero hero = new Hero();
-	private Guard guard = new Guard();
+	private Vector<Guard> guards;
 	private Ogre ogre = new Ogre();
 	private Club club = new Club();
 	private Map map;
+	private Lever lever;
+	private Vector<Exit> exits;
+	private Key key;
 
 	public Map getMap() {
 		return map;
@@ -18,18 +22,19 @@ public class Game {
 		this.map = map;
 	}
 
-	private Lever lever;
-	private Vector<Exit> exits;
-	private Key key;
-
-	
 	public boolean logicLevel1(char direction, int i) {
 		moveHero(direction);
 		moveGuard(i);
 
 		openLever(); // checks to see if lever can be opened and updates
 
-		if (catchHero(guard)) { // checks if guard has caught hero
+		if (catchHero(guards.get(0))) { // checks if guard Rookie has caught hero
+			return true;
+		}
+		if (catchHero(guards.get(1))) { // checks if guard Drunken has caught hero
+			return true;
+		}
+		if (catchHero(guards.get(2))) { // checks if guard Suspicious has caught hero
 			return true;
 		}
 
@@ -84,13 +89,79 @@ public class Game {
 	}
 
 	public void moveGuard(int i) {
-
-		char direction = guard.fixedTrajectory(i);
-		eraseTrailC(guard); // erases guard's trail as it changes position
-		guard.movement(map, direction);
-		updateCharacterPosition(guard); // updates guard's position on map
+		moveGuardRookie(i);
+		moveGuardDrunken(i);
+		moveGuardSuspicious(i);
+	}
+	
+	public void moveGuardRookie(int i)
+	{
+		char direction = guards.get(0).fixedTrajectory(i);
+		eraseTrailC(guards.get(0)); // erases guard's trail as it changes position
+		guards.get(0).movement(map, direction);
+		updateCharacterPosition(guards.get(0)); // updates guard's position on map
 	}
 
+	public void moveGuardDrunken(int i)
+	{
+		String move = " ";
+		Random n = new Random();
+		int value = n.nextInt(3);
+		if (value==0) move = "asleep";
+		if (value==1) move = "reverse";
+		if (value==2) move = "continue";
+		
+		if (i==0 && move!="continue") move="continue"; 
+		
+		if (move == "asleep") {
+			guards.get(1).isAsleep();
+			updateCharacterPosition(guards.get(1));
+		} else {
+			guards.get(1).setSymbol('G');
+			updateCharacterPosition(guards.get(1));
+		}
+		
+		char direction = guards.get(1).fixedTrajectory(i);
+		
+		if ( move=="continue")
+		{
+			eraseTrailC(guards.get(1)); // erases guard's trail as it changes position
+			guards.get(1).movement(map, direction);
+			updateCharacterPosition(guards.get(1)); // updates guard's position on map
+		} else if (move == "reverse")
+		{
+			eraseTrailC(guards.get(1)); // erases guard's trail as it changes position
+			guards.get(1).movement(map, direction);
+			updateCharacterPosition(guards.get(1)); // updates guard's position on map
+		}	
+	}
+	
+	public void moveGuardSuspicious(int i)
+	{
+		String move = " ";
+		Random n = new Random();
+		int value = n.nextInt(2);
+		if (value==0) move = "reverse";
+		if (value==1) move = "continue";
+		
+		if (i==0 && move!="continue") move="continue";
+		
+		char direction;
+		
+		if (move == "reverse") {
+			direction = guards.get(2).reverseTrajectory(i);
+			eraseTrailC(guards.get(2)); // erases guard's trail as it changes position
+			guards.get(2).movement(map, direction);
+			updateCharacterPosition(guards.get(2)); // updates guard's position on map
+		} else if (move == "continue")
+		{
+			direction = guards.get(2).fixedTrajectory(i);
+			eraseTrailC(guards.get(2)); // erases guard's trail as it changes position
+			guards.get(2).movement(map, direction);
+			updateCharacterPosition(guards.get(2)); // updates guard's position on map
+		}
+	}
+	
 	public void moveOgre() {
 		// generates ogre's trajectory randomly
 		char direction = ogre.randomTrajectory();
@@ -171,6 +242,7 @@ public class Game {
 	}
 
 	public boolean catchHero(Character c) {
+		
 		if ((c.getX() - 1 == hero.getX() && c.getY() == hero.getY())
 				|| (c.getX() + 1 == hero.getX() && c.getY() == hero.getY())
 				|| (c.getX() == hero.getX() && c.getY() - 1 == hero.getY())
@@ -180,6 +252,14 @@ public class Game {
 			System.out.println("***********");
 			System.out.println("You just got caught!");
 			return true;
+		}
+		
+		if (c== guards.get(1))
+		{
+			if (guards.get(1).isAsleep())
+			{
+				return false;
+			}
 		}
 
 		if (c == ogre) {
@@ -239,9 +319,14 @@ public class Game {
 		}
 
 		// guard
-		guard.setX(1);
-		guard.setY(8);
-		map.insertCharacter(guard);
+		guards = new Vector<Guard>();
+		guards.add(new Guard(1, 8)); //Rookie
+		guards.add(new Guard(1, 8)); //Drunken
+		guards.add(new Guard(1, 8)); //Suspicious
+		
+		for (int i = 0; i < guards.size(); i++) {
+			map.insertCharacter(guards.get(i));
+		}
 
 		// hero
 		hero.setX(1);
