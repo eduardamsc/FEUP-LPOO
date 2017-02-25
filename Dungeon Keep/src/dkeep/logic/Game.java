@@ -22,36 +22,42 @@ public class Game {
 	private Vector<Exit> exits;
 	private Key key;
 
-	public void moveHero(char direction) {
-		eraseTrailC(hero); // deletes trail when hero moves
-		hero.movement(map, direction);
-		updateCharacterPosition(hero); // updates hero's position on the map
-	}
-
-	public void moveGuard(int i) {
-		
-		char direction = guard.fixedTrajectory(i);
-		eraseTrailC(guard); // erases guard's trail as it changes position
-		guard.movement(map, direction);
-		updateCharacterPosition(guard); // updates guard's position on map
-	}
 	
-	public boolean logicLevel1(char direction, int i)
-	{
+	public boolean logicLevel1(char direction, int i) {
 		moveHero(direction);
 		moveGuard(i);
-		
+
 		openLever(); // checks to see if lever can be opened and updates
-		
+
 		if (catchHero(guard)) { // checks if guard has caught hero
 			return true;
 		}
-		
+
 		return false;
 	}
 
-	public boolean checkVictory()
-	{
+	public boolean logicLevel2(char direction) {
+		moveHero(direction);
+		moveOgre();
+
+		pickKey(); // checks if hero has picked up key and updates
+		nearKey(); // checks if ogre is near key and updates
+
+		if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() + 1 == hero.getY() && key.getPickedUp()) {
+			// if hero is close to exit and has the key
+			// the exit turns to stairs
+			exits.get(0).open();
+			updateObjectPosition(exits.get(0));
+		}
+
+		if (catchHero(ogre)) { // checks if guard has caught hero
+			return true;
+		}
+		return false;
+	}
+
+	//check victory
+	public boolean checkVictoryLevel1() {
 		if ((exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
 				|| (exits.get(1).getX() == hero.getX() && exits.get(1).getY() == hero.getY()))
 		// if hero is on the exit, you win
@@ -60,56 +66,45 @@ public class Game {
 		}
 		return false;
 	}
-	
-	public void levelTwo() {
 
-		loadElementsLevel2(); //// generates all elements for level2
-
-		
-		boolean end = false;
-
-		while (end != true) {
-			Scanner s = new Scanner(System.in);
-			char direction = s.next().charAt(0);
-
-			eraseTrailC(hero);
-			hero.movement(map, direction);
-			updateCharacterPosition(hero);
-
-			// generates ogre's trajectory randomly
-			direction = ogre.randomTrajectory();
-
-			eraseTrailC(ogre); // erases ogre's trail as it changes position
-			ogre.movement(map, direction);
-			updateCharacterPosition(ogre); // updates ogre's position on map
-
-			// generates club's position randomly
-			eraseTrailC(club);
-			club.movement(map, ogre.getX(), ogre.getY());
-			updateCharacterPosition(club);
-
-			pickKey(); // checks if hero has picked up key and updates
-			nearKey(); // checks if ogre is near key and updates
-
-			if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() + 1 == hero.getY() && key.getPickedUp()) {
-				// if hero is close to exit and has the key
-				// the exit turns to stairs
-				exits.get(0).open();
-				updateObjectPosition(exits.get(0));
-			}
-
-			
-			end = catchHero(ogre); // checks if ogre has caught hero
-
-			if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
-			// if hero is on top of stairs, you win
-			{
-				System.out.println("YOU WIN");
-				end = true;
-			}
+	public boolean checkVictoryLevel2() {
+		if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
+		// if hero is on top of stairs, you win
+		{
+			return true;
 		}
+		return false;
 	}
 
+	//moves
+	public void moveHero(char direction) {
+		eraseTrailC(hero); // deletes trail when hero moves
+		hero.movement(map, direction);
+		updateCharacterPosition(hero); // updates hero's position on the map
+	}
+
+	public void moveGuard(int i) {
+
+		char direction = guard.fixedTrajectory(i);
+		eraseTrailC(guard); // erases guard's trail as it changes position
+		guard.movement(map, direction);
+		updateCharacterPosition(guard); // updates guard's position on map
+	}
+
+	public void moveOgre() {
+		// generates ogre's trajectory randomly
+		char direction = ogre.randomTrajectory();
+
+		eraseTrailC(ogre); // erases ogre's trail as it changes position
+		ogre.movement(map, direction);
+		updateCharacterPosition(ogre); // updates ogre's position on map
+
+		// generates club's position randomly
+		eraseTrailC(club);
+		club.movement(map, ogre.getX(), ogre.getY());
+		updateCharacterPosition(club);
+	}
+	
 	// useful functions
 	public void openLever() {
 		if ((lever.getX() - 1 == hero.getX() && lever.getY() == hero.getY())

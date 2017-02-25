@@ -14,13 +14,9 @@ public class Menu {
 
 		Game g = new Game();
 
-		level1(g);
-		//boolean nextLevel;
-
-		/*nextLevel = g.levelOne();
-
-		if (nextLevel)
-			g.levelTwo();*/
+		boolean nextLevel=true;
+		nextLevel = level1(g);
+		if (nextLevel) level2(g);
 	}
 	
 	public static boolean level1(Game g)
@@ -43,11 +39,36 @@ public class Menu {
 			}
 			end = g.logicLevel1(direction, i);
 			printMap(g.getMap());
-			if (end==true) return false;
+			if (end) nextLevel=false;
 			
-			if (g.checkVictory()) System.out.println("YOU WIN");
+			if (g.checkVictoryLevel1()) {
+				nextLevel = true;
+				System.out.println("YOU WIN");
+				break;
+			}
 		}
 		return nextLevel;
+	}
+	
+	public static void level2(Game g)
+	{	
+		g.loadElementsLevel2();
+		legendaLevel2();
+		printMap(g.getMap());
+		
+		Scanner s = new Scanner(System.in);
+		boolean end = false;
+		
+		while (end != true) {
+			char direction = s.next().charAt(0);
+			
+			end = g.logicLevel2(direction);
+			printMap(g.getMap());
+			
+			if (g.checkVictoryLevel2()) {
+				System.out.println("YOU WIN");
+			}
+		}
 	}
 	
 	public static void legendaLevel1()
