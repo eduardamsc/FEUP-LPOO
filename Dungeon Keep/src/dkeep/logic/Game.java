@@ -62,10 +62,13 @@ public class Game {
 			exits.get(0).open();
 			updateObjectPosition(exits.get(0));
 		}
-		
-		if (catchHero(ogre)) { // checks if guard has caught hero
-			return true;
+		if (ogre.getSymbol()!='8')
+		{
+			if (catchHero(ogre)) { // checks if guard has caught hero
+				return true;
+			}
 		}
+		
 		return false;
 	}
 
