@@ -50,6 +50,13 @@ public class Game {
 
 	public boolean logicLevel2(char direction) {
 		moveHero(direction);
+		pickClub(); // checks if hero has picked up club and updates
+		// generates club's position randomly
+		if (hero.getArmed()) {
+			eraseTrailC(clubs.get(1));
+			clubs.get(1).movement(map, hero.getX(), hero.getY());
+			updateCharacterPosition(clubs.get(1));
+		}
 		moveOgre();
 
 		pickKey(); // checks if hero has picked up key and updates
@@ -97,14 +104,6 @@ public class Game {
 		eraseTrailC(hero); // deletes trail when hero moves
 		hero.movement(map, direction);
 		updateCharacterPosition(hero); // updates hero's position on the map
-		
-		pickClub(); // checks if hero has picked up club and updates
-		// generates club's position randomly
-		if (hero.getArmed()) {
-			eraseTrailC(clubs.get(1));
-			clubs.get(1).movement(map, hero.getX(), hero.getY());
-			updateCharacterPosition(clubs.get(1));
-		}
 	}
 
 	public void openLever() {
