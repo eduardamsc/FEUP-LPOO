@@ -48,20 +48,18 @@ public class Game {
 		return false;
 	}
 
-	public boolean logicLevel2(char direction) {
-		moveHero(direction);
-		pickClub(); // checks if hero has picked up club and updates
-		// generates club's position randomly
-		if (hero.getArmed()) {
-			eraseTrailC(clubs.get(1));
-			clubs.get(1).movement(map, hero.getX(), hero.getY());
-			updateCharacterPosition(clubs.get(1));
-		}
+	public boolean logicLevel2(char direction, int i) {
+		moveHeroAndClub(direction);
 		moveOgre();
 
 		pickKey(); // checks if hero has picked up key and updates
 		nearKey(); // checks if ogre is near key and updates
-		stunOgre(); //checks if hero stuns ogre
+		
+		if (ogre.getSymbol()=='8')
+		{
+			i++;
+		}
+		stunOgre(i); //checks if hero stuns ogre
 
 		if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() + 1 == hero.getY() && key.getPickedUp()) {
 			// if hero is close to exit and has the key
@@ -69,6 +67,7 @@ public class Game {
 			exits.get(0).open();
 			updateObjectPosition(exits.get(0));
 		}
+		
 		if (ogre.getSymbol()!='8')
 		{
 			if (catchHero(ogre)) { // checks if guard has caught hero
@@ -106,6 +105,18 @@ public class Game {
 		updateCharacterPosition(hero); // updates hero's position on the map
 	}
 
+	public void moveHeroAndClub(char direction)
+	{
+		moveHero(direction);
+		pickClub(); // checks if hero has picked up club and updates
+		// generates club's position randomly
+		if (hero.getArmed()) {
+			eraseTrailC(clubs.get(1));
+			clubs.get(1).movement(map, hero.getX(), hero.getY());
+			updateCharacterPosition(clubs.get(1));
+		}
+	}
+	
 	public void openLever() {
 		if ((lever.getX() - 1 == hero.getX() && lever.getY() == hero.getY())
 				|| (lever.getX() + 1 == hero.getX() && lever.getY() == hero.getY())
@@ -151,8 +162,10 @@ public class Game {
 		}
 	}
 	
-	public void stunOgre()
+	public void stunOgre(int i)
 	{
+		i++;
+		
 		if (((clubs.get(1).getX() - 1 == ogre.getX() && clubs.get(1).getY() == ogre.getY())
 				|| (clubs.get(1).getX() + 1 == ogre.getX() && clubs.get(1).getY() == ogre.getY())
 				|| (clubs.get(1).getX() == ogre.getX() && clubs.get(1).getY() - 1 == ogre.getY())
@@ -164,6 +177,7 @@ public class Game {
 			updateCharacterPosition(ogre);
 		} else {
 			// otherwise, ogre goes back to O and updates
+			if (ogre.getSymbol()=='8' && i>=2)
 			ogre.setSymbol('O');
 			updateCharacterPosition(ogre);
 		}

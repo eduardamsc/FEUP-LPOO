@@ -68,10 +68,11 @@ public class Menu {
 		Scanner s = new Scanner(System.in);
 		boolean end = false;
 		
+		int i = 0;
 		while (end != true) {
 			char direction = s.next().charAt(0);
 			
-			end = g.logicLevel2(direction);
+			end = g.logicLevel2(direction, i);
 			printMap(g.getMap());
 			
 			if (g.checkVictoryLevel2()) {
