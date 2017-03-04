@@ -15,8 +15,8 @@ public class Menu {
 		Game g = new Game();
 
 		boolean nextLevel=true;
-		//nextLevel = level1(g);
-		//if (nextLevel) 
+		nextLevel = level1(g);
+		if (nextLevel) 
 			level2(g);
 	}
 	
@@ -35,14 +35,10 @@ public class Menu {
 		Scanner s = new Scanner(System.in);
 		boolean end = false;
 		
-		int i=-1;
 		while (end != true) {
 			char direction = s.next().charAt(0);
-			i++;
-			if (i > 23) {
-				i = 0;
-			}
-			end = g.logicLevel1(direction, i);
+
+			end = g.logicLevel1(direction);
 			printMap(g.getMap());
 			if (end) nextLevel=false;
 			

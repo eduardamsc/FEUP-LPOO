@@ -31,10 +31,16 @@ public class Game {
 		this.ogre = ogre;
 	}
 	/////////////////////////////////////////LEVELS//////////////////////////////////////
-	public boolean logicLevel1(char direction, int i) {
+	public boolean logicLevel1(char direction) {
 		moveHero(direction);
-		moveGuard(i);
-
+		
+		for (int j=0; j<guards.size(); j++)
+		{
+			eraseTrailC(guards.get(j)); // erases guard's trail as it changes position
+			guards.get(j).behaviour();
+			updateCharacterPosition(guards.get(j)); // updates guard's position on map
+		}
+		
 		openLever(); // checks to see if lever can be opened and updates
 
 		if (catchHero(guards.get(0))) { // checks if guard Rookie has caught hero
@@ -176,20 +182,7 @@ public class Game {
 	}
 	
 	/////////////////////////////////////////GUARD//////////////////////////////////////
-	public void moveGuard(int i) {
-		moveGuardRookie(i);
-		moveGuardDrunken(i);
-		moveGuardSuspicious(i);
-	}	
-
-	public void moveGuardRookie(int i)
-	{
-		char direction = guards.get(0).fixedTrajectory(i);
-		eraseTrailC(guards.get(0)); // erases guard's trail as it changes position
-		guards.get(0).movement(map, direction);
-		updateCharacterPosition(guards.get(0)); // updates guard's position on map
-	}
-
+/*
 	public void moveGuardDrunken(int i)
 	{
 		String move = " ";
@@ -249,7 +242,7 @@ public class Game {
 			updateCharacterPosition(guards.get(2)); // updates guard's position on map
 		}
 	}
-	
+	*/
 	/////////////////////////////////////////OGRE//////////////////////////////////////
 	public void moveOgre() {
 		// generates ogre's trajectory randomly
@@ -359,9 +352,9 @@ public class Game {
 
 		// guard
 		guards = new Vector<Guard>();
-		guards.add(new Guard(1, 8)); //Rookie
-		guards.add(new Guard(1, 8)); //Drunken
-		guards.add(new Guard(1, 8)); //Suspicious
+		guards.add(new GuardRookie(1, 8)); //Rookie
+		guards.add(new GuardDrunken(1, 8)); //Drunken
+		guards.add(new GuardSuspicious(1, 8)); //Suspicious
 		
 		for (int i = 0; i < guards.size(); i++) {
 			map.insertCharacter(guards.get(i));
