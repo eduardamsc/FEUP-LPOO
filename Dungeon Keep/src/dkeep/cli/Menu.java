@@ -15,8 +15,8 @@ public class Menu {
 		Game g = new Game();
 
 		boolean nextLevel=true;
-		nextLevel = level1(g);
-		if (nextLevel) 
+		//nextLevel = level1(g);
+		//if (nextLevel) 
 			level2(g);
 	}
 	

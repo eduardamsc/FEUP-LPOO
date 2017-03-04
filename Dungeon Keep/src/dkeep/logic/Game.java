@@ -49,7 +49,34 @@ public class Game {
 	}
 
 	public boolean logicLevel2(char direction, int i) {
-		moveHeroAndClub(direction);
+		
+		if (ogre.getSymbol()=='8')
+		{
+			if (direction == 'w') {
+				if (map.getMap()[hero.getX() - 1][hero.getY()] == '8')
+					moveHero(' ');
+			}
+
+			if (direction == 's') {
+				if (map.getMap()[hero.getX() + 1][hero.getY()] == '8')
+					moveHero(' ');
+			}
+
+			if (direction == 'a') {
+				if (map.getMap()[hero.getX()][hero.getY() - 1] == '8')
+					moveHero(' ');
+			}
+
+			if (direction == 'd') {
+				if (map.getMap()[hero.getX()][hero.getY() + 1] == '8')
+					moveHero(' ');
+			}
+		} else moveHero(direction);
+		pickClub(); // checks if hero has picked up club and updates
+		
+		System.out.println("x = " + hero.getX());
+		System.out.println("x = " + hero.getY());
+		
 		moveOgre();
 
 		pickKey(); // checks if hero has picked up key and updates
@@ -105,18 +132,6 @@ public class Game {
 		updateCharacterPosition(hero); // updates hero's position on the map
 	}
 
-	public void moveHeroAndClub(char direction)
-	{
-		moveHero(direction);
-		pickClub(); // checks if hero has picked up club and updates
-		// generates club's position randomly
-		if (hero.getArmed()) {
-			eraseTrailC(clubs.get(1));
-			clubs.get(1).movement(map, hero.getX(), hero.getY());
-			updateCharacterPosition(clubs.get(1));
-		}
-	}
-	
 	public void openLever() {
 		if ((lever.getX() - 1 == hero.getX() && lever.getY() == hero.getY())
 				|| (lever.getX() + 1 == hero.getX() && lever.getY() == hero.getY())
@@ -159,6 +174,7 @@ public class Game {
 			// clubs.get(1) gets picked up, disappears, hero turns to A and all is updated
 			hero.isArmed();
 			updateCharacterPosition(hero);
+			eraseTrailC(clubs.get(1));
 		}
 	}
 	
@@ -166,10 +182,10 @@ public class Game {
 	{
 		i++;
 		
-		if (((clubs.get(1).getX() - 1 == ogre.getX() && clubs.get(1).getY() == ogre.getY())
-				|| (clubs.get(1).getX() + 1 == ogre.getX() && clubs.get(1).getY() == ogre.getY())
-				|| (clubs.get(1).getX() == ogre.getX() && clubs.get(1).getY() - 1 == ogre.getY())
-				|| (clubs.get(1).getX() == ogre.getX() && clubs.get(1).getY() + 1 == ogre.getY())) && hero.getArmed())
+		if (((ogre.getX() - 1 == hero.getX() && ogre.getY() == hero.getY())
+				|| (ogre.getX() + 1 == hero.getX() && ogre.getY() == hero.getY())
+				|| (ogre.getX() == hero.getX() && ogre.getY() - 1 == hero.getY())
+				|| (ogre.getX() == hero.getX() && ogre.getY() + 1 == hero.getY())) && hero.getArmed())
 		// if ogre is near hero's club (up,down,left,right) and hero is armed with it
 		{
 			// ogre turns to 8 and updates

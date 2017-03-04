@@ -39,7 +39,7 @@ public abstract class Character {
 
 	public abstract void defineSymbol();
 
-	// Movements
+	/////////////////////////////////////////MOVEMENTS//////////////////////////////////////
 	public void moveUp() {
 		x--;
 	}
@@ -56,7 +56,28 @@ public abstract class Character {
 		y++;
 	}
 
-	// checks if there's a wall
+	public void movement(Map map, char direction) {
+
+		if (wall(map, direction)) {
+			switch (direction) {
+			case 'w':
+				moveUp();
+				break;
+			case 's':
+				moveDown();
+				break;
+			case 'a':
+				moveLeft();
+				break;
+			case 'd':
+				moveRight();
+				break;
+			case ' ':
+				break;
+			}
+		}
+	}
+	
 	public boolean wall(Map map, char direction) {
 		if (direction == 'w') {
 			if (map.getMap()[x - 1][y] == 'X' || map.getMap()[x - 1][y] == 'k' || map.getMap()[x - 1][y] == 'I'
@@ -89,29 +110,6 @@ public abstract class Character {
 		return true;
 	}
 
-	// combines all movements and wall checking
-	public void movement(Map map, char direction) {
-
-		if (wall(map, direction)) {
-			switch (direction) {
-			case 'w':
-				moveUp();
-				break;
-			case 's':
-				moveDown();
-				break;
-			case 'a':
-				moveLeft();
-				break;
-			case 'd':
-				moveRight();
-				break;
-			case ' ':
-				break;
-			}
-		}
-	}
-	
 	public char randomTrajectory()
 	{
 		char direction=' ';
@@ -125,4 +123,5 @@ public abstract class Character {
 
 		return direction;
 	}
-}
+
+	}
