@@ -14,20 +14,13 @@ public class Guard extends Character {
 		defineSymbol();
 	}
 
-	public void defineSymbol() {
-		this.symbol = 'G';
-	}
-
-	public void isAsleep() {
-		this.awake=false;
-		this.symbol='g';
-	}
-	
+	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	public boolean getAwake()
 	{
 		return this.awake;
 	}
 
+	/////////////////////////////////////////MOVEMENTS//////////////////////////////////////
 	public char fixedTrajectory(int i) {
 		char direction = ' ';
 
@@ -66,4 +59,13 @@ public class Guard extends Character {
 		return direction;
 	}
 
+	///////////////////////////////////////////////////////////////////////////////
+	public void defineSymbol() {
+		this.symbol = 'G';
+	}
+
+	public void asleep() {
+		this.awake=false;
+		this.symbol='g';
+	}	
 }

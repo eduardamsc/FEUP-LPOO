@@ -2,6 +2,8 @@ package dkeep.logic;
 
 public class Ogre extends Character {
 
+	boolean stunned=false;
+	
 	public Ogre() {
 		super();
 		defineSymbol();
@@ -11,7 +13,24 @@ public class Ogre extends Character {
 		this.symbol = 'O';
 	}
 
-	public void closeKey() {
+	public void closeToKey() {
 		this.symbol = '$';
+	}
+	
+	public boolean getStunned()
+	{
+		return this.stunned;
+	}
+	
+	public void stun()
+	{
+		this.stunned=true;
+		this.symbol = '8';
+	}
+	
+	public void notStunned()
+	{
+		this.stunned=false;
+		this.symbol = 'O';
 	}
 }

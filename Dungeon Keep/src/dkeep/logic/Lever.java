@@ -16,14 +16,16 @@ public class Lever extends Object {
 		defineSymbol();
 	}
 
-	public void defineSymbol() {
-		this.symbol = 'k';
-	}
-
+	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	public boolean getOpen() {
 		return open;
 	}
-
+	
+	///////////////////////////////////////////////////////////////////////////////
+	public void defineSymbol() {
+		this.symbol = 'k';
+	}
+	
 	public void open() {
 		open = true;
 	}

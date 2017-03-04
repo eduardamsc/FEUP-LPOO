@@ -17,16 +17,18 @@ public class Key extends Object {
 		defineSymbol();
 	}
 
-	public void defineSymbol() {
-		this.symbol = 'k';
-	}
-
+	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	public boolean getPickedUp() {
 		return pickedUp;
 	}
 
+	///////////////////////////////////////////////////////////////////////////////
+	public void defineSymbol() {
+		this.symbol = 'k';
+	}
+
 	public void pickedUp() {
-		this.symbol = ' ';
 		pickedUp = true;
+		this.symbol = ' ';
 	}
 }

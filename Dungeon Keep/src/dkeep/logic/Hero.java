@@ -7,6 +7,13 @@ public class Hero extends Character {
 		defineSymbol();
 	}
 
+	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
+	public boolean getArmed()
+	{
+		return this.armed;
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
 	public void defineSymbol() {
 		this.symbol = 'H';
 	}
@@ -15,14 +22,9 @@ public class Hero extends Character {
 		this.symbol = 'K';
 	}
 	
-	public void isArmed()
+	public void armed()
 	{
 		this.armed=true;
 		this.symbol='A';
-	}
-	
-	public boolean getArmed()
-	{
-		return this.armed;
 	}
 }
