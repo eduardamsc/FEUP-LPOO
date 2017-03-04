@@ -23,6 +23,13 @@ public class Game {
 		this.map = map;
 	}
 
+	public Ogre getOgre() {
+		return ogre;
+	}
+
+	public void setOgre(Ogre ogre) {
+		this.ogre = ogre;
+	}
 	/////////////////////////////////////////LEVELS//////////////////////////////////////
 	public boolean logicLevel1(char direction, int i) {
 		moveHero(direction);
@@ -52,20 +59,12 @@ public class Game {
 		
 		moveHero(direction);
 		pickClub(); // checks if hero has picked up club and updates
-		
 		moveOgre();
 
 		pickKey(); // checks if hero has picked up key and updates
 		nearKey(); // checks if ogre is near key and updates
 		
-		if (!ogre.getStunned())
-		{
-			i=0;
-		} else {
-			i++;
-		}
 		stunOgre(i); //checks if hero stuns ogre
-		
 
 		if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() + 1 == hero.getY() && key.getPickedUp()) {
 			// if hero is close to exit and has the key
@@ -168,9 +167,10 @@ public class Game {
 			// ogre turns to 8 and updates
 			ogre.stun();
 			updateCharacterPosition(ogre);
-		} else if (ogre.getStunned() && i>=2) {
+		} else if (ogre.getStunned() && i==2) {
 			// otherwise, ogre goes back to O and updates
 			ogre.notStunned();
+			System.out.println(ogre.getStunned());
 			updateCharacterPosition(ogre);
 		}
 	}
@@ -276,14 +276,15 @@ public class Game {
 			// ogre turns to $ and updates
 			ogre.setSymbol('$');
 			updateCharacterPosition(ogre);
-		} else {
-			// otherwise, ogre goes back to O and updates
-			if (ogre.getStunned() == true) {
+		} else
+		{
+			if (ogre.getStunned()==true) {
 				ogre.setSymbol('8');
-			} else
+				updateCharacterPosition(ogre);
+			} else {
 				ogre.setSymbol('O');
-
-			updateCharacterPosition(ogre);
+				updateCharacterPosition(ogre);
+			}
 		}
 
 		for (int i = 0; i < clubs.size(); i++) {
@@ -297,8 +298,8 @@ public class Game {
 				// club turns to $ and updates
 				clubs.get(0).setSymbol('$');
 				updateCharacterPosition(clubs.get(0));
-			} else {
-				// otherwise, club goes back to * and updates
+			} else
+			{
 				clubs.get(0).setSymbol('*');
 				updateCharacterPosition(clubs.get(0));
 			}

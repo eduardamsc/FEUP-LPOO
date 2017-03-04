@@ -74,6 +74,13 @@ public class Menu {
 			
 			end = g.logicLevel2(direction, i);
 			printMap(g.getMap());
+			if (!g.getOgre().getStunned())
+			{
+				i=0;
+			} else {
+				i++;
+				System.out.println(i);
+			}
 			
 			if (g.checkVictoryLevel2()) {
 				System.out.println("YOU WIN");
