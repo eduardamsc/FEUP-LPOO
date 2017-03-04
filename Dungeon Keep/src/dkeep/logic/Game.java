@@ -182,67 +182,8 @@ public class Game {
 	}
 	
 	/////////////////////////////////////////GUARD//////////////////////////////////////
-/*
-	public void moveGuardDrunken(int i)
-	{
-		String move = " ";
-		Random n = new Random();
-		int value = n.nextInt(3);
-		if (value==0) move = "asleep";
-		if (value==1) move = "reverse";
-		if (value==2) move = "continue";
-		
-		if (i==0 && move!="continue") move="continue"; 
-		
-		if (move == "asleep") {
-			guards.get(1).asleep();
-			updateCharacterPosition(guards.get(1));
-		} else {
-			guards.get(1).setSymbol('G');
-			updateCharacterPosition(guards.get(1));
-		}
-		
-		char direction = guards.get(1).fixedTrajectory(i);
-		
-		if ( move=="continue")
-		{
-			eraseTrailC(guards.get(1)); // erases guard's trail as it changes position
-			guards.get(1).movement(map, direction);
-			updateCharacterPosition(guards.get(1)); // updates guard's position on map
-		} else if (move == "reverse")
-		{
-			eraseTrailC(guards.get(1)); // erases guard's trail as it changes position
-			guards.get(1).movement(map, direction);
-			updateCharacterPosition(guards.get(1)); // updates guard's position on map
-		}	
-	}
+
 	
-	public void moveGuardSuspicious(int i)
-	{
-		String move = " ";
-		Random n = new Random();
-		int value = n.nextInt(2);
-		if (value==0) move = "reverse";
-		if (value==1) move = "continue";
-		
-		if (i==0 && move!="continue") move="continue";
-		
-		char direction;
-		
-		if (move == "reverse") {
-			direction = guards.get(2).reverseTrajectory(i);
-			eraseTrailC(guards.get(2)); // erases guard's trail as it changes position
-			guards.get(2).movement(map, direction);
-			updateCharacterPosition(guards.get(2)); // updates guard's position on map
-		} else if (move == "continue")
-		{
-			direction = guards.get(2).fixedTrajectory(i);
-			eraseTrailC(guards.get(2)); // erases guard's trail as it changes position
-			guards.get(2).movement(map, direction);
-			updateCharacterPosition(guards.get(2)); // updates guard's position on map
-		}
-	}
-	*/
 	/////////////////////////////////////////OGRE//////////////////////////////////////
 	public void moveOgre() {
 		// generates ogre's trajectory randomly

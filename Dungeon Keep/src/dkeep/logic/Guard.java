@@ -34,5 +34,10 @@ public abstract class Guard extends Character {
 		this.symbol='g';
 	}	
 	
+	public void notAsleep() {
+		this.awake=true;
+		this.symbol='G';
+	}
+	
 	public abstract void behaviour();
 }

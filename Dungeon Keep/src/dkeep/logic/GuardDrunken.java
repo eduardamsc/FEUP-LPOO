@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.util.Random;
+
 public class GuardDrunken extends Guard{
 	
 	public GuardDrunken()
@@ -17,13 +19,37 @@ public class GuardDrunken extends Guard{
 		this.rightWay=true;
 	}
 
-	public void behaviour()
-	{
-		if (this.i>=23)
-		{
-			this.i=0;
-		} else this.i++;
-		this.x=xFixed[i];
-		this.y=yFixed[i];
+	public void behaviour() {
+		
+		if (getAwake()) {
+
+			if (this.rightWay) {
+				if (this.i == 23) {
+					this.i = 0;
+				} else
+					this.i++;
+			} else {
+				if (this.i == 0) {
+					this.i = 23;
+				} else
+					this.i--;
+			}
+
+
+			this.x = xFixed[i];
+			this.y = yFixed[i];
+		}
+		
+		Random n = new Random();
+		int value = n.nextInt(6);
+		if (value == 0) {
+			this.rightWay = false;
+			notAsleep();
+		} else if (value >0 && value <4) {
+			asleep();
+		} else {
+			this.rightWay = true;
+			notAsleep();
+		}
 	}
 }
