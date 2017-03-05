@@ -6,6 +6,11 @@ public class Ogre extends Character {
 	
 	public Ogre() {
 		super();
+	}
+	
+	public Ogre(int x, int y) {
+		this.x = x;
+		this.y = y;
 		defineSymbol();
 	}
 

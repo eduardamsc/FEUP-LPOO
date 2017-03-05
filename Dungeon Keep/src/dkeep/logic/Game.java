@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
@@ -7,7 +8,7 @@ import java.util.Vector;
 public class Game {
 	private Hero hero = new Hero();
 	private Vector<Guard> guards;
-	private Ogre ogre = new Ogre();
+	private ArrayList<Ogre> ogres=new ArrayList<Ogre>();
 	private Vector<Club> clubs;
 	private Map map;
 	private Lever lever;
@@ -22,14 +23,15 @@ public class Game {
 	public void setMap(Map map) {
 		this.map = map;
 	}
-
-	public Ogre getOgre() {
-		return ogre;
+	
+	public ArrayList<Ogre> getOgres() {
+		return ogres;
 	}
 
-	public void setOgre(Ogre ogre) {
-		this.ogre = ogre;
+	public void setOgres(ArrayList<Ogre> ogres) {
+		this.ogres = ogres;
 	}
+
 	/////////////////////////////////////////LEVELS//////////////////////////////////////
 	public boolean logicLevel1(char direction) {
 		moveHero(direction);
@@ -61,7 +63,7 @@ public class Game {
 		return false;
 	}
 
-	public boolean logicLevel2(char direction, int i) {
+	public boolean logicLevel2(char direction, int[] i) {
 		
 		moveHero(direction);
 		pickClub(); // checks if hero has picked up club and updates
@@ -79,13 +81,15 @@ public class Game {
 			updateObjectPosition(exits.get(0));
 		}
 		
-		if (!ogre.getStunned())
+		for (int j=0; j<ogres.size();j++)
 		{
-			if (catchHero(ogre)) { // checks if guard has caught hero
-				return true;
+			if (!ogres.get(j).getStunned())
+			{
+				if (catchHero(ogres.get(j))) { // checks if guard has caught hero
+					return true;
+				}
 			}
 		}
-		
 		return false;
 	}
 
@@ -149,35 +153,40 @@ public class Game {
 	}
 
 	public void pickClub() {
-		if ((clubs.get(1).getX() - 1 == hero.getX() && clubs.get(1).getY() == hero.getY())
-				|| (clubs.get(1).getX() + 1 == hero.getX() && clubs.get(1).getY() == hero.getY())
-				|| (clubs.get(1).getX() == hero.getX() && clubs.get(1).getY() - 1 == hero.getY())
-				|| (clubs.get(1).getX() == hero.getX() && clubs.get(1).getY() + 1 == hero.getY()))
+		if ((clubs.get(0).getX() - 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
+				|| (clubs.get(0).getX() + 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
+				|| (clubs.get(0).getX() == hero.getX() && clubs.get(0).getY() - 1 == hero.getY())
+				|| (clubs.get(0).getX() == hero.getX() && clubs.get(0).getY() + 1 == hero.getY()))
 		// if hero is near clubs.get(1) (up,down,right,left)
 		{
-			// clubs.get(1) gets picked up, disappears, hero turns to A and all is updated
+			// clubs.get(0) gets picked up, disappears, hero turns to A and all is updated
 			hero.armed();
 			updateCharacterPosition(hero);
-			eraseTrailC(clubs.get(1));
+			eraseTrailC(clubs.get(0));
 		}
 	}
 	
-	public void stunOgre(int i)
+	public void stunOgre(int[] i)
 	{
-		if (((ogre.getX() - 1 == hero.getX() && ogre.getY() == hero.getY())
-				|| (ogre.getX() + 1 == hero.getX() && ogre.getY() == hero.getY())
-				|| (ogre.getX() == hero.getX() && ogre.getY() - 1 == hero.getY())
-				|| (ogre.getX() == hero.getX() && ogre.getY() + 1 == hero.getY())) && hero.getArmed())
-		// if ogre is near hero's club (up,down,left,right) and hero is armed with it
+		for (int j=0; j<ogres.size();j++)
 		{
-			// ogre turns to 8 and updates
-			ogre.stun();
-			updateCharacterPosition(ogre);
-		} else if (ogre.getStunned() && i==2) {
-			// otherwise, ogre goes back to O and updates
-			ogre.notStunned();
-			System.out.println(ogre.getStunned());
-			updateCharacterPosition(ogre);
+
+			if (((ogres.get(j).getX() - 1 == hero.getX() && ogres.get(j).getY() == hero.getY())
+					|| (ogres.get(j).getX() + 1 == hero.getX() && ogres.get(j).getY() == hero.getY())
+					|| (ogres.get(j).getX() == hero.getX() && ogres.get(j).getY() - 1 == hero.getY())
+					|| (ogres.get(j).getX() == hero.getX() && ogres.get(j).getY() + 1 == hero.getY())) && hero.getArmed())
+			// if ogre is near hero's club (up,down,left,right) and hero is
+			// armed with it
+			{
+				// ogre turns to 8 and updates
+				ogres.get(j).stun();
+				updateCharacterPosition(ogres.get(j));
+			} else if (ogres.get(j).getStunned() && i[j] == 2) {
+				// otherwise, ogre goes back to O and updates
+				ogres.get(j).notStunned();
+				System.out.println(ogres.get(j).getStunned());
+				updateCharacterPosition(ogres.get(j));
+			}
 		}
 	}
 	
@@ -186,56 +195,60 @@ public class Game {
 	
 	/////////////////////////////////////////OGRE//////////////////////////////////////
 	public void moveOgre() {
-		// generates ogre's trajectory randomly
-		char direction = ogre.randomTrajectory();
+		
+		for (int i = 0; i < ogres.size(); i++) {
+			// generates ogre's trajectory randomly
+			char direction = ogres.get(i).randomTrajectory();
 
-		eraseTrailC(ogre); // erases ogre's trail as it changes position
-		ogre.movement(map, direction);
-		updateCharacterPosition(ogre); // updates ogre's position on map
+			eraseTrailC(ogres.get(i)); // erases ogre's trail as it changes position
+			ogres.get(i).movement(map, direction);
+			updateCharacterPosition(ogres.get(i)); // updates ogre's position on map
 
-		// generates club's position randomly
-		eraseTrailC(clubs.get(0));
-		clubs.get(0).movement(map, ogre.getX(), ogre.getY());
-		updateCharacterPosition(clubs.get(0));
+			// generates club's position randomly
+			eraseTrailC(clubs.get(i+1));
+			clubs.get(i+1).movement(map, ogres.get(i).getX(), ogres.get(i).getY());
+			updateCharacterPosition(clubs.get(i+1));
+		}
 	}
 	
 	/////////////////////////////////////////USEFUL FUNCTIONS//////////////////////////////////////
 	public void nearKey() {
-		if (((key.getX() - 1 == ogre.getX() && key.getY() == ogre.getY())
-				|| (key.getX() + 1 == ogre.getX() && key.getY() == ogre.getY())
-				|| (key.getX() == ogre.getX() && key.getY() - 1 == ogre.getY())
-				|| (key.getX() == ogre.getX() && key.getY() + 1 == ogre.getY())) && !key.getPickedUp())
-		// if ogre is near key (up,down,left,right)
-		{
-			// ogre turns to $ and updates
-			ogre.setSymbol('$');
-			updateCharacterPosition(ogre);
-		} else
-		{
-			if (ogre.getStunned()==true) {
-				ogre.setSymbol('8');
-				updateCharacterPosition(ogre);
+		
+		for (int i = 0; i < ogres.size(); i++) {
+			if (((key.getX() - 1 == ogres.get(i).getX() && key.getY() == ogres.get(i).getY())
+					|| (key.getX() + 1 == ogres.get(i).getX() && key.getY() == ogres.get(i).getY())
+					|| (key.getX() == ogres.get(i).getX() && key.getY() - 1 == ogres.get(i).getY())
+					|| (key.getX() == ogres.get(i).getX() && key.getY() + 1 == ogres.get(i).getY())) && !key.getPickedUp())
+			// if ogre is near key (up,down,left,right)
+			{
+				// ogre turns to $ and updates
+				ogres.get(i).setSymbol('$');
+				updateCharacterPosition(ogres.get(i));
 			} else {
-				ogre.setSymbol('O');
-				updateCharacterPosition(ogre);
+				if (ogres.get(i).getStunned() == true) {
+					ogres.get(i).setSymbol('8');
+					updateCharacterPosition(ogres.get(i));
+				} else {
+					ogres.get(i).setSymbol('O');
+					updateCharacterPosition(ogres.get(i));
+				}
 			}
-		}
 
-		for (int i = 0; i < clubs.size(); i++) {
-			if (((key.getX() - 1 == clubs.get(0).getX() && key.getY() == clubs.get(0).getY())
-					|| (key.getX() + 1 == clubs.get(0).getX() && key.getY() == clubs.get(0).getY())
-					|| (key.getX() == clubs.get(0).getX() && key.getY() - 1 == clubs.get(0).getY())
-					|| (key.getX() == clubs.get(0).getX() && key.getY() + 1 == clubs.get(0).getY()))
-					&& !key.getPickedUp())
-			// if club is near key (up,down,left,right)
-			{
-				// club turns to $ and updates
-				clubs.get(0).setSymbol('$');
-				updateCharacterPosition(clubs.get(0));
-			} else
-			{
-				clubs.get(0).setSymbol('*');
-				updateCharacterPosition(clubs.get(0));
+			for (int j = 1; j < clubs.size(); j++) {
+				if (((key.getX() - 1 == clubs.get(j).getX() && key.getY() == clubs.get(j).getY())
+						|| (key.getX() + 1 == clubs.get(j).getX() && key.getY() == clubs.get(j).getY())
+						|| (key.getX() == clubs.get(j).getX() && key.getY() - 1 == clubs.get(j).getY())
+						|| (key.getX() == clubs.get(j).getX() && key.getY() + 1 == clubs.get(j).getY()))
+						&& !key.getPickedUp())
+				// if club is near key (up,down,left,right)
+				{
+					// club turns to $ and updates
+					clubs.get(j).setSymbol('$');
+					updateCharacterPosition(clubs.get(j));
+				} else {
+					clubs.get(j).setSymbol('*');
+					updateCharacterPosition(clubs.get(j));
+				}
 			}
 		}
 	}
@@ -250,23 +263,23 @@ public class Game {
 				System.out.println("***********");
 				System.out.println("You just got caught!");
 				return true;
-			}
-
-			if (c == ogre) {
-				if ((clubs.get(0).getX() - 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
-						|| (clubs.get(0).getX() + 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
-						|| (clubs.get(0).getX() == hero.getX() && clubs.get(0).getY() - 1 == hero.getY())
-						|| (clubs.get(0).getX() == hero.getX() && clubs.get(0).getY() + 1 == hero.getY())) {
+		}
+		for (int i = 0; i < ogres.size(); i++) {
+			if (c == ogres.get(i)) {
+				if ((clubs.get(i+1).getX() - 1 == hero.getX() && clubs.get(i+1).getY() == hero.getY())
+						|| (clubs.get(i+1).getX() + 1 == hero.getX() && clubs.get(i+1).getY() == hero.getY())
+						|| (clubs.get(i+1).getX() == hero.getX() && clubs.get(i+1).getY() - 1 == hero.getY())
+						|| (clubs.get(i+1).getX() == hero.getX() && clubs.get(i+1).getY() + 1 == hero.getY())) {
 					System.out.println("***********");
 					System.out.println("*GAME OVER*");
 					System.out.println("***********");
 					System.out.println("You just got caught!");
 					return true;
 				}
-
 			}
-			return false;
 		}
+		return false;
+	}
 	
 	/////////////////////////////////////////UPDATE MAP//////////////////////////////////////
 	public void loadElementsLevel1() {
@@ -324,15 +337,23 @@ public class Game {
 		}
 
 		// ogre
-		ogre.setX(1);
-		ogre.setY(4);
-		map.insertCharacter(ogre);
-
-		// ogre's club
+		Random n = new Random();
+		int value = n.nextInt(5);
+		for (int i=0; i<value;i++)
+		{
+			ogres.add(new Ogre(1,4));
+			map.insertCharacter(ogres.get(i));
+		}
+		
 		clubs = new Vector<Club>();
-		clubs.add(new Club(0,0)); //ogre's club
-		clubs.add(new Club(7,3)); //hero's club
-		clubs.get(0).movement(map, ogre.getX(), ogre.getY());
+		clubs.add(new Club(7,5)); //hero's club
+		
+		for (int i=1; i<ogres.size()+1;i++)
+		{
+			clubs.add(new Club(7,3)); //ogre's club
+			clubs.get(i).movement(map, ogres.get(i-1).getX(), ogres.get(i-1).getY());
+		}
+		
 		
 		for (int i = 0; i < clubs.size(); i++) {
 			map.insertCharacter(clubs.get(i));

@@ -1,5 +1,6 @@
 package dkeep.cli;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import dkeep.logic.Game;
@@ -14,9 +15,9 @@ public class Menu {
 
 		Game g = new Game();
 
-		boolean nextLevel=true;
-		nextLevel = level1(g);
-		if (nextLevel) 
+		//boolean nextLevel=true;
+		//nextLevel = level1(g);
+		//if (nextLevel) 
 			level2(g);
 	}
 	
@@ -64,18 +65,20 @@ public class Menu {
 		Scanner s = new Scanner(System.in);
 		boolean end = false;
 		
-		int i = 0;
+		int[] i = new int[g.getOgres().size()];
+		Arrays.fill(i, 0);
 		while (end != true) {
 			char direction = s.next().charAt(0);
 			
 			end = g.logicLevel2(direction, i);
 			printMap(g.getMap());
-			if (!g.getOgre().getStunned())
-			{
-				i=0;
-			} else {
-				i++;
-				System.out.println(i);
+			for (int w = 0; w < g.getOgres().size(); w++) {
+				if (!g.getOgres().get(w).getStunned()) {
+					i[w] = 0;
+				} else {
+					i[w]++;
+					System.out.println(i);
+				}
 			}
 			
 			if (g.checkVictoryLevel2()) {

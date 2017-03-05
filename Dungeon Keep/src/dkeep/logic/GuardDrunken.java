@@ -35,7 +35,6 @@ public class GuardDrunken extends Guard{
 					this.i--;
 			}
 
-
 			this.x = xFixed[i];
 			this.y = yFixed[i];
 		}
