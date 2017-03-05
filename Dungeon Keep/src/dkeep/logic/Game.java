@@ -184,7 +184,6 @@ public class Game {
 			} else if (ogres.get(j).getStunned() && i[j] == 2) {
 				// otherwise, ogre goes back to O and updates
 				ogres.get(j).notStunned();
-				System.out.println(ogres.get(j).getStunned());
 				updateCharacterPosition(ogres.get(j));
 			}
 		}
@@ -200,6 +199,10 @@ public class Game {
 			// generates ogre's trajectory randomly
 			char direction = ogres.get(i).randomTrajectory();
 
+			while (!ogres.get(i).wall(map, direction)) {
+				direction = ogres.get(i).randomTrajectory();
+			}
+			
 			eraseTrailC(ogres.get(i)); // erases ogre's trail as it changes position
 			ogres.get(i).movement(map, direction);
 			updateCharacterPosition(ogres.get(i)); // updates ogre's position on map

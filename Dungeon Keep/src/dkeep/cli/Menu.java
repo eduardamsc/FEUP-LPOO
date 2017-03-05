@@ -72,12 +72,12 @@ public class Menu {
 			
 			end = g.logicLevel2(direction, i);
 			printMap(g.getMap());
+			
 			for (int w = 0; w < g.getOgres().size(); w++) {
 				if (!g.getOgres().get(w).getStunned()) {
 					i[w] = 0;
 				} else {
 					i[w]++;
-					System.out.println(i);
 				}
 			}
 			
