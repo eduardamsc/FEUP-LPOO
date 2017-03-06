@@ -55,7 +55,7 @@ public class Game {
 	}
 
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
-	///////////////////Characters//////////////////////
+	///////////////////Characters & Objects//////////////////////
 	public Hero getHero() {
 		return hero;
 	}
@@ -79,8 +79,16 @@ public class Game {
 	public void setOgres(ArrayList<Ogre> ogres) {
 		this.ogres = ogres;
 	}
+	
+	public Vector<Exit> getExits() {
+		return exits;
+	}
 
-	///////////////////Characters//////////////////////
+	public void setExits(Vector<Exit> exits) {
+		this.exits = exits;
+	}
+
+	/////////////////////////////////////////
 	public Map getMap() {
 		return map;
 	}
