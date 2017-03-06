@@ -12,6 +12,10 @@ public class Map {
 		this.map = map;
 	}
 
+	public Map(char[][] map)
+	{
+		this.map=map;
+	}
 	// constructor of map according to level
 	public Map(int level) {
 		if (level == 1)

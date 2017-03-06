@@ -14,6 +14,43 @@ public class Game {
 	private Lever lever;
 	private Vector<Exit> exits;
 	private Key key;
+	
+	public Game()
+	{
+		
+	}
+	
+	public Game(Map map)
+	{
+		this.setMap(map);
+		for (int i = 0; i < map.getMap().length; i++) {
+			for (int j = 0; j < map.getMap()[i].length; j++) {
+				if (map.getMap()[i][j]=='H')
+				{
+					hero = new Hero(i,j);
+				} else if (map.getMap()[i][j]=='G')
+				{
+					guards = new Vector<Guard>();
+					guards.add(new GuardRookie(i,j));
+				} else if (map.getMap()[i][j]=='O')
+				{
+					ogres = new ArrayList<Ogre>();
+					ogres.add(new Ogre(i,j));
+				} else if (map.getMap()[i][j]=='I')
+				{
+					exits = new Vector<Exit>();
+					exits.add(new Exit(i,j));
+				} else if (map.getMap()[i][j]=='k')
+				{
+					lever = new Lever(i,j);
+				} else if (map.getMap()[i][j]=='K')
+				{
+					key = new Key(i,j);
+				}
+					
+			}
+		}
+	}
 
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	public Map getMap() {
@@ -22,6 +59,22 @@ public class Game {
 
 	public void setMap(Map map) {
 		this.map = map;
+	}
+	
+	public Hero getHero() {
+		return hero;
+	}
+
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
+	
+	public Vector<Guard> getGuards() {
+		return guards;
+	}
+
+	public void setGuards(Vector<Guard> guards) {
+		this.guards = guards;
 	}
 	
 	public ArrayList<Ogre> getOgres() {

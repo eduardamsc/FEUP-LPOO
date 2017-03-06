@@ -7,6 +7,12 @@ public class Hero extends Character {
 		defineSymbol();
 	}
 
+	public Hero(int x, int y) {
+		this.x = x;
+		this.y = y;
+		defineSymbol();
+	}
+	
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	public boolean getArmed()
 	{
