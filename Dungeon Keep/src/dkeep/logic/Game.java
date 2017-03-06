@@ -14,7 +14,7 @@ public class Game {
 	private Lever lever;
 	private Vector<Exit> exits;
 	private Key key;
-	
+
 	private boolean gameOver=false;
 
 	public Game()
@@ -28,6 +28,7 @@ public class Game {
 		guards = new Vector<Guard>();
 		ogres = new ArrayList<Ogre>();
 		exits = new Vector<Exit>();
+		
 		for (int i = 0; i < map.getMap().length; i++) {
 			for (int j = 0; j < map.getMap()[i].length; j++) {
 				if (map.getMap()[i][j]=='H')
@@ -88,6 +89,14 @@ public class Game {
 		this.exits = exits;
 	}
 
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
 	/////////////////////////////////////////
 	public Map getMap() {
 		return map;
@@ -136,12 +145,7 @@ public class Game {
 		
 		stunOgre(i); //checks if hero stuns ogre
 
-		if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() + 1 == hero.getY() && key.getPickedUp()) {
-			// if hero is close to exit and has the key
-			// the exit turns to stairs
-			exits.get(0).open();
-			updateObjectPosition(exits.get(0));
-		}
+		checkExitsOpen();
 		
 		for (int j=0; j<ogres.size();j++)
 		{
@@ -163,6 +167,20 @@ public class Game {
 			if (exits.get(i).getX() == hero.getX() && exits.get(i).getY() == hero.getY())
 			// if hero is on the exit, you win
 			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean checkExitsOpen()
+	{
+		for (int i = 0; i < exits.size(); i++) {
+			if (exits.get(i).getX() == hero.getX() && exits.get(i).getY() + 1 == hero.getY() && key.getPickedUp()) {
+				// if hero is close to exit and has the key
+				// the exit turns to stairs
+				exits.get(i).open();
+				updateObjectPosition(exits.get(i));
 				return true;
 			}
 		}
@@ -194,7 +212,7 @@ public class Game {
 		}else return false;
 	}
 	
-	public void pickKey() {
+	public boolean pickKey() {
 		if ((key.getX() - 1 == hero.getX() && key.getY() == hero.getY())
 				|| (key.getX() + 1 == hero.getX() && key.getY() == hero.getY())
 				|| (key.getX() == hero.getX() && key.getY() - 1 == hero.getY())
@@ -207,7 +225,10 @@ public class Game {
 			updateObjectPosition(key);
 			hero.hasKey();
 			updateCharacterPosition(hero);
+			return true;
 		}
+		
+		return false;
 	}
 
 	public void pickClub() {
@@ -333,14 +354,20 @@ public class Game {
 	public boolean OgreCatchHero() {
 
 		for (int i = 0; i < ogres.size(); i++) {
-			if ((clubs.get(i + 1).getX() - 1 == hero.getX() && clubs.get(i + 1).getY() == hero.getY())
-					|| (clubs.get(i + 1).getX() + 1 == hero.getX() && clubs.get(i + 1).getY() == hero.getY())
+			if ((ogres.get(i).getX() - 1 == hero.getX() && ogres.get(i).getY() == hero.getY())
+					|| (ogres.get(i).getX() + 1 == hero.getX() && ogres.get(i).getY() == hero.getY())
+					|| (ogres.get(i).getX() == hero.getX() && ogres.get(i).getY() - 1 == hero.getY())
+					|| (ogres.get(i).getX() == hero.getX() && ogres.get(i).getY() + 1 == hero.getY())) {
+				this.gameOver = true;
+				return true;
+			}
+		}
+		
+		for (int i = 0; i < ogres.size(); i++) {
+			if ((clubs.get(i + 1).getX() - 1 == hero.getX() && clubs.get(i + 1).getY() == hero.getY()) 
+				|| (clubs.get(i + 1).getX() + 1 == hero.getX() && clubs.get(i + 1).getY() == hero.getY())
 					|| (clubs.get(i + 1).getX() == hero.getX() && clubs.get(i + 1).getY() - 1 == hero.getY())
-					|| (clubs.get(i + 1).getX() == hero.getX() && clubs.get(i + 1).getY() + 1 == hero.getY())
-					|| ((ogres.get(i).getX() - 1 == hero.getX() && ogres.get(i).getY() == hero.getY())
-							|| (ogres.get(i).getX() + 1 == hero.getX() && ogres.get(i).getY() == hero.getY())
-							|| (ogres.get(i).getX() == hero.getX() && ogres.get(i).getY() - 1 == hero.getY())
-							|| (ogres.get(i).getX() == hero.getX() && ogres.get(i).getY() + 1 == hero.getY()))) {
+					|| (clubs.get(i + 1).getX() == hero.getX() && clubs.get(i + 1).getY() + 1 == hero.getY())) {
 				this.gameOver = true;
 				return true;
 			}

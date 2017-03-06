@@ -13,6 +13,12 @@ public class TestDungeonGameLogic {
 					{'I','k',' ',' ','X'},
 					{'X','X','X','X','X'}};
 	
+	char[][] map2 =  {{'X','X','X','X','X'},
+			{'X','H',' ','O','X'},
+			{'I',' ',' ',' ','X'},
+			{'I','K',' ',' ','X'},
+			{'X','X','X','X','X'}};
+	
 	@Test
 	public void testMoveHeroToFreeCell()
 	{
@@ -80,7 +86,7 @@ public class TestDungeonGameLogic {
 	}
 
 	@Test
-	public void testMoveHeroToDoors()
+	public void testMoveHeroVictory()
 	{
 		Map map = new Map(this.map);
 		Game game = new Game(map);
@@ -88,6 +94,72 @@ public class TestDungeonGameLogic {
 		assertEquals(1,game.getHero().getY());
 		game.moveHero('s');
 		assertEquals(true, game.openLever());
+		game.moveHero('a');
+		assertEquals(true, game.checkVictory());
+	}
+
+	@Test
+	public void testMoveHeroToOgre()
+	{
+		Map map = new Map(this.map2);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.moveHero('d');
+		assertEquals(1,game.getHero().getX());
+		assertEquals(2,game.getHero().getY());
+		assertEquals(true, game.OgreCatchHero());
+		assertEquals(true, game.getGameOver());
+	}
+
+	@Test
+	public void testMoveHeroToKey()
+	{
+		Map map = new Map(this.map2);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.moveHero('s');
+		assertEquals(true, game.pickKey());
+		assertEquals('K',game.getHero().getSymbol());
+	}
+
+	@Test
+	public void testMoveHeroToClosedExit2()
+	{
+		Map map = new Map(this.map2);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.moveHero('s');
+		game.moveHero('a');
+		assertEquals(2,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+	}
+
+	@Test
+	public void testMoveHeroToDoors2()
+	{
+		Map map = new Map(this.map2);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.moveHero('s');
+		assertEquals(true, game.pickKey());
+		game.moveHero('a');
+		assertEquals(true,game.checkExitsOpen());
+	}
+
+	@Test
+	public void testMoveHeroVictory2()
+	{
+		Map map = new Map(this.map2);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.moveHero('s');
+		assertEquals(true, game.pickKey());
+		assertEquals(true, game.checkExitsOpen());
 		game.moveHero('a');
 		assertEquals(true, game.checkVictory());
 	}
