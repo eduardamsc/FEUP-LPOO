@@ -51,4 +51,29 @@ public class TestDungeonGameLogic {
 		assertEquals(true, game.getGameOver());
 	}
 	
+	@Test
+	public void testMoveHeroToClosedExit()
+	{
+		Map map = new Map(this.map);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.moveHero('s');
+		game.moveHero('a');
+		assertEquals(2,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+	}
+
+	@Test
+	public void testMoveHeroToLever()
+	{
+		Map map = new Map(this.map);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.moveHero('s');
+		assertEquals(true, game.openLever());
+		game.moveHero('a');
+		assertEquals(true, game.checkVictoryLevel1());
+	}
 }

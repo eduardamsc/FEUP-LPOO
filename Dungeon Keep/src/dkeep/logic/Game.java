@@ -174,7 +174,7 @@ public class Game {
 		updateCharacterPosition(hero); // updates hero's position on the map
 	}
 
-	public void openLever() {
+	public boolean openLever() {
 		if ((lever.getX() - 1 == hero.getX() && lever.getY() == hero.getY())
 				|| (lever.getX() + 1 == hero.getX() && lever.getY() == hero.getY())
 				|| (lever.getX() == hero.getX() && lever.getY() - 1 == hero.getY())
@@ -183,11 +183,14 @@ public class Game {
 		{
 			// lever opens, exits open and both are updated
 			lever.open();
-			exits.get(0).open();
-			updateObjectPosition(exits.get(0));
-			exits.get(1).open();
-			updateObjectPosition(exits.get(1));
+			for (int i=0; i<exits.size();i++)
+			{
+				exits.get(i).open();
+				updateObjectPosition(exits.get(i));
+			}
+			return true;
 		}
+		return false;
 	}
 	
 	public void pickKey() {
