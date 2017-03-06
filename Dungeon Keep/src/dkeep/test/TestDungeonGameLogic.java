@@ -33,7 +33,7 @@ public class TestDungeonGameLogic {
 		assertEquals(1,game.getHero().getX());
 		assertEquals(1,game.getHero().getY());
 		game.moveHero('a');
-		assertEquals(2,game.getHero().getX());
+		assertEquals(1,game.getHero().getX());
 		assertEquals(1,game.getHero().getY());
 	}
 	
@@ -45,9 +45,10 @@ public class TestDungeonGameLogic {
 		assertEquals(1,game.getHero().getX());
 		assertEquals(1,game.getHero().getY());
 		game.moveHero('d');
-		game.moveHero('d');
 		assertEquals(1,game.getHero().getX());
 		assertEquals(2,game.getHero().getY());
+		assertEquals(true, game.GuardCatchHero());
+		assertEquals(true, game.getGameOver());
 	}
 	
 }

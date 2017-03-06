@@ -15,6 +15,8 @@ public class Game {
 	private Vector<Exit> exits;
 	private Key key;
 	
+	private boolean gameOver=false;
+
 	public Game()
 	{
 		
@@ -53,14 +55,7 @@ public class Game {
 	}
 
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
-	public Map getMap() {
-		return map;
-	}
-
-	public void setMap(Map map) {
-		this.map = map;
-	}
-	
+	///////////////////Characters//////////////////////
 	public Hero getHero() {
 		return hero;
 	}
@@ -85,6 +80,23 @@ public class Game {
 		this.ogres = ogres;
 	}
 
+	///////////////////Characters//////////////////////
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+		
+	public boolean getGameOver() {
+		return gameOver;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+	
 	/////////////////////////////////////////LEVELS//////////////////////////////////////
 	public boolean logicLevel1(char direction) {
 		moveHero(direction);
@@ -98,18 +110,7 @@ public class Game {
 		
 		openLever(); // checks to see if lever can be opened and updates
 
-		if (catchHero(guards.get(0))) { // checks if guard Rookie has caught hero
-			return true;
-		}
-		
-		if (guards.get(1).getAwake())
-		{
-			if (catchHero(guards.get(1))) { // checks if guard Drunken has caught hero
-			return true;
-			}
-		}
-			
-		if (catchHero(guards.get(2))) { // checks if guard Suspicious has caught hero
+		if (GuardCatchHero()) {
 			return true;
 		}
 
@@ -138,7 +139,7 @@ public class Game {
 		{
 			if (!ogres.get(j).getStunned())
 			{
-				if (catchHero(ogres.get(j))) { // checks if guard has caught hero
+				if (OgreCatchHero()) { // checks if guard has caught hero
 					return true;
 				}
 			}
@@ -267,7 +268,6 @@ public class Game {
 		}
 	}
 	
-	/////////////////////////////////////////USEFUL FUNCTIONS//////////////////////////////////////
 	public void nearKey() {
 		
 		for (int i = 0; i < ogres.size(); i++) {
@@ -309,34 +309,43 @@ public class Game {
 		}
 	}
 
-	public boolean catchHero(Character c) {
-			if ((c.getX() - 1 == hero.getX() && c.getY() == hero.getY())
-					|| (c.getX() + 1 == hero.getX() && c.getY() == hero.getY())
-					|| (c.getX() == hero.getX() && c.getY() - 1 == hero.getY())
-					|| (c.getX() == hero.getX() && c.getY() + 1 == hero.getY())) {
-				System.out.println("***********");
-				System.out.println("*GAME OVER*");
-				System.out.println("***********");
-				System.out.println("You just got caught!");
+	/////////////////////////////////////////USEFUL FUNCTIONS//////////////////////////////////////
+	public boolean GuardCatchHero() {
+
+		for (int i = 0; i < guards.size(); i++) {
+			if ((guards.get(i).getX() - 1 == hero.getX() && guards.get(i).getY() == hero.getY())
+					|| (guards.get(i).getX() + 1 == hero.getX() && guards.get(i).getY() == hero.getY())
+					|| (guards.get(i).getX() == hero.getX() && guards.get(i).getY() - 1 == hero.getY())
+					|| (guards.get(i).getX() == hero.getX() && guards.get(i).getY() + 1 == hero.getY())
+					&& guards.get(i).getAwake()) {
+				this.gameOver = true;
 				return true;
-		}
-		for (int i = 0; i < ogres.size(); i++) {
-			if (c == ogres.get(i)) {
-				if ((clubs.get(i+1).getX() - 1 == hero.getX() && clubs.get(i+1).getY() == hero.getY())
-						|| (clubs.get(i+1).getX() + 1 == hero.getX() && clubs.get(i+1).getY() == hero.getY())
-						|| (clubs.get(i+1).getX() == hero.getX() && clubs.get(i+1).getY() - 1 == hero.getY())
-						|| (clubs.get(i+1).getX() == hero.getX() && clubs.get(i+1).getY() + 1 == hero.getY())) {
-					System.out.println("***********");
-					System.out.println("*GAME OVER*");
-					System.out.println("***********");
-					System.out.println("You just got caught!");
-					return true;
-				}
 			}
 		}
+		this.gameOver = false;
 		return false;
 	}
-	
+
+	public boolean OgreCatchHero() {
+
+		for (int i = 0; i < ogres.size(); i++) {
+			if ((clubs.get(i + 1).getX() - 1 == hero.getX() && clubs.get(i + 1).getY() == hero.getY())
+					|| (clubs.get(i + 1).getX() + 1 == hero.getX() && clubs.get(i + 1).getY() == hero.getY())
+					|| (clubs.get(i + 1).getX() == hero.getX() && clubs.get(i + 1).getY() - 1 == hero.getY())
+					|| (clubs.get(i + 1).getX() == hero.getX() && clubs.get(i + 1).getY() + 1 == hero.getY())
+					|| ((ogres.get(i).getX() - 1 == hero.getX() && ogres.get(i).getY() == hero.getY())
+							|| (ogres.get(i).getX() + 1 == hero.getX() && ogres.get(i).getY() == hero.getY())
+							|| (ogres.get(i).getX() == hero.getX() && ogres.get(i).getY() - 1 == hero.getY())
+							|| (ogres.get(i).getX() == hero.getX() && ogres.get(i).getY() + 1 == hero.getY()))) {
+				this.gameOver = true;
+				return true;
+			}
+		}
+
+		this.gameOver = false;
+		return false;
+	}
+
 	/////////////////////////////////////////UPDATE MAP//////////////////////////////////////
 	public void loadElementsLevel1() {
 		// map

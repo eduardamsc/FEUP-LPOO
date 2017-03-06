@@ -43,6 +43,14 @@ public class Menu {
 			printMap(g.getMap());
 			if (end) nextLevel=false;
 			
+			if (g.getGameOver())
+			{
+				System.out.println("***********");
+				System.out.println("*GAME OVER*");
+				System.out.println("***********");
+				System.out.println("You just got caught!");
+			}
+			
 			if (g.checkVictoryLevel1()) {
 				nextLevel = true;
 				System.out.println("YOU WIN");
