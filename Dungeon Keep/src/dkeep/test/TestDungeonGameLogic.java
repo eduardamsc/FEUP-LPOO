@@ -74,6 +74,6 @@ public class TestDungeonGameLogic {
 		game.moveHero('s');
 		assertEquals(true, game.openLever());
 		game.moveHero('a');
-		assertEquals(true, game.checkVictoryLevel1());
+		assertEquals(true, game.checkVictory());
 	}
 }

@@ -25,6 +25,9 @@ public class Game {
 	public Game(Map map)
 	{
 		this.setMap(map);
+		guards = new Vector<Guard>();
+		ogres = new ArrayList<Ogre>();
+		exits = new Vector<Exit>();
 		for (int i = 0; i < map.getMap().length; i++) {
 			for (int j = 0; j < map.getMap()[i].length; j++) {
 				if (map.getMap()[i][j]=='H')
@@ -32,15 +35,12 @@ public class Game {
 					hero = new Hero(i,j);
 				} else if (map.getMap()[i][j]=='G')
 				{
-					guards = new Vector<Guard>();
 					guards.add(new GuardRookie(i,j));
 				} else if (map.getMap()[i][j]=='O')
 				{
-					ogres = new ArrayList<Ogre>();
 					ogres.add(new Ogre(i,j));
 				} else if (map.getMap()[i][j]=='I')
 				{
-					exits = new Vector<Exit>();
 					exits.add(new Exit(i,j));
 				} else if (map.getMap()[i][j]=='k')
 				{
@@ -148,21 +148,15 @@ public class Game {
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
-	public boolean checkVictoryLevel1() {
-		if ((exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
-				|| (exits.get(1).getX() == hero.getX() && exits.get(1).getY() == hero.getY()))
-		// if hero is on the exit, you win
+	public boolean checkVictory() {
+		
+		for (int i=0; i< exits.size();i++)
 		{
-			return true;
-		}
-		return false;
-	}
-
-	public boolean checkVictoryLevel2() {
-		if (exits.get(0).getX() == hero.getX() && exits.get(0).getY() == hero.getY())
-		// if hero is on top of stairs, you win
-		{
-			return true;
+			if (exits.get(i).getX() == hero.getX() && exits.get(i).getY() == hero.getY())
+			// if hero is on the exit, you win
+			{
+				return true;
+			}
 		}
 		return false;
 	}
@@ -189,8 +183,7 @@ public class Game {
 				updateObjectPosition(exits.get(i));
 			}
 			return true;
-		}
-		return false;
+		}else return false;
 	}
 	
 	public void pickKey() {

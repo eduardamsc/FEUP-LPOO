@@ -51,7 +51,7 @@ public class Menu {
 				System.out.println("You just got caught!");
 			}
 			
-			if (g.checkVictoryLevel1()) {
+			if (g.checkVictory()) {
 				nextLevel = true;
 				System.out.println("YOU WIN");
 				break;
@@ -89,7 +89,7 @@ public class Menu {
 				}
 			}
 			
-			if (g.checkVictoryLevel2()) {
+			if (g.checkVictory()) {
 				System.out.println("YOU WIN");
 			}
 		}
