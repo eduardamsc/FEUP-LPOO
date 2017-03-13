@@ -27,19 +27,24 @@ public class Game {
 		this.setMap(map);
 		guards = new Vector<Guard>();
 		ogres = new ArrayList<Ogre>();
+		clubs = new Vector<Club>();
 		exits = new Vector<Exit>();
+		
 		
 		for (int i = 0; i < map.getMap().length; i++) {
 			for (int j = 0; j < map.getMap()[i].length; j++) {
 				if (map.getMap()[i][j]=='H')
 				{
 					hero = new Hero(i,j);
+					clubs.add(new Club()); //hero's club
 				} else if (map.getMap()[i][j]=='G')
 				{
 					guards.add(new GuardRookie(i,j));
 				} else if (map.getMap()[i][j]=='O')
 				{
 					ogres.add(new Ogre(i,j));
+					clubs.add(new Club()); //ogre's club
+					clubs.get(i).movement(map, ogres.get(i-1).getX(), ogres.get(i-1).getY());
 				} else if (map.getMap()[i][j]=='I')
 				{
 					exits.add(new Exit(i,j));
@@ -52,6 +57,10 @@ public class Game {
 				}
 					
 			}
+		}
+		
+		for (int i = 0; i < clubs.size(); i++) {
+			map.insertCharacter(clubs.get(i));
 		}
 	}
 

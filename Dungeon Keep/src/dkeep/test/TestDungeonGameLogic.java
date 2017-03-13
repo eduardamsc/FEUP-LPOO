@@ -103,6 +103,7 @@ public class TestDungeonGameLogic {
 	{
 		Map map = new Map(this.map2);
 		Game game = new Game(map);
+		game.getOgres().get(0).setArmed(false);
 		assertEquals(1,game.getHero().getX());
 		assertEquals(1,game.getHero().getY());
 		game.moveHero('d');
@@ -162,5 +163,33 @@ public class TestDungeonGameLogic {
 		assertEquals(true, game.checkExitsOpen());
 		game.moveHero('a');
 		assertEquals(true, game.checkVictory());
+	}
+	
+	@Test(timeout=1000)
+	public void testSomeRandomBehaviour()
+	{
+		Map map = new Map(this.map2);
+		Game game = new Game(map);
+		boolean moveUp=false, moveDown=false, moveLeft=false, moveRight=false;
+		int x,y;
+		while(!moveUp||!moveDown||!moveLeft||!moveRight)
+		{
+			x=game.getOgres().get(0).getX();
+			y=game.getOgres().get(0).getY();
+			game.moveOgre();
+			if (game.getOgres().get(0).getX()==x-1 && game.getOgres().get(0).getY()==y)
+			{
+				moveUp=true;
+			} else if (game.getOgres().get(0).getX()==x+1 && game.getOgres().get(0).getY()==y)
+			{
+				moveDown=true;
+			} else if (game.getOgres().get(0).getX()==x && game.getOgres().get(0).getY()==y-1)
+			{
+				moveLeft=true;
+			} else if (game.getOgres().get(0).getX()==x && game.getOgres().get(0).getY()==y+1)
+			{
+				moveRight=true;
+			} else fail("Error!");
+		}
 	}
 }

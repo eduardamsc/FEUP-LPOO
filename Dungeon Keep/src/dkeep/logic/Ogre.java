@@ -3,7 +3,16 @@ package dkeep.logic;
 public class Ogre extends Character {
 
 	boolean stunned=false;
+	boolean armed=true;
 	
+	public boolean isArmed() {
+		return armed;
+	}
+
+	public void setArmed(boolean armed) {
+		this.armed = armed;
+	}
+
 	public Ogre() {
 		super();
 	}
