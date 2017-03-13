@@ -11,6 +11,8 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class window1 {
 
@@ -71,10 +73,16 @@ public class window1 {
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnExit.setBounds(393, 301, 117, 29);
 		frame.getContentPane().add(btnExit);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		textArea.setFont(new Font("Courier New", Font.PLAIN, 13));
 		textArea.setBounds(20, 98, 329, 221);
 		frame.getContentPane().add(textArea);
