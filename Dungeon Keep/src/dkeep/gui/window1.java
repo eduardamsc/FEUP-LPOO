@@ -68,25 +68,6 @@ public class window1 {
 		comboBox.setBounds(150, 55, 127, 27);
 		frame.getContentPane().add(comboBox);
 		
-		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(393, 91, 117, 29);
-		frame.getContentPane().add(btnNewGame);
-		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnExit.setBounds(393, 301, 117, 29);
-		frame.getContentPane().add(btnExit);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-		textArea.setBounds(20, 98, 329, 221);
-		frame.getContentPane().add(textArea);
-		
 		JButton btnUp = new JButton("Up");
 		btnUp.setEnabled(false);
 		btnUp.setBounds(406, 153, 78, 29);
@@ -106,6 +87,35 @@ public class window1 {
 		btnDown.setEnabled(false);
 		btnDown.setBounds(405, 212, 79, 29);
 		frame.getContentPane().add(btnDown);
+		
+		JButton btnNewGame = new JButton("New Game");
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnUp.setEnabled(true);
+				btnDown.setEnabled(true);
+				btnRight.setEnabled(true);
+				btnLeft.setEnabled(true);
+			}
+		});
+		btnNewGame.setBounds(393, 91, 117, 29);
+		frame.getContentPane().add(btnNewGame);
+		
+		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnExit.setBounds(393, 301, 117, 29);
+		frame.getContentPane().add(btnExit);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setFont(new Font("Courier New", Font.PLAIN, 13));
+		textArea.setBounds(20, 98, 329, 221);
+		frame.getContentPane().add(textArea);
+		
+		
 		
 		JLabel lblGameStatus = new JLabel("Game status");
 		lblGameStatus.setBounds(20, 327, 252, 16);
