@@ -138,7 +138,7 @@ public class Game {
 	}
 
 	public boolean logicLevel2(char direction, int[] i) {
-		
+		setGameOver(false);
 		moveHero(direction);
 		pickClub(); // checks if hero has picked up club and updates
 		moveOgre();
@@ -155,6 +155,7 @@ public class Game {
 			if (!ogres.get(j).getStunned())
 			{
 				if (OgreCatchHero()) { // checks if guard has caught hero
+					setGameOver(true);
 					return true;
 				}
 			}

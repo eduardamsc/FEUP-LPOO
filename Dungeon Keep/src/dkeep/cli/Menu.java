@@ -89,6 +89,14 @@ public class Menu {
 				}
 			}
 			
+			if (g.getGameOver())
+			{
+				System.out.println("***********");
+				System.out.println("*GAME OVER*");
+				System.out.println("***********");
+				System.out.println("You just got caught!");
+			}
+			
 			if (g.checkVictory()) {
 				System.out.println("YOU WIN");
 			}
