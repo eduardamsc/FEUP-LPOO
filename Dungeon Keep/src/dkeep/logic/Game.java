@@ -124,6 +124,11 @@ public class Game {
 	}
 	
 	/////////////////////////////////////////LEVELS//////////////////////////////////////
+	/**
+	 * @brief Trata de toda a lógica inerente ao nível 1.
+	 * @param direction Direção recebida como input do utilizador para mover o Heroi.
+	 * @return Fim do jogo com permissão para jogar o nível 2.
+	 */	
 	public boolean logicLevel1(char direction) {
 		moveHero(direction);
 		moveGuard();
@@ -137,6 +142,12 @@ public class Game {
 		return false;
 	}
 
+	/**
+	 * @brief Trata de toda a lógica inerente ao nível 2.
+	 * @param direction Direção recebida como input do utilizador para mover o Heroi.
+	 * @param i Array de inteiros com quantidades de jogadas seguidas que cada ogre esteve stunned.
+	 * @return Fim do jogo.
+	 */	
 	public boolean logicLevel2(char direction, int[] i) {
 		setGameOver(false);
 		moveHero(direction);
@@ -164,6 +175,10 @@ public class Game {
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @brief Verifica se utilizador passou ou não as portas, ganhando.
+	 * @return True p/ vitória.
+	 */	
 	public boolean checkVictory() {
 		
 		for (int i=0; i< exits.size();i++)
@@ -177,6 +192,10 @@ public class Game {
 		return false;
 	}
 
+	/**
+	 * @brief Verifica se portas estão ou não abertas.
+	 * @return True p/ portas abertas.
+	 */	
 	public boolean checkExitsOpen()
 	{
 		for (int i = 0; i < exits.size(); i++) {
@@ -192,30 +211,19 @@ public class Game {
 	}
 
 	/////////////////////////////////////////HERO//////////////////////////////////////
+	/**
+	 * @brief Move o Heroi, apagando o seu rasto e atualizando a sua posição no mapa.
+	 * @param direction Direção recebida como input do utilizador para mover o Heroi.
+	 */	
 	public void moveHero(char direction) {
 		eraseTrailC(hero); // deletes trail when hero moves
 		hero.movement(map, direction);
 		updateCharacterPosition(hero); // updates hero's position on the map
 	}
-
-	public boolean openLever() {
-		if ((lever.getX() - 1 == hero.getX() && lever.getY() == hero.getY())
-				|| (lever.getX() + 1 == hero.getX() && lever.getY() == hero.getY())
-				|| (lever.getX() == hero.getX() && lever.getY() - 1 == hero.getY())
-				|| (lever.getX() == hero.getX() && lever.getY() + 1 == hero.getY()))
-		// if hero is near lever (up,down,right,left)
-		{
-			// lever opens, exits open and both are updated
-			lever.open();
-			for (int i=0; i<exits.size();i++)
-			{
-				exits.get(i).open();
-				updateObjectPosition(exits.get(i));
-			}
-			return true;
-		}else return false;
-	}
-	
+	/**
+	 * @brief Verifica se Heroi apanhou a chave.
+	 * @return True p/ chave apanhada.
+	 */	
 	public boolean pickKey() {
 		if ((key.getX() - 1 == hero.getX() && key.getY() == hero.getY())
 				|| (key.getX() + 1 == hero.getX() && key.getY() == hero.getY())
@@ -234,7 +242,31 @@ public class Game {
 		
 		return false;
 	}
-
+	/**
+	 * @brief Verifica se Heroi levantou a alavanca.
+	 * @return True p/ alavanca levantada.
+	 */	
+	public boolean openLever() {
+		if ((lever.getX() - 1 == hero.getX() && lever.getY() == hero.getY())
+				|| (lever.getX() + 1 == hero.getX() && lever.getY() == hero.getY())
+				|| (lever.getX() == hero.getX() && lever.getY() - 1 == hero.getY())
+				|| (lever.getX() == hero.getX() && lever.getY() + 1 == hero.getY()))
+		// if hero is near lever (up,down,right,left)
+		{
+			// lever opens, exits open and both are updated
+			lever.open();
+			for (int i=0; i<exits.size();i++)
+			{
+				exits.get(i).open();
+				updateObjectPosition(exits.get(i));
+			}
+			return true;
+		}else return false;
+	}
+	/**
+	 * @brief Verifica se Heroi pegou num bastão.
+	 * @return True p/ Heroi armado.
+	 */	
 	public void pickClub() {
 		if ((clubs.get(0).getX() - 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
 				|| (clubs.get(0).getX() + 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
@@ -248,7 +280,9 @@ public class Game {
 			eraseTrailC(clubs.get(0));
 		}
 	}
-	
+	/**
+	 * @brief Altera símbolo dos Ogres conforme são atordoadas pelo Heroi.
+	 */	
 	public void stunOgre(int[] i)
 	{
 		for (int j=0; j<ogres.size();j++)
@@ -273,6 +307,9 @@ public class Game {
 	}
 	
 	/////////////////////////////////////////GUARD//////////////////////////////////////
+	/**
+	 * @brief Move os Guardas, apagando o seu rasto e atualizando a sua posição no mapa.
+	 */	
 	public void moveGuard()
 	{
 		for (int j=0; j<guards.size(); j++)
@@ -282,7 +319,10 @@ public class Game {
 			updateCharacterPosition(guards.get(j)); // updates guard's position on map
 		}
 	}
-
+	/**
+	 * @brief Verifica se algum Guarda apanhou o Heroi.
+	 * @return True p/ Heroi apanhado.
+	 */	
 	public boolean GuardCatchHero() {
 
 		for (int i = 0; i < guards.size(); i++) {
@@ -300,6 +340,10 @@ public class Game {
 	}
 	
 	/////////////////////////////////////////OGRE//////////////////////////////////////
+	/**
+	 * @brief Move os Ogres e respetivos Bastões, apagando o seu rasto e atualizando a sua posição no mapa.
+	 * @param direction Direção recebida como input do utilizador para mover o Heroi.
+	 */	
 	public void moveOgre() {
 		
 		for (int i = 0; i < ogres.size(); i++) {
@@ -320,7 +364,10 @@ public class Game {
 			updateCharacterPosition(clubs.get(i+1));
 		}
 	}
-
+	/**
+	 * @brief Verifica se algum Ogre apanhou o Heroi.
+	 * @return True p/ Heroi apanhado.
+	 */	
 	public boolean OgreCatchHero() {
 
 		for (int i = 0; i < ogres.size(); i++) {
@@ -346,7 +393,9 @@ public class Game {
 		this.gameOver = false;
 		return false;
 	}
-	
+	/**
+	 * @brief Altera símbolo dos Ogres e seus bastões conforme se aproximam da chave.
+	 */	
 	public void nearKey() {
 		
 		for (int i = 0; i < ogres.size(); i++) {
@@ -389,6 +438,9 @@ public class Game {
 	}
 
 	/////////////////////////////////////////UPDATE MAP//////////////////////////////////////
+	/**
+	 * @brief Inicializa todos os objetos e insere-os no mapa para o nível 1.
+	 */		
 	public void loadElementsLevel1() {
 		// map
 		map = new Map(1);
@@ -426,7 +478,9 @@ public class Game {
 		hero.setY(1);
 		map.insertCharacter(hero);
 	}
-
+	/**
+	 * @brief Inicializa todos os objetos e insere-os no mapa para o nível 2.
+	 */	
 	public void loadElementsLevel2() {
 		// map
 		map = new Map(2);
@@ -471,21 +525,22 @@ public class Game {
 		hero.setY(1);
 		map.insertCharacter(hero);
 	}
-
+	/**
+	 * @brief Apaga rasto das personagens.
+	 */	
 	public void eraseTrailC(Character c) {
 		map.getMap()[c.getX()][c.getY()] = ' ';
 	}
-
-	public void eraseTrailO(Object o) {
-		map.getMap()[o.getX()][o.getY()] = ' ';
-	}
-
+	/**
+	 * @brief Atualiza posição/aparência das personagens no mapa.
+	 */	
 	public void updateCharacterPosition(Character c) {
 		map.insertCharacter(c);
 	}
-
+	/**
+	 * @brief Atualiza posição/aparência dos objetos no mapa.
+	 */	
 	public void updateObjectPosition(Object o) {
 		map.insertObject(o);
 	}
-
 }

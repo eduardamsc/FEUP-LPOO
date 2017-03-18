@@ -122,7 +122,7 @@ public class window1 {
 				btnLeft.setEnabled(true);
 				
 				lblGameStatus.setText("*******\n*START*\n*******");
-				Game g = new Game();
+				/*Game g = new Game();
 				
 				boolean nextLevel = true; // permission to play level 2
 				
@@ -158,7 +158,7 @@ public class window1 {
 				g.loadElementsLevel2();
 				textArea.setText(printMap(g.getMap()));
 				
-				Scanner s = new Scanner(System.in);
+				s = new Scanner(System.in);
 				end = false;
 				
 				int[] i = new int[g.getOgres().size()];
@@ -185,7 +185,7 @@ public class window1 {
 					if (g.checkVictory()) {
 						lblGameStatus.setText("YOU WIN");
 					}
-				}
+				}*/
 			}
 		});
 		btnNewGame.setBounds(393, 91, 117, 29);
