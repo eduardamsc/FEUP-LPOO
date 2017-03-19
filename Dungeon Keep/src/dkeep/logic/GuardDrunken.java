@@ -3,12 +3,16 @@ package dkeep.logic;
 import java.util.Random;
 
 public class GuardDrunken extends Guard{
-	
+	/**
+	 * @brief Constructor for class GuardDrunken.
+	 */	
 	public GuardDrunken()
 	{
 		super();
 	}
-	
+	/**
+	 * @brief Constructor for class GuardDrunken with coordinates.
+	 */	
 	public GuardDrunken(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -18,8 +22,10 @@ public class GuardDrunken extends Guard{
 		this.i=-1;
 		this.rightWay=true;
 	}
-
-	public void behaviour() {
+	/**
+	 * @brief Determines GuardDrunken's behavior which is following his fixed trajectory, reversing his trajectory and falling asleep.
+	 */
+	public void behavior() {
 		
 		if (getAwake()) {
 
@@ -43,12 +49,12 @@ public class GuardDrunken extends Guard{
 		int value = n.nextInt(6);
 		if (value == 0) {
 			this.rightWay = false;
-			notAsleep();
+			awake();
 		} else if (value >0 && value <4) {
 			asleep();
 		} else {
 			this.rightWay = true;
-			notAsleep();
+			awake();
 		}
 	}
 }

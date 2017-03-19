@@ -3,12 +3,16 @@ package dkeep.logic;
 import java.util.Random;
 
 public class GuardSuspicious extends Guard{
-
+	/**
+	 * @brief Constructor for class GuardSuspicious.
+	 */
 	public GuardSuspicious()
 	{
 		super();
 	}
-	
+	/**
+	 * @brief Constructor for class GuardSuspicious with coordinates,.
+	 */	
 	public GuardSuspicious(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -18,8 +22,10 @@ public class GuardSuspicious extends Guard{
 		this.i=-1;
 		this.rightWay=true;
 	}
-
-	public void behaviour()
+	/**
+	 * @brief Determines GuardSuspicious's behavior which is following his fixed trajectory and reversing his trajectory.
+	 */
+	public void behavior()
 	{
 		if (this.rightWay)
 		{

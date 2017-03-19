@@ -1,12 +1,16 @@
 package dkeep.logic;
 public class Hero extends Character {
 	boolean armed =false;
-	
+	/**
+	 * @brief Constructor for class Hero.
+	 */	
 	public Hero() {
 		super();
 		defineSymbol();
 	}
-
+	/**
+	 * @brief Constructor for class Hero with coordinates.
+	 */	
 	public Hero(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -14,6 +18,10 @@ public class Hero extends Character {
 	}
 	
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
+	/**
+	 * @brief Get for attribute armed, which represents if Hero has picked up a Club.
+	 * @return armed.
+	 */
 	public boolean getArmed()
 	{
 		return this.armed;
@@ -26,17 +34,26 @@ public class Hero extends Character {
 	public void defineSymbol() {
 		this.symbol = 'H';
 	}
-
+	/**
+	 * @brief Changes Hero's symbol to K, as he has caught the Key.
+	 */
 	public void hasKey() {
 		this.symbol = 'K';
 	}
-	
+	/**
+	 * @brief Changes Hero's state to armed and symbol to A.
+	 */
 	public void armed()
 	{
 		this.armed=true;
 		this.symbol='A';
 	}
-	
+	/**
+	 * @brief Checks if Hero can move in a certain direction.
+	 * @param map Map in which Hero is moving.
+	 * @param direction Direction in which Hero is trying to move.
+	 * @return True for permission to move.
+	 */	
 	public boolean wall(Map map, char direction) {
 		if (direction == 'w') {
 			if (map.getMap()[x - 1][y] == 'X' || map.getMap()[x - 1][y] == 'k' || map.getMap()[x - 1][y] == 'I'

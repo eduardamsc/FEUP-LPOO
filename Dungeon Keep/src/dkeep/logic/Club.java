@@ -1,12 +1,16 @@
 package dkeep.logic;
 
 public class Club extends Character{
-
+	/**
+	 * @brief Constructor for class Club.
+	 */	
 	public Club() {
 		super();
 		defineSymbol();
 	}
-
+	/**
+	 * @brief Constructor for class Club with coordinates.
+	 */	
 	public Club(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -20,6 +24,12 @@ public class Club extends Character{
 	}
 
 	/////////////////////////////////////////MOVEMENTS//////////////////////////////////////
+	/**
+	 * @brief Moves Club around Ogre.
+	 * @param map Map in which Club is moving.
+	 * @param x Line of Ogre's current position.
+	 * @param y Column of Ogre's current position.
+	 */	
 	public void movement(Map map, int x, int y) {
 
 		char direction = randomTrajectory();
@@ -42,7 +52,12 @@ public class Club extends Character{
 			this.y = y + 1;
 		}
 	}
-
+	/**
+	 * @brief Checks if Club can move to a certain position around the Ogre.
+	 * @param map Map in which Club is moving.
+	 * @param direction Direction in which Club is trying to move.
+	 * @return True for permission to move.
+	 */	
 	public boolean wall(Map map, char direction, int x, int y) {
 		if (direction == 'w') {
 			if (map.getMap()[x - 1][y] == 'X' || map.getMap()[x - 1][y] == 'k' || map.getMap()[x - 1][y] == 'I'

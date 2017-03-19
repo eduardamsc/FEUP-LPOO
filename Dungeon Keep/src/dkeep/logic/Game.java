@@ -327,7 +327,7 @@ public class Game {
 		for (int j=0; j<guards.size(); j++)
 		{
 			eraseTrailC(guards.get(j)); // erases guard's trail as it changes position
-			guards.get(j).behaviour();
+			guards.get(j).behavior();
 			updateCharacterPosition(guards.get(j)); // updates guard's position on map
 		}
 	}
@@ -450,7 +450,7 @@ public class Game {
 
 	/////////////////////////////////////////UPDATE MAP//////////////////////////////////////
 	/**
-	 * @brief Inicialises all objects and inserts them on level 1 map.
+	 * @brief initializes all objects and inserts them on level 1 map.
 	 */		
 	public void loadElementsLevel1() {
 		// map
@@ -490,7 +490,7 @@ public class Game {
 		map.insertCharacter(hero);
 	}
 	/**
-	 * @brief Inicialises all objects and inserts them on level 2 map.
+	 * @brief initializes all objects and inserts them on level 2 map.
 	 */	
 	public void loadElementsLevel2() {
 		// map
