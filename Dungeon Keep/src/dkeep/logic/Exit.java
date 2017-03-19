@@ -17,6 +17,9 @@ public class Exit extends Object {
 		defineSymbol();
 	}
 
+	/**
+	 * @brief Defines attribute symbol as I.
+	 */	
 	public void defineSymbol() {
 		this.symbol = 'I';
 	}

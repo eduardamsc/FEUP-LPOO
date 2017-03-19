@@ -20,6 +20,9 @@ public class Hero extends Character {
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @brief Defines attribute symbol as H.
+	 */	
 	public void defineSymbol() {
 		this.symbol = 'H';
 	}

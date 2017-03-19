@@ -17,11 +17,18 @@ public class Game {
 
 	private boolean gameOver=false;
 
+	/**
+	 * @brief Default constructor for class Game.
+	 */
 	public Game()
 	{
 		
 	}
 	
+	/**
+	 * @brief Constructor for class Game with parameter.
+	 * @param map Array of chars which defines a map.
+	 */
 	public Game(Map map)
 	{
 		this.setMap(map);
@@ -66,68 +73,73 @@ public class Game {
 
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	///////////////////Characters & Objects//////////////////////
+	/**
+	 * @brief Get for object of type Hero.
+	 */
 	public Hero getHero() {
 		return hero;
 	}
-
-	public void setHero(Hero hero) {
-		this.hero = hero;
-	}
-	
+	/**
+	 * @brief Get for object of type Vector of Guards.
+	 * @return object vector of Guards.
+	 */
 	public Vector<Guard> getGuards() {
 		return guards;
 	}
-
-	public void setGuards(Vector<Guard> guards) {
-		this.guards = guards;
-	}
-	
+	/**
+	 * @brief Get for object of type ArrayList of Ogres.
+	 * @return object arraylist of Ogres.
+	 */
 	public ArrayList<Ogre> getOgres() {
 		return ogres;
 	}
-
-	public void setOgres(ArrayList<Ogre> ogres) {
-		this.ogres = ogres;
-	}
-	
+	/**
+	 * @brief Get for object of type Vector of Exits.
+	 * @return object vector of Exits. 
+	 */
 	public Vector<Exit> getExits() {
 		return exits;
 	}
-
-	public void setExits(Vector<Exit> exits) {
-		this.exits = exits;
-	}
-
+	/**
+	 * @brief Get for object of type Key.
+	 * @return object key.
+	 */
 	public Key getKey() {
 		return key;
 	}
-
-	public void setKey(Key key) {
-		this.key = key;
-	}
-
 	/////////////////////////////////////////
+	/**
+	 * @brief Get for object of type Map.
+	 */	
 	public Map getMap() {
 		return map;
 	}
-
+	/**
+	 * @brief Set for object of type Map.
+	 * @return object map.
+	 */
 	public void setMap(Map map) {
 		this.map = map;
 	}
-		
+	/**
+	 * @brief Get for object of type Game Over.
+	 * @return True for game over.
+	 */
 	public boolean getGameOver() {
 		return gameOver;
 	}
-
+	/**
+	 * @brief Set for object of type gameOver.
+	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
 	
 	/////////////////////////////////////////LEVELS//////////////////////////////////////
 	/**
-	 * @brief Trata de toda a lógica inerente ao nível 1.
-	 * @param direction Direção recebida como input do utilizador para mover o Heroi.
-	 * @return Fim do jogo com permissão para jogar o nível 2.
+	 * @brief Deals with all the logic related to level 1.
+	 * @param direction Direction received as input from the user to move the Hero.
+	 * @return End of game and permission to play level 2.
 	 */	
 	public boolean logicLevel1(char direction) {
 		moveHero(direction);
@@ -143,10 +155,10 @@ public class Game {
 	}
 
 	/**
-	 * @brief Trata de toda a lógica inerente ao nível 2.
-	 * @param direction Direção recebida como input do utilizador para mover o Heroi.
-	 * @param i Array de inteiros com quantidades de jogadas seguidas que cada ogre esteve stunned.
-	 * @return Fim do jogo.
+	 * @brief Deals with all the logic related to level 2.
+	 * @param direction Direction received as input from the user to move the Hero.
+	 * @param i Array of ints with amount of consecutive turns that certain Ogres have been stunned.
+	 * @return End of game.
 	 */	
 	public boolean logicLevel2(char direction, int[] i) {
 		setGameOver(false);
@@ -176,8 +188,8 @@ public class Game {
 
 	///////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @brief Verifica se utilizador passou ou não as portas, ganhando.
-	 * @return True p/ vitória.
+	 * @brief Checks if Hero is past the exits, winning.
+	 * @return True for victory.
 	 */	
 	public boolean checkVictory() {
 		
@@ -193,8 +205,8 @@ public class Game {
 	}
 
 	/**
-	 * @brief Verifica se portas estão ou não abertas.
-	 * @return True p/ portas abertas.
+	 * @brief Checks if Exits are opened.
+	 * @return True for open Exits.
 	 */	
 	public boolean checkExitsOpen()
 	{
@@ -212,8 +224,8 @@ public class Game {
 
 	/////////////////////////////////////////HERO//////////////////////////////////////
 	/**
-	 * @brief Move o Heroi, apagando o seu rasto e atualizando a sua posição no mapa.
-	 * @param direction Direção recebida como input do utilizador para mover o Heroi.
+	 * @brief Moves Hero.
+	 * @param direction Direction received as input from the user to move the Hero.
 	 */	
 	public void moveHero(char direction) {
 		eraseTrailC(hero); // deletes trail when hero moves
@@ -221,8 +233,8 @@ public class Game {
 		updateCharacterPosition(hero); // updates hero's position on the map
 	}
 	/**
-	 * @brief Verifica se Heroi apanhou a chave.
-	 * @return True p/ chave apanhada.
+	 * @brief Checks if Hero has caught Key.
+	 * @return True for caught Key.
 	 */	
 	public boolean pickKey() {
 		if ((key.getX() - 1 == hero.getX() && key.getY() == hero.getY())
@@ -243,8 +255,8 @@ public class Game {
 		return false;
 	}
 	/**
-	 * @brief Verifica se Heroi levantou a alavanca.
-	 * @return True p/ alavanca levantada.
+	 * @brief Checks if Hero has raised Lever.
+	 * @return True for raised Lever.
 	 */	
 	public boolean openLever() {
 		if ((lever.getX() - 1 == hero.getX() && lever.getY() == hero.getY())
@@ -264,8 +276,8 @@ public class Game {
 		}else return false;
 	}
 	/**
-	 * @brief Verifica se Heroi pegou num bastão.
-	 * @return True p/ Heroi armado.
+	 * @brief Checks if Hero has picked up Club.
+	 * @return True for Club picked up.
 	 */	
 	public void pickClub() {
 		if ((clubs.get(0).getX() - 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
@@ -281,7 +293,7 @@ public class Game {
 		}
 	}
 	/**
-	 * @brief Altera símbolo dos Ogres conforme são atordoadas pelo Heroi.
+	 * @brief Changes Ogres' symbols according to being stunned or not.
 	 */	
 	public void stunOgre(int[] i)
 	{
@@ -308,7 +320,7 @@ public class Game {
 	
 	/////////////////////////////////////////GUARD//////////////////////////////////////
 	/**
-	 * @brief Move os Guardas, apagando o seu rasto e atualizando a sua posição no mapa.
+	 * @brief Moves Guards.
 	 */	
 	public void moveGuard()
 	{
@@ -320,8 +332,8 @@ public class Game {
 		}
 	}
 	/**
-	 * @brief Verifica se algum Guarda apanhou o Heroi.
-	 * @return True p/ Heroi apanhado.
+	 * @brief Checks if any Guard has caught Hero.
+	 * @return True for Hero caught.
 	 */	
 	public boolean GuardCatchHero() {
 
@@ -341,8 +353,7 @@ public class Game {
 	
 	/////////////////////////////////////////OGRE//////////////////////////////////////
 	/**
-	 * @brief Move os Ogres e respetivos Bastões, apagando o seu rasto e atualizando a sua posição no mapa.
-	 * @param direction Direção recebida como input do utilizador para mover o Heroi.
+	 * @brief Moves Ogres and respective Clubs.
 	 */	
 	public void moveOgre() {
 		
@@ -365,8 +376,8 @@ public class Game {
 		}
 	}
 	/**
-	 * @brief Verifica se algum Ogre apanhou o Heroi.
-	 * @return True p/ Heroi apanhado.
+	 * @brief Checks if any Ogre has caught Hero.
+	 * @return True for Hero caught.
 	 */	
 	public boolean OgreCatchHero() {
 
@@ -394,7 +405,7 @@ public class Game {
 		return false;
 	}
 	/**
-	 * @brief Altera símbolo dos Ogres e seus bastões conforme se aproximam da chave.
+	 * @brief Changes Ogres' and respective Clubs symbols according to Key proximity.
 	 */	
 	public void nearKey() {
 		
@@ -439,7 +450,7 @@ public class Game {
 
 	/////////////////////////////////////////UPDATE MAP//////////////////////////////////////
 	/**
-	 * @brief Inicializa todos os objetos e insere-os no mapa para o nível 1.
+	 * @brief Inicialises all objects and inserts them on level 1 map.
 	 */		
 	public void loadElementsLevel1() {
 		// map
@@ -479,7 +490,7 @@ public class Game {
 		map.insertCharacter(hero);
 	}
 	/**
-	 * @brief Inicializa todos os objetos e insere-os no mapa para o nível 2.
+	 * @brief Inicialises all objects and inserts them on level 2 map.
 	 */	
 	public void loadElementsLevel2() {
 		// map
@@ -526,19 +537,19 @@ public class Game {
 		map.insertCharacter(hero);
 	}
 	/**
-	 * @brief Apaga rasto das personagens.
+	 * @brief Deletes Characters trail.
 	 */	
 	public void eraseTrailC(Character c) {
 		map.getMap()[c.getX()][c.getY()] = ' ';
 	}
 	/**
-	 * @brief Atualiza posição/aparência das personagens no mapa.
+	 * @brief Updates Characters' position and appearance on map.
 	 */	
 	public void updateCharacterPosition(Character c) {
 		map.insertCharacter(c);
 	}
 	/**
-	 * @brief Atualiza posição/aparência dos objetos no mapa.
+	 * @brief Updates Objects' position and appearance on map.
 	 */	
 	public void updateObjectPosition(Object o) {
 		map.insertObject(o);

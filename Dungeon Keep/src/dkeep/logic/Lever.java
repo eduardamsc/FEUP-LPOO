@@ -22,6 +22,9 @@ public class Lever extends Object {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @brief Defines attribute symbol as k.
+	 */	
 	public void defineSymbol() {
 		this.symbol = 'k';
 	}

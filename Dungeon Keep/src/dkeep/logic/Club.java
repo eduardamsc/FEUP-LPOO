@@ -12,7 +12,9 @@ public class Club extends Character{
 		this.y = y;
 		defineSymbol();
 	}
-	
+	/**
+	 * @brief Defines attribute symbol as *.
+	 */	
 	public void defineSymbol() {
 		this.symbol = '*';
 	}

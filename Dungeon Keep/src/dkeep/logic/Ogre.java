@@ -22,7 +22,9 @@ public class Ogre extends Character {
 		this.y = y;
 		defineSymbol();
 	}
-
+	/**
+	 * @brief Defines attribute symbol as O.
+	 */	
 	public void defineSymbol() {
 		this.symbol = 'O';
 	}

@@ -25,6 +25,9 @@ public abstract class Guard extends Character {
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @brief Defines attribute symbol as G.
+	 */	
 	public void defineSymbol() {
 		this.symbol = 'G';
 	}
