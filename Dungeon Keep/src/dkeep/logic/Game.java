@@ -94,6 +94,13 @@ public class Game {
 		return ogres;
 	}
 	/**
+	 * @brief Get for object of type Vector of Clubs.
+	 * @return object vector of Clubs. 
+	 */
+	public Vector<Club> getClubs() {
+		return clubs;
+	}
+	/**
 	 * @brief Get for object of type Vector of Exits.
 	 * @return object vector of Exits. 
 	 */
@@ -228,9 +235,12 @@ public class Game {
 	 * @param direction Direction received as input from the user to move the Hero.
 	 */	
 	public void moveHero(char direction) {
+		if(direction=='a' || direction == 'w' || direction == 's' || direction == 'd')
+		{
 		eraseTrailC(hero); // deletes trail when hero moves
 		hero.movement(map, direction);
 		updateCharacterPosition(hero); // updates hero's position on the map
+		}
 	}
 	/**
 	 * @brief Checks if Hero has caught Key.
