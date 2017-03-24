@@ -17,8 +17,8 @@ public class Menu {
 		Game g = new Game();
 
 		boolean nextLevel=true;
-		nextLevel = level1(g);
-		if (nextLevel) 
+		//nextLevel = level1(g);
+		//if (nextLevel) 
 			level2(g);
 	}
 	
@@ -41,19 +41,7 @@ public class Menu {
 			printMap(g.getMap());
 			if (end) nextLevel=false;
 			
-			if (g.getGameOver())
-			{
-				System.out.println("***********");
-				System.out.println("*GAME OVER*");
-				System.out.println("***********");
-				System.out.println("You just got caught!");
-			}
-			
-			if (g.checkVictory()) {
-				nextLevel = true;
-				System.out.println("YOU WIN");
-				break;
-			}
+			nextLevel = levelEnd(g);
 		}
 		return nextLevel;
 	}
@@ -84,18 +72,26 @@ public class Menu {
 				}
 			}
 			
-			if (g.getGameOver())
-			{
-				System.out.println("***********");
-				System.out.println("*GAME OVER*");
-				System.out.println("***********");
-				System.out.println("You just got caught!");
-			}
-			
-			if (g.checkVictory()) {
-				System.out.println("YOU WIN");
-			}
+			levelEnd(g);
 		}
+	}
+	
+	public static boolean levelEnd(Game g)
+	{
+		boolean nextLevel = false;
+		if (g.getGameOver())
+		{
+			System.out.println("***********");
+			System.out.println("*GAME OVER*");
+			System.out.println("***********");
+			System.out.println("You just got caught!");
+		}
+		
+		if (g.checkVictory()) {
+			nextLevel = true;
+			System.out.println("YOU WIN");
+		}
+		return nextLevel;
 	}
 	
 	public static void printMap(Map map)
