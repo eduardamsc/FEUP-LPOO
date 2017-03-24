@@ -8,14 +8,17 @@ public class GuardRookie extends Guard{
 	{
 		super();
 	}
+	
 	/**
 	 * @brief Constructor for class GuardRookie with coordinates.
-	 */	
+	 */
 	public GuardRookie(int x, int y) {
-		identifier(x,y);
+		identifier(x, y);
 	}
+
 	/**
-	 * @brief Determines GuardRookie's behavior which is following his fixed trajectory religiously.
+	 * @brief Determines GuardRookie's behavior which is following his fixed
+	 *        trajectory religiously.
 	 */
 	public void behavior()
 	{

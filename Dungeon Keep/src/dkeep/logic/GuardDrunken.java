@@ -14,10 +14,12 @@ public class GuardDrunken extends Guard{
 	 * @brief Constructor for class GuardDrunken with coordinates.
 	 */	
 	public GuardDrunken(int x, int y) {
-		identifier(x,y);
+		identifier(x, y);
 	}
+
 	/**
-	 * @brief Determines GuardDrunken's behavior which is following his fixed trajectory, reversing his trajectory and falling asleep.
+	 * @brief Determines GuardDrunken's behavior which is following his fixed
+	 *        trajectory, reversing his trajectory and falling asleep.
 	 */
 	public void behavior() {
 		

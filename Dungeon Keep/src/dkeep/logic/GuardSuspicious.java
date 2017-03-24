@@ -10,14 +10,17 @@ public class GuardSuspicious extends Guard{
 	{
 		super();
 	}
+	
 	/**
 	 * @brief Constructor for class GuardSuspicious with coordinates,.
-	 */	
+	 */
 	public GuardSuspicious(int x, int y) {
-		identifier(x,y);
+		identifier(x, y);
 	}
+
 	/**
-	 * @brief Determines GuardSuspicious's behavior which is following his fixed trajectory and reversing his trajectory.
+	 * @brief Determines GuardSuspicious's behavior which is following his fixed
+	 *        trajectory and reversing his trajectory.
 	 */
 	public void behavior()
 	{
