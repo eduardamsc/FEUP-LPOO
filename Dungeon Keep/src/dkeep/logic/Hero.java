@@ -6,7 +6,7 @@ public class Hero extends Character {
 	 */	
 	public Hero() {
 		super();
-		defineSymbol();
+		this.symbol = 'H';
 	}
 	/**
 	 * @brief Constructor for class Hero with coordinates.
@@ -14,7 +14,7 @@ public class Hero extends Character {
 	public Hero(int x, int y) {
 		this.x = x;
 		this.y = y;
-		defineSymbol();
+		this.symbol = 'H';
 	}
 	
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
@@ -28,12 +28,6 @@ public class Hero extends Character {
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @brief Defines attribute symbol as H.
-	 */	
-	public void defineSymbol() {
-		this.symbol = 'H';
-	}
 	/**
 	 * @brief Changes Hero's symbol to K, as he has caught the Key.
 	 */
@@ -55,38 +49,34 @@ public class Hero extends Character {
 	 * @return True for permission to move.
 	 */	
 	public boolean wall(Map map, char direction) {
-		if (direction == 'w') {
-			if (map.getMap()[x - 1][y] == 'X' || map.getMap()[x - 1][y] == 'k' || map.getMap()[x - 1][y] == 'I'
-					|| map.getMap()[x - 1][y] == '*' || map.getMap()[x - 1][y] == '8'|| map.getMap()[x - 1][y] == '$'
-					|| x - 1 < 0 || y < 0 || x - 1 > map.getMap().length
-					|| y > map.getMap()[x - 1].length)
-				return false;
+		switch (direction)
+		{
+			case 'w':
+				return wallAux(map,-1,0);
+			case 's':
+				return wallAux(map,+1,0);
+			case 'a':
+				return wallAux(map,0,-1);
+			case 'd':
+				return wallAux(map,0,+1);
 		}
-
-		if (direction == 's') {
-			if (map.getMap()[x + 1][y] == 'X' || map.getMap()[x + 1][y] == 'k' || map.getMap()[x + 1][y] == 'I'
-					|| map.getMap()[x + 1][y] == '*' || map.getMap()[x + 1][y] == '8'|| map.getMap()[x + 1][y] == '$'
-					|| x + 1 < 0 || y < 0 || x + 1 > map.getMap().length
-					|| y > map.getMap()[x - 1].length)
-				return false;
-		}
-
-		if (direction == 'a') {
-			if (map.getMap()[x][y - 1] == 'X' || map.getMap()[x][y - 1] == 'k' || map.getMap()[x][y - 1] == 'I'
-					|| map.getMap()[x][y-1] == '*' || map.getMap()[x][y-1] == '8'|| map.getMap()[x][y-1] == '$'
-					|| x < 0 || y - 1 < 0 || x > map.getMap().length
-					|| y > map.getMap()[x].length)
-				return false;
-		}
-
-		if (direction == 'd') {
-			if (map.getMap()[x][y + 1] == 'X' || map.getMap()[x][y + 1] == 'k' || map.getMap()[x][y + 1] == 'I'
-					|| map.getMap()[x][y+1] == '*' || map.getMap()[x][y+1] == '8'|| map.getMap()[x][y+1] == '$'
-					|| x < 0 || y - 1 < 0 || x > map.getMap().length
-					|| y > map.getMap()[x].length)
-				return false;
-		}
-
 		return true;
+	}
+	/**
+	 * @brief Checks if Character can move.
+	 * @param map Map in which Character is moving.
+	 * @param i parameter added to coordinate x.
+	 * @param j parameter added to coordinate y.
+	 * @return True for permission to move.
+	 */
+	public boolean wallAux(Map map, int i, int j)
+	{
+		int a=x+i, b=y+j;
+		if (map.getMap()[a][b] == 'X' || map.getMap()[a][b] == 'k' || map.getMap()[a][b] == 'I'
+				|| map.getMap()[a][b] == '*' || map.getMap()[a][b] == '8'|| map.getMap()[a][b] == '$'
+				|| a < 0 || b < 0 || a > map.getMap().length
+				|| b > map.getMap()[a].length)
+			return false;
+		else return true;
 	}
 }

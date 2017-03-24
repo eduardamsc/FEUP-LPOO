@@ -6,7 +6,7 @@ public class Club extends Character{
 	 */	
 	public Club() {
 		super();
-		defineSymbol();
+		this.symbol = '*';
 	}
 	/**
 	 * @brief Constructor for class Club with coordinates.
@@ -14,12 +14,6 @@ public class Club extends Character{
 	public Club(int x, int y) {
 		this.x = x;
 		this.y = y;
-		defineSymbol();
-	}
-	/**
-	 * @brief Defines attribute symbol as *.
-	 */	
-	public void defineSymbol() {
 		this.symbol = '*';
 	}
 

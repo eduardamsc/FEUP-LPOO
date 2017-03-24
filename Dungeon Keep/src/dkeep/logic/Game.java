@@ -108,6 +108,13 @@ public class Game {
 		return exits;
 	}
 	/**
+	 * @brief Get for object of type Lever.
+	 * @return object lever.
+	 */
+	public Lever getLever() {
+		return lever;
+	}
+	/**
 	 * @brief Get for object of type Key.
 	 * @return object key.
 	 */
@@ -168,11 +175,12 @@ public class Game {
 	 */	
 	public boolean logicLevel2(char direction, int[] i) {
 		setGameOver(false);
+		
 		moveHero(direction);
 		pickClub(); // checks if hero has picked up club and updates
-		moveOgre();
-
 		pickKey(); // checks if hero has picked up key and updates
+		
+		moveOgre();
 		nearKey(); // checks if ogre is near key and updates
 		
 		stunOgre(i); //checks if hero stuns ogre

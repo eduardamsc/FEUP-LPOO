@@ -10,7 +10,7 @@ public class Exit extends Object {
 	public Exit() {
 		super();
 		open = false;
-		defineSymbol();
+		this.symbol = 'I';
 	}
 	/**
 	 * @brief Constructor for class Exit with coordinates.
@@ -19,12 +19,6 @@ public class Exit extends Object {
 		this.x = x;
 		this.y = y;
 		open = false;
-		defineSymbol();
-	}
-	/**
-	 * @brief Defines attribute symbol as I.
-	 */	
-	public void defineSymbol() {
 		this.symbol = 'I';
 	}
 	/**

@@ -52,8 +52,4 @@ public abstract class Object {
 	public void setSymbol(char symbol) {
 		this.symbol = symbol;
 	}
-	/**
-	 * @brief Defines attribute symbol initially representative of the Object.
-	 */	
-	public abstract void defineSymbol();
 }

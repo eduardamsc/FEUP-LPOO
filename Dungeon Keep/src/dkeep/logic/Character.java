@@ -89,7 +89,20 @@ public abstract class Character {
 	 * @return True for permission to move.
 	 */	
 	public boolean wall(Map map, char direction) {
-		if (direction == 'w') {
+		switch (direction)
+		{
+			case 'w':
+				return wallAux(map,-1,0);
+			case 's':
+				return wallAux(map,1,0);
+			case 'a':
+				return wallAux(map,0,-1);
+			case 'd':
+				return wallAux(map,0,1);
+		}
+		return true;
+			
+		/*if (direction == 'w') {
 			if (map.getMap()[x - 1][y] == 'X' || map.getMap()[x - 1][y] == 'k' || map.getMap()[x - 1][y] == 'I'
 					|| map.getMap()[x - 1][y] == 'H' || map.getMap()[x - 1][y] == 'A' || map.getMap()[x - 1][y] == 'K' 
 					|| x - 1 < 0 || y < 0 || x - 1 > map.getMap().length
@@ -119,10 +132,25 @@ public abstract class Character {
 					|| x < 0 || y - 1 < 0 || x > map.getMap().length
 					|| y > map.getMap()[x].length)
 				return false;
-		}
-
-		return true;
+		}*/
 	}	
+	/**
+	 * @brief Checks if Character can move.
+	 * @param map Map in which Character is moving.
+	 * @param i parameter added to coordinate x.
+	 * @param j parameter added to coordinate y.
+	 * @return True for permission to move.
+	 */	
+	public boolean wallAux(Map map, int i, int j)
+	{
+		int a=x+i, b=y+j;
+		if (map.getMap()[a][b] == 'X' || map.getMap()[a][b] == 'k' || map.getMap()[a][b] == 'I'
+				|| map.getMap()[a][b] == 'H' || map.getMap()[a][b] == 'A' || map.getMap()[a][b] == 'K' 
+				|| a < 0 || (b) < 0 || a > map.getMap().length
+				|| b > map.getMap()[a].length)
+			return false;
+		else return true;
+	}
 	/**
 	 * @brief Moves Character in all directions as long as it's possible.
 	 * @param map Map in which Character is moving.
@@ -168,10 +196,4 @@ public abstract class Character {
 
 		return direction;
 	}
-
-	///////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @brief Defines attribute symbol initially representative of the Character.
-	 */	
-	public abstract void defineSymbol();
 }

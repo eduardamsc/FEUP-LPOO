@@ -39,6 +39,7 @@ public class window1 {
 	private ImgPanel img;
 	private JFrame frame;
 	private JTextField textField;
+	private JLabel lblGameStatus;
 	private Game g;
 	private Game g2;
 	private int level;
@@ -134,14 +135,16 @@ public class window1 {
 		frame.getContentPane().add(btnNewGame);
 		
 		img = new ImgPanel();
+		img.addKeyListener(img);
 		img.setBounds(20, 113, 314, 317);
+		img.setFocusable(true);
 		frame.getContentPane().add(img);
 		
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				g = new Game();
-				setLevel(1);
+				level=1;
 				btnUp.setEnabled(true);
 				btnDown.setEnabled(true);
 				btnRight.setEnabled(true);
@@ -168,7 +171,7 @@ public class window1 {
 					g.getGuards().add(new GuardSuspicious(1, 8));
 				}
 				g.getMap().insertCharacter(g.getGuards().get(0));
-				img.updateMap(g.getMap().getMap());
+				img.updateMap(g.getMap().getMap(),g,g2,level,j);
 				img.repaint();
 
 				g2 = new Game();
@@ -206,26 +209,26 @@ public class window1 {
 ////////////////////////////////////////MOVEMENT/////////////////////////////////////////////////
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (getLevel() == 1 && !g.getGameOver()) {
+				if (level == 1 && !g.getGameOver()) {
 					if (g.getHero().wall(g.getMap(), 'w')) {
 
 						lblGameStatus.setText("-----LEVEL 1-----");
 						g.logicLevel1('w');
-						img.updateMap(g.getMap().getMap());
+						img.updateMap(g.getMap().getMap(),g,g2,level,j);
 						img.repaint();
 						if (g.getGameOver()) {
 							lblGameStatus.setText("*********** *GAME OVER* ***********");
 						} else if (g.checkVictory()) {
 							lblGameStatus.setText("YOU WIN");
-							setLevel(2);
+							level = 2;
 						}
 					}
 				}
-				if (getLevel() == 2) {
+				if (level == 2) {
 					if (g2.getHero().wall(g2.getMap(), 'w')) {
 						lblGameStatus.setText("-----LEVEL 2-----");
 						g2.logicLevel2('w', j);
-						img.updateMap(g2.getMap().getMap());
+						img.updateMap(g2.getMap().getMap(),g,g2,level,j);
 						img.repaint();
 						for (int w = 0; w < g2.getOgres().size(); w++) {
 							if (!g2.getOgres().get(w).getStunned()) {
@@ -254,27 +257,27 @@ public class window1 {
 		
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (getLevel() == 1 && !g.getGameOver()) {
+				if (level == 1 && !g.getGameOver()) {
 					if (g.getHero().wall(g.getMap(), 'a')) {
 
 						lblGameStatus.setText("-----LEVEL 1-----");
 						g.logicLevel1('a');
-						img.updateMap(g.getMap().getMap());
+						img.updateMap(g.getMap().getMap(),g,g2,level,j);
 						img.repaint();
 						if (g.getGameOver()) {
 							lblGameStatus.setText("*********** *GAME OVER* ***********");
 						} else if (g.checkVictory()) {
 							lblGameStatus.setText("YOU WIN");
-							setLevel(2);
+							level = 2;
 						}
 					}
 				}
 
-				if (getLevel() == 2) {
+				if (level == 2) {
 					if (g2.getHero().wall(g2.getMap(), 'a')) {
 						lblGameStatus.setText("-----LEVEL 2-----");
 						g2.logicLevel2('a', j);
-						img.updateMap(g2.getMap().getMap());
+						img.updateMap(g2.getMap().getMap(),g,g2,level,j);
 						img.repaint();
 						for (int w = 0; w < g2.getOgres().size(); w++) {
 							if (!g2.getOgres().get(w).getStunned()) {
@@ -304,25 +307,25 @@ public class window1 {
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (getLevel() == 1 && !g.getGameOver()) {
+				if (level == 1 && !g.getGameOver()) {
 					if (g.getHero().wall(g.getMap(), 'd')) {
 						lblGameStatus.setText("-----LEVEL 1-----");
 						g.logicLevel1('d');
-						img.updateMap(g.getMap().getMap());
+						img.updateMap(g.getMap().getMap(),g,g2,level,j);
 						img.repaint();
 						if (g.getGameOver()) {
 							lblGameStatus.setText("*********** *GAME OVER* ***********");
 						} else if (g.checkVictory()) {
 							lblGameStatus.setText("YOU WIN");
-							setLevel(2);
+							level=2;
 						}
 					}
 				}
-				if (getLevel() == 2) {
+				if (level == 2) {
 					if (g2.getHero().wall(g2.getMap(), 'd')) {
 						lblGameStatus.setText("-----LEVEL 2-----");
 						g2.logicLevel2('d', j);
-						img.updateMap(g2.getMap().getMap());
+						img.updateMap(g2.getMap().getMap(),g,g2,level,j);
 						img.repaint();
 						for (int w = 0; w < g2.getOgres().size(); w++) {
 							if (!g2.getOgres().get(w).getStunned()) {
@@ -351,25 +354,25 @@ public class window1 {
 	
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (getLevel() == 1 && !g.getGameOver()) {
+				if (level == 1 && !g.getGameOver()) {
 					if (g.getHero().wall(g.getMap(), 's')) {
 						lblGameStatus.setText("-----LEVEL 1-----");
 						g.logicLevel1('s');
-						img.updateMap(g.getMap().getMap());
+						img.updateMap(g.getMap().getMap(),g,g2,level,j);
 						img.repaint();
 						if (g.getGameOver()) {
 							lblGameStatus.setText("*********** *GAME OVER* ***********");
 						} else if (g.checkVictory()) {
 							lblGameStatus.setText("YOU WIN");
-							setLevel(2);
+							level =2;
 						}
 					}
 				}
-				if (getLevel() == 2) {
+				if (level == 2) {
 					if (g2.getHero().wall(g2.getMap(), 's')) {
 						lblGameStatus.setText("-----LEVEL 2-----");
 						g2.logicLevel2('s', j);
-						img.updateMap(g2.getMap().getMap());
+						img.updateMap(g2.getMap().getMap(),g,g2,level,j);
 						img.repaint();
 						for (int w = 0; w < g2.getOgres().size(); w++) {
 							if (!g2.getOgres().get(w).getStunned()) {
@@ -397,15 +400,6 @@ public class window1 {
 		});
 
 	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
 	///////////////////////////////////////// USEFUL//////////////////////////////////////
 	public static String printMap(Map map) {
 		String p = "";

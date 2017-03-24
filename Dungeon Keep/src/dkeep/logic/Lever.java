@@ -8,7 +8,7 @@ public class Lever extends Object {
 	public Lever() {
 		super();
 		open = false;
-		defineSymbol();
+		this.symbol = 'k';
 	}
 	/**
 	 * @brief Constructor for class Lever with coordinates.
@@ -17,7 +17,7 @@ public class Lever extends Object {
 		this.x = x;
 		this.y = y;
 		open = false;
-		defineSymbol();
+		this.symbol = 'k';
 	}
 
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
@@ -30,12 +30,6 @@ public class Lever extends Object {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @brief Defines attribute symbol as k.
-	 */	
-	public void defineSymbol() {
-		this.symbol = 'k';
-	}
 	/**
 	 * Changes Lever's status to raised.
 	 */

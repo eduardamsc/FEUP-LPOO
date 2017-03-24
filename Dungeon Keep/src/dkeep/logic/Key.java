@@ -9,7 +9,7 @@ public class Key extends Object {
 	public Key() {
 		super();
 		pickedUp = false;
-		defineSymbol();
+		this.symbol = 'k';
 	}
 	/**
 	 * @brief Constructor for class Hero with coordinates.
@@ -18,7 +18,7 @@ public class Key extends Object {
 		this.x = x;
 		this.y = y;
 		pickedUp = false;
-		defineSymbol();
+		this.symbol = 'k';
 	}
 
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
@@ -31,12 +31,6 @@ public class Key extends Object {
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @brief Defines attribute symbol as k.
-	 */	
-	public void defineSymbol() {
-		this.symbol = 'k';
-	}
 	/**
 	 * @brief Changes Key to being pickedUp and symbol to empty, as it should no longer appear on the map.
 	 */
