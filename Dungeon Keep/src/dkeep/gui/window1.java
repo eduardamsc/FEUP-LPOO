@@ -22,14 +22,21 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
+
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 
 public class window1 {
-
+	
+	private ImgPanel img;
 	private JFrame frame;
 	private JTextField textField;
 	private Game g;
@@ -52,7 +59,8 @@ public class window1 {
 			}
 		});
 	}
-
+	
+	
 	/**
 	 * Create the application.
 	 */
@@ -65,10 +73,10 @@ public class window1 {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 536, 388);
+		frame.setBounds(100, 100, 592, 523);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		textField = new JTextField();
 		textField.setBounds(150, 28, 43, 21);
 		frame.getContentPane().add(textField);
@@ -76,7 +84,7 @@ public class window1 {
 		textField.setText("1");
 
 		JLabel lblGameStatus = new JLabel("******* *DUNGEON'S KEEPER* *******");
-		lblGameStatus.setBounds(20, 327, 252, 16);
+		lblGameStatus.setBounds(20, 442, 252, 16);
 		frame.getContentPane().add(lblGameStatus);
 
 		JButton btnExit = new JButton("Exit");
@@ -85,197 +93,14 @@ public class window1 {
 				System.exit(0);
 			}
 		});
-		btnExit.setBounds(393, 301, 117, 29);
+		btnExit.setBounds(366, 387, 117, 29);
 		frame.getContentPane().add(btnExit);
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Rookie", "Drunken", "Suspicious" }));
 		comboBox.setBounds(150, 55, 127, 27);
 		frame.getContentPane().add(comboBox);
-
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-		textArea.setBounds(20, 98, 329, 221);
-		frame.getContentPane().add(textArea);
-
-		///////////////////////////////////////// MOVEMENT//////////////////////////////////////
-		JButton btnUp = new JButton("Up");
-		btnUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (level == 1) {
-					if (g.getHero().wall(g.getMap(), 'w')) {
-
-						lblGameStatus.setText("-----LEVEL 1-----");
-						g.logicLevel1('w');
-						textArea.setText(printMap(g.getMap()));
-						if (g.getGameOver()) {
-							lblGameStatus.setText("*********** *GAME OVER* ***********");
-						} else if (g.checkVictory()) {
-							lblGameStatus.setText("YOU WIN");
-							level = 2;
-						}
-					}
-					if (level == 2) {
-						if (g2.getHero().wall(g2.getMap(), 'w')) {
-							lblGameStatus.setText("-----LEVEL 2-----");
-							g2.logicLevel2('w', j);
-							textArea.setText(printMap(g2.getMap()));
-
-							for (int w = 0; w < g2.getOgres().size(); w++) {
-								if (!g2.getOgres().get(w).getStunned()) {
-									j[w] = 0;
-								} else {
-									j[w]++;
-								}
-							}
-
-							if (g2.getGameOver()) {
-								lblGameStatus.setText("*********** *GAME OVER* ***********");
-							} else if (g2.checkVictory()) {
-								lblGameStatus.setText("YOU WIN");
-							}
-						}
-					}
-				}
-			}
-		});
-		btnUp.setEnabled(false);
-		btnUp.setBounds(406, 153, 78, 29);
-		frame.getContentPane().add(btnUp);
-
-		JButton btnLeft = new JButton("Left");
-		btnLeft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (level == 1) {
-					if (g.getHero().wall(g.getMap(), 'a')) {
-
-						lblGameStatus.setText("-----LEVEL 1-----");
-						g.logicLevel1('a');
-						textArea.setText(printMap(g.getMap()));
-						if (g.getGameOver()) {
-							lblGameStatus.setText("*********** *GAME OVER* ***********");
-						} else if (g.checkVictory()) {
-							lblGameStatus.setText("YOU WIN");
-							level = 2;
-						}
-					}
-
-					if (level == 2) {
-						if (g2.getHero().wall(g2.getMap(), 'a')) {
-							lblGameStatus.setText("-----LEVEL 2-----");
-							g2.logicLevel2('a', j);
-							textArea.setText(printMap(g2.getMap()));
-
-							for (int w = 0; w < g2.getOgres().size(); w++) {
-								if (!g2.getOgres().get(w).getStunned()) {
-									j[w] = 0;
-								} else {
-									j[w]++;
-								}
-							}
-
-							if (g2.getGameOver()) {
-								lblGameStatus.setText("*********** *GAME OVER* ***********");
-							} else if (g2.checkVictory()) {
-								lblGameStatus.setText("YOU WIN");
-							}
-						}
-					}
-				}
-			}
-		});
-		btnLeft.setEnabled(false);
-		btnLeft.setBounds(360, 182, 79, 29);
-		frame.getContentPane().add(btnLeft);
-
-		JButton btnRight = new JButton("Right");
-		btnRight.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				if (level == 1) {
-					if (g.getHero().wall(g.getMap(), 'd')) {
-						lblGameStatus.setText("-----LEVEL 1-----");
-						g.logicLevel1('d');
-						textArea.setText(printMap(g.getMap()));
-						if (g.getGameOver()) {
-							lblGameStatus.setText("*********** *GAME OVER* ***********");
-						} else if (g.checkVictory()) {
-							lblGameStatus.setText("YOU WIN");
-							level = 2;
-						}
-					}
-					if (level == 2) {
-						if (g2.getHero().wall(g2.getMap(), 'd')) {
-							lblGameStatus.setText("-----LEVEL 2-----");
-							g2.logicLevel2('d', j);
-							textArea.setText(printMap(g2.getMap()));
-
-							for (int w = 0; w < g2.getOgres().size(); w++) {
-								if (!g2.getOgres().get(w).getStunned()) {
-									j[w] = 0;
-								} else {
-									j[w]++;
-								}
-							}
-
-							if (g2.getGameOver()) {
-								lblGameStatus.setText("*********** *GAME OVER* ***********");
-							} else if (g2.checkVictory()) {
-								lblGameStatus.setText("YOU WIN");
-							}
-						}
-					}
-				}
-			}
-		});
-		btnRight.setEnabled(false);
-		btnRight.setBounds(451, 182, 79, 29);
-		frame.getContentPane().add(btnRight);
-
-		JButton btnDown = new JButton("Down");
-		btnDown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (level == 1) {
-					if (g.getHero().wall(g.getMap(), 's')) {
-						lblGameStatus.setText("-----LEVEL 1-----");
-						g.logicLevel1('s');
-						textArea.setText(printMap(g.getMap()));
-						if (g.getGameOver()) {
-							lblGameStatus.setText("*********** *GAME OVER* ***********");
-						} else if (g.checkVictory()) {
-							lblGameStatus.setText("YOU WIN");
-							level = 2;
-						}
-					}
-					if (level == 2) {
-						if (g2.getHero().wall(g2.getMap(), 's')) {
-							lblGameStatus.setText("-----LEVEL 2-----");
-							g2.logicLevel2('s', j);
-							textArea.setText(printMap(g2.getMap()));
-
-							for (int w = 0; w < g2.getOgres().size(); w++) {
-								if (!g2.getOgres().get(w).getStunned()) {
-									j[w] = 0;
-								} else {
-									j[w]++;
-								}
-							}
-
-							if (g2.getGameOver()) {
-								lblGameStatus.setText("*********** *GAME OVER* ***********");
-							} else if (g2.checkVictory()) {
-								lblGameStatus.setText("YOU WIN");
-							}
-						}
-					}
-				}
-			}
-		});
-		btnDown.setEnabled(false);
-		btnDown.setBounds(405, 212, 79, 29);
-		frame.getContentPane().add(btnDown);
-		/////////////////////////////////////////////////////////////////////////////////////////
+		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
 		lblNumberOfOgres.setBounds(20, 31, 113, 16);
 		frame.getContentPane().add(lblNumberOfOgres);
@@ -284,16 +109,44 @@ public class window1 {
 		lblGuardPersonality.setBounds(20, 59, 141, 16);
 		frame.getContentPane().add(lblGuardPersonality);
 
+		JButton btnUp = new JButton("Up");
+		btnUp.setEnabled(false);
+		btnUp.setBounds(387, 208, 78, 29);
+		frame.getContentPane().add(btnUp);
+
+		JButton btnLeft = new JButton("Left");
+		btnLeft.setEnabled(false);
+		btnLeft.setBounds(346, 235, 79, 29);
+		frame.getContentPane().add(btnLeft);
+
+		JButton btnRight = new JButton("Right");
+		btnRight.setEnabled(false);
+		btnRight.setBounds(426, 235, 79, 29);
+		frame.getContentPane().add(btnRight);
+
+		JButton btnDown = new JButton("Down");
+		btnDown.setEnabled(false);
+		btnDown.setBounds(386, 265, 79, 29);
+		frame.getContentPane().add(btnDown);
+		
 		JButton btnNewGame = new JButton("New Game");
+		btnNewGame.setBounds(366, 113, 117, 29);
+		frame.getContentPane().add(btnNewGame);
+		
+		img = new ImgPanel();
+		img.setBounds(20, 113, 314, 317);
+		frame.getContentPane().add(img);
+		
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				g = new Game();
-				level = 1;
+				setLevel(1);
 				btnUp.setEnabled(true);
 				btnDown.setEnabled(true);
 				btnRight.setEnabled(true);
 				btnLeft.setEnabled(true);
+				lblGameStatus.setText("-----LEVEL 1-----");
 
 				if (Float.parseFloat(textField.getText()) > 5.0 || Float.parseFloat(textField.getText()) < 1.0
 						|| (Float.parseFloat(textField.getText()) % 1 != 0)) {
@@ -315,7 +168,8 @@ public class window1 {
 					g.getGuards().add(new GuardSuspicious(1, 8));
 				}
 				g.getMap().insertCharacter(g.getGuards().get(0));
-				textArea.setText(printMap(g.getMap()));
+				img.updateMap(g.getMap().getMap());
+				img.repaint();
 
 				g2 = new Game();
 
@@ -348,9 +202,208 @@ public class window1 {
 				Arrays.fill(j, 0);
 			}
 		});
-		btnNewGame.setBounds(393, 91, 117, 29);
-		frame.getContentPane().add(btnNewGame);
+		
+////////////////////////////////////////MOVEMENT/////////////////////////////////////////////////
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (getLevel() == 1 && !g.getGameOver()) {
+					if (g.getHero().wall(g.getMap(), 'w')) {
 
+						lblGameStatus.setText("-----LEVEL 1-----");
+						g.logicLevel1('w');
+						img.updateMap(g.getMap().getMap());
+						img.repaint();
+						if (g.getGameOver()) {
+							lblGameStatus.setText("*********** *GAME OVER* ***********");
+						} else if (g.checkVictory()) {
+							lblGameStatus.setText("YOU WIN");
+							setLevel(2);
+						}
+					}
+				}
+				if (getLevel() == 2) {
+					if (g2.getHero().wall(g2.getMap(), 'w')) {
+						lblGameStatus.setText("-----LEVEL 2-----");
+						g2.logicLevel2('w', j);
+						img.updateMap(g2.getMap().getMap());
+						img.repaint();
+						for (int w = 0; w < g2.getOgres().size(); w++) {
+							if (!g2.getOgres().get(w).getStunned()) {
+								j[w] = 0;
+							} else {
+								j[w]++;
+							}
+						}
+
+						if (g2.getGameOver()) {
+							lblGameStatus.setText("*********** *GAME OVER* ***********");
+						} else if (g2.checkVictory()) {
+							lblGameStatus.setText("YOU WIN");
+						}
+					}
+					if (g.getGameOver() || g2.getGameOver())
+					{
+						btnUp.setEnabled(false);
+						btnDown.setEnabled(false);
+						btnRight.setEnabled(false);
+						btnLeft.setEnabled(false);
+					}
+				}
+			}
+		});
+		
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (getLevel() == 1 && !g.getGameOver()) {
+					if (g.getHero().wall(g.getMap(), 'a')) {
+
+						lblGameStatus.setText("-----LEVEL 1-----");
+						g.logicLevel1('a');
+						img.updateMap(g.getMap().getMap());
+						img.repaint();
+						if (g.getGameOver()) {
+							lblGameStatus.setText("*********** *GAME OVER* ***********");
+						} else if (g.checkVictory()) {
+							lblGameStatus.setText("YOU WIN");
+							setLevel(2);
+						}
+					}
+				}
+
+				if (getLevel() == 2) {
+					if (g2.getHero().wall(g2.getMap(), 'a')) {
+						lblGameStatus.setText("-----LEVEL 2-----");
+						g2.logicLevel2('a', j);
+						img.updateMap(g2.getMap().getMap());
+						img.repaint();
+						for (int w = 0; w < g2.getOgres().size(); w++) {
+							if (!g2.getOgres().get(w).getStunned()) {
+								j[w] = 0;
+							} else {
+								j[w]++;
+							}
+						}
+
+						if (g2.getGameOver()) {
+							lblGameStatus.setText("*********** *GAME OVER* ***********");
+						} else if (g2.checkVictory()) {
+							lblGameStatus.setText("YOU WIN");
+						}
+					}
+				}
+				if (g.getGameOver() || g2.getGameOver())
+				{
+					btnUp.setEnabled(false);
+					btnDown.setEnabled(false);
+					btnRight.setEnabled(false);
+					btnLeft.setEnabled(false);
+				}
+			}
+		});
+		
+		btnRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (getLevel() == 1 && !g.getGameOver()) {
+					if (g.getHero().wall(g.getMap(), 'd')) {
+						lblGameStatus.setText("-----LEVEL 1-----");
+						g.logicLevel1('d');
+						img.updateMap(g.getMap().getMap());
+						img.repaint();
+						if (g.getGameOver()) {
+							lblGameStatus.setText("*********** *GAME OVER* ***********");
+						} else if (g.checkVictory()) {
+							lblGameStatus.setText("YOU WIN");
+							setLevel(2);
+						}
+					}
+				}
+				if (getLevel() == 2) {
+					if (g2.getHero().wall(g2.getMap(), 'd')) {
+						lblGameStatus.setText("-----LEVEL 2-----");
+						g2.logicLevel2('d', j);
+						img.updateMap(g2.getMap().getMap());
+						img.repaint();
+						for (int w = 0; w < g2.getOgres().size(); w++) {
+							if (!g2.getOgres().get(w).getStunned()) {
+								j[w] = 0;
+							} else {
+								j[w]++;
+							}
+						}
+
+						if (g2.getGameOver()) {
+							lblGameStatus.setText("*********** *GAME OVER* ***********");
+						} else if (g2.checkVictory()) {
+							lblGameStatus.setText("YOU WIN");
+						}
+					}
+				}
+				if (g.getGameOver() || g2.getGameOver())
+				{
+					btnUp.setEnabled(false);
+					btnDown.setEnabled(false);
+					btnRight.setEnabled(false);
+					btnLeft.setEnabled(false);
+				}
+			}
+		});
+	
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (getLevel() == 1 && !g.getGameOver()) {
+					if (g.getHero().wall(g.getMap(), 's')) {
+						lblGameStatus.setText("-----LEVEL 1-----");
+						g.logicLevel1('s');
+						img.updateMap(g.getMap().getMap());
+						img.repaint();
+						if (g.getGameOver()) {
+							lblGameStatus.setText("*********** *GAME OVER* ***********");
+						} else if (g.checkVictory()) {
+							lblGameStatus.setText("YOU WIN");
+							setLevel(2);
+						}
+					}
+				}
+				if (getLevel() == 2) {
+					if (g2.getHero().wall(g2.getMap(), 's')) {
+						lblGameStatus.setText("-----LEVEL 2-----");
+						g2.logicLevel2('s', j);
+						img.updateMap(g2.getMap().getMap());
+						img.repaint();
+						for (int w = 0; w < g2.getOgres().size(); w++) {
+							if (!g2.getOgres().get(w).getStunned()) {
+								j[w] = 0;
+							} else {
+								j[w]++;
+							}
+						}
+						if (g2.getGameOver()) {
+							lblGameStatus.setText("*********** *GAME OVER* ***********");
+						} else if (g2.checkVictory()) {
+							lblGameStatus.setText("YOU WIN");
+						}
+					}
+				}
+				if (g.getGameOver() || g2.getGameOver())
+				{
+					btnUp.setEnabled(false);
+					btnDown.setEnabled(false);
+					btnRight.setEnabled(false);
+					btnLeft.setEnabled(false);
+				}
+			}
+			
+		});
+
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	///////////////////////////////////////// USEFUL//////////////////////////////////////

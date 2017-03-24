@@ -24,7 +24,7 @@ public class Game {
 	{
 		
 	}
-	
+
 	/**
 	 * @brief Constructor for class Game with parameter.
 	 * @param map Array of chars which defines a map.
@@ -160,7 +160,6 @@ public class Game {
 
 		return false;
 	}
-
 	/**
 	 * @brief Deals with all the logic related to level 2.
 	 * @param direction Direction received as input from the user to move the Hero.
@@ -184,7 +183,7 @@ public class Game {
 		{
 			if (!ogres.get(j).getStunned())
 			{
-				if (OgreCatchHero()) { // checks if guard has caught hero
+				if (OgreCatchHero()) { // checks if ogre has caught hero
 					setGameOver(true);
 					return true;
 				}
@@ -192,7 +191,7 @@ public class Game {
 		}
 		return false;
 	}
-
+	
 	///////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @brief Checks if Hero is past the exits, winning.
@@ -210,7 +209,6 @@ public class Game {
 		}
 		return false;
 	}
-
 	/**
 	 * @brief Checks if Exits are opened.
 	 * @return True for open Exits.
@@ -228,7 +226,7 @@ public class Game {
 		}
 		return false;
 	}
-
+	
 	/////////////////////////////////////////HERO//////////////////////////////////////
 	/**
 	 * @brief Moves Hero.
