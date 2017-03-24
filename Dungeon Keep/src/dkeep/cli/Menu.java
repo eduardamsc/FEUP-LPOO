@@ -12,6 +12,7 @@ public class Menu {
 		System.out.println("*******");
 		System.out.println("*START*");
 		System.out.println("*******");
+		System.out.println("Play with the keys a,w,s,d.");
 
 		Game g = new Game();
 
@@ -26,9 +27,6 @@ public class Menu {
 		boolean nextLevel = true; // permission to play level 2
 		
 		System.out.println("-----LEVEL 1-----");
-		System.out
-		.println("*************\n* X - wall  *\n* I - door  *\n* H - guard *\n* k - lever *\n*************\n");
-		System.out.println("Play with the keys a,w,s,d.");
 		
 		g.loadElementsLevel1();
 		printMap(g.getMap());
@@ -63,9 +61,6 @@ public class Menu {
 	public static void level2(Game g)
 	{	
 		System.out.println("-----LEVEL 2-----");
-		System.out.println("******************\n" + "* X - wall       *\n" + "* I - exit door  *\n"
-				+ "* O - crazy ogre *\n" + "* k - key        *\n" + "******************\n");
-		System.out.println("Play with the keys a,w,s,d.");
 		
 		g.loadElementsLevel2();
 		printMap(g.getMap());

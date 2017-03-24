@@ -101,38 +101,6 @@ public abstract class Character {
 				return wallAux(map,0,1);
 		}
 		return true;
-			
-		/*if (direction == 'w') {
-			if (map.getMap()[x - 1][y] == 'X' || map.getMap()[x - 1][y] == 'k' || map.getMap()[x - 1][y] == 'I'
-					|| map.getMap()[x - 1][y] == 'H' || map.getMap()[x - 1][y] == 'A' || map.getMap()[x - 1][y] == 'K' 
-					|| x - 1 < 0 || y < 0 || x - 1 > map.getMap().length
-					|| y > map.getMap()[x - 1].length)
-				return false;
-		}
-
-		if (direction == 's') {
-			if (map.getMap()[x + 1][y] == 'X' || map.getMap()[x + 1][y] == 'k' || map.getMap()[x + 1][y] == 'I'
-					|| map.getMap()[x + 1][y] == 'H' || map.getMap()[x + 1][y] == 'A' || map.getMap()[x + 1][y] == 'K'
-					|| x + 1 < 0 || y < 0 || x + 1 > map.getMap().length
-					|| y > map.getMap()[x - 1].length)
-				return false;
-		}
-
-		if (direction == 'a') {
-			if (map.getMap()[x][y - 1] == 'X' || map.getMap()[x][y - 1] == 'k' || map.getMap()[x][y - 1] == 'I'
-					|| map.getMap()[x][y - 1] == 'H' || map.getMap()[x][y - 1] == 'A' || map.getMap()[x][y - 1] == 'K'
-					|| x < 0 || y - 1 < 0 || x > map.getMap().length
-					|| y > map.getMap()[x].length)
-				return false;
-		}
-
-		if (direction == 'd') {
-			if (map.getMap()[x][y + 1] == 'X' || map.getMap()[x][y + 1] == 'k' || map.getMap()[x][y + 1] == 'I'
-					|| map.getMap()[x][y + 1] == 'H'|| map.getMap()[x][y + 1] == 'A'|| map.getMap()[x][y + 1] == 'K'
-					|| x < 0 || y - 1 < 0 || x > map.getMap().length
-					|| y > map.getMap()[x].length)
-				return false;
-		}*/
 	}	
 	/**
 	 * @brief Checks if Character can move.
@@ -185,14 +153,10 @@ public abstract class Character {
 		char direction = ' ';
 		Random n = new Random();
 		int value = n.nextInt(4);
-		if (value == 0)
-			direction = 'a';
-		if (value == 1)
-			direction = 'w';
-		if (value == 2)
-			direction = 's';
-		if (value == 3)
-			direction = 'd';
+		if (value == 0) direction = 'a';
+		else if (value == 1) direction = 'w';
+		else if (value == 2) direction = 's';
+		else if (value == 3) direction = 'd';
 
 		return direction;
 	}
