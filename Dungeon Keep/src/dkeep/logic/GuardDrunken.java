@@ -10,9 +10,10 @@ public class GuardDrunken extends Guard{
 	{
 		super();
 	}
+
 	/**
 	 * @brief Constructor for class GuardDrunken with coordinates.
-	 */	
+	 */
 	public GuardDrunken(int x, int y) {
 		identifier(x, y);
 	}
@@ -22,7 +23,7 @@ public class GuardDrunken extends Guard{
 	 *        trajectory, reversing his trajectory and falling asleep.
 	 */
 	public void behavior() {
-		
+
 		if (getAwake()) {
 
 			if (this.rightWay) {
