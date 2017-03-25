@@ -36,6 +36,7 @@ public class ImgPanel extends JPanel implements KeyListener{
 	private int level;
 	private int[] j;
 	
+	
 	public ImgPanel(){
 
 		try {
@@ -72,6 +73,8 @@ public class ImgPanel extends JPanel implements KeyListener{
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
+		
+		
 		for (int i = 0; i < this.map.length; i++) {
 			for (int j = 0; j < this.map[i].length; j++) {
 				if(this.map[j][i]=='D')

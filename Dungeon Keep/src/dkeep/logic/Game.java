@@ -421,42 +421,42 @@ public class Game {
 	 * @brief Changes Ogres' and respective Clubs symbols according to Key proximity.
 	 */	
 	public void nearKey() {
-		
+		ogreNearKey();
+		clubNearKey();
+	}
+	/**
+	 * @brief Changes Ogres' symbols according to Key proximity.
+	 */	
+	public void ogreNearKey() {
 		for (int i = 0; i < ogres.size(); i++) {
-			if (((key.getX() - 1 == ogres.get(i).getX() && key.getY() == ogres.get(i).getY())
-					|| (key.getX() + 1 == ogres.get(i).getX() && key.getY() == ogres.get(i).getY())
-					|| (key.getX() == ogres.get(i).getX() && key.getY() - 1 == ogres.get(i).getY())
-					|| (key.getX() == ogres.get(i).getX() && key.getY() + 1 == ogres.get(i).getY())) && !key.getPickedUp())
-			// if ogre is near key (up,down,left,right)
-			{
-				// ogre turns to $ and updates
+			if (auxKey(i,-1, 0)||auxKey(i,1, 0)||auxKey(i,0,-1)||auxKey(i,0,1)
+					&& !key.getPickedUp()) {
 				ogres.get(i).setSymbol('$');
 				updateCharacterPosition(ogres.get(i));
+			} else if (ogres.get(i).getStunned() == true) {
+				ogres.get(i).setSymbol('8');
+				updateCharacterPosition(ogres.get(i));
 			} else {
-				if (ogres.get(i).getStunned() == true) {
-					ogres.get(i).setSymbol('8');
-					updateCharacterPosition(ogres.get(i));
-				} else {
-					ogres.get(i).setSymbol('O');
-					updateCharacterPosition(ogres.get(i));
-				}
+				ogres.get(i).setSymbol('O');
+				updateCharacterPosition(ogres.get(i));
 			}
-
-			for (int j = 1; j < clubs.size(); j++) {
-				if (((key.getX() - 1 == clubs.get(j).getX() && key.getY() == clubs.get(j).getY())
-						|| (key.getX() + 1 == clubs.get(j).getX() && key.getY() == clubs.get(j).getY())
-						|| (key.getX() == clubs.get(j).getX() && key.getY() - 1 == clubs.get(j).getY())
-						|| (key.getX() == clubs.get(j).getX() && key.getY() + 1 == clubs.get(j).getY()))
-						&& !key.getPickedUp())
-				// if club is near key (up,down,left,right)
-				{
-					// club turns to $ and updates
-					clubs.get(j).setSymbol('$');
-					updateCharacterPosition(clubs.get(j));
-				} else {
-					clubs.get(j).setSymbol('*');
-					updateCharacterPosition(clubs.get(j));
-				}
+		}
+	}
+	/**
+	 * @brief Changes Clubs' symbols according to Key proximity.
+	 */	
+	public void clubNearKey() {
+		for (int j = 1; j < clubs.size(); j++) {
+			if (((key.getX() - 1 == clubs.get(j).getX() && key.getY() == clubs.get(j).getY())
+					|| (key.getX() + 1 == clubs.get(j).getX() && key.getY() == clubs.get(j).getY())
+					|| (key.getX() == clubs.get(j).getX() && key.getY() - 1 == clubs.get(j).getY())
+					|| (key.getX() == clubs.get(j).getX() && key.getY() + 1 == clubs.get(j).getY()))
+					&& !key.getPickedUp()) {
+				clubs.get(j).setSymbol('$');
+				updateCharacterPosition(clubs.get(j));
+			} else {
+				clubs.get(j).setSymbol('*');
+				updateCharacterPosition(clubs.get(j));
 			}
 		}
 	}
@@ -468,6 +468,16 @@ public class Game {
 		moveOgre();
 		nearKey(); // checks if ogre is near key and updates
 		stunOgre(i); // checks if hero stuns ogre
+	}
+	/**
+	 * @brief Auxiliary method to see surrounding sides of Ogre to look for Key.
+	 */
+	public boolean auxKey(int z, int x, int y)
+	{
+		int a=x+key.getX(), b=y+key.getY();
+		if (a == ogres.get(z).getX() && b == ogres.get(z).getY())
+			return true;
+		else return false;
 	}
 	/////////////////////////////////////////UPDATE MAP//////////////////////////////////////
 	/**

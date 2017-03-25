@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.OverlayLayout;
 
 import dkeep.cli.Menu;
 import dkeep.logic.Club;
@@ -143,7 +144,6 @@ public class window1 {
 		img.setBounds(20, 113, 314, 317);
 		img.setFocusable(true);
 		frame.getContentPane().add(img);
-		
 ////////////////////////////////////////MOVEMENT/////////////////////////////////////////////////
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
