@@ -175,10 +175,8 @@ public class Game {
 	 */	
 	public boolean logicLevel2(char direction, int[] i) {
 		setGameOver(false);
-		moveHero(direction);
-		moveOgre();
-		nearKey(); // checks if ogre is near key and updates
-		stunOgre(i); // checks if hero stuns ogre
+		heroLevel2(direction);
+		ogreLevel2(i);
 		checkExitsOpen();
 		for (int j = 0; j < ogres.size(); j++) {
 			if (!ogres.get(j).getStunned()) {
@@ -324,7 +322,15 @@ public class Game {
 			}
 		}
 	}
-	
+	/**
+	 * @brief Deals with all logic of Hero movement and picking up things in Level 2.
+	 */
+	public void heroLevel2(char direction)
+	{
+		moveHero(direction);
+		pickKey();
+		pickClub();
+	}
 	/////////////////////////////////////////GUARD//////////////////////////////////////
 	/**
 	 * @brief Moves Guards.
@@ -454,7 +460,15 @@ public class Game {
 			}
 		}
 	}
-
+	/**
+	 * @brief Deals with all logic of Ogre movement and being near things in Level 2.
+	 */
+	public void ogreLevel2(int[] i)
+	{
+		moveOgre();
+		nearKey(); // checks if ogre is near key and updates
+		stunOgre(i); // checks if hero stuns ogre
+	}
 	/////////////////////////////////////////UPDATE MAP//////////////////////////////////////
 	/**
 	 * @brief initializes all objects and inserts them on level 1 map.
