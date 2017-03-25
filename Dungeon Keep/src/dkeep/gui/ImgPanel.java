@@ -43,25 +43,25 @@ public class ImgPanel extends JPanel{
 	
 	public ImgPanel(){
 		try {
-			this.start = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/cover.png" ) );
-			this.wall = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/wall.png" ) );
-			this.exitClosed = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/exitClosed.png" ) );
-			this.exitOpened = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/exitOpened.png" ) );
-			this.hero = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/heroFront.png" ) );
-			this.heroArmed = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/heroArmedFront.png" ) );
-			this.heroKey = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/heroKeyFront.png" ) );
-			this.heroDead = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/heroDeadFront.png" ) );
-			this.guard = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/guardFront.png" ) );
-			this.guardSleeping = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/guardSleepingFront.png" ) );
-			this.ogre = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/OgreFront.png" ) );
-			this.ogreStunned = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/ogreStunnedFront.png" ) );
-			this.leverClosed = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/leverClosed.png" ) );
-			this.leverOpened = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/leverOpened.png" ) );
-			this.key = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/key.png" ) );
-			this.clubUp = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/swordUp.png" ) );
-			this.clubDown = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/swordDown.png" ) );
-			this.clubLeft = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/swordLeft.png" ) );
-			this.clubRight = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/swordRight.png" ) );
+			this.start = ImageIO.read( new File( "images/cover.png" ) );
+			this.wall = ImageIO.read( new File( "images/wall.png" ) );
+			this.exitClosed = ImageIO.read( new File( "images/exitClosed.png" ) );
+			this.exitOpened = ImageIO.read( new File( "images/exitOpened.png" ) );
+			this.hero = ImageIO.read( new File( "images/heroFront.png" ) );
+			this.heroArmed = ImageIO.read( new File( "images/heroArmedFront.png" ) );
+			this.heroKey = ImageIO.read( new File( "images/heroKeyFront.png" ) );
+			this.heroDead = ImageIO.read( new File( "images/heroDeadFront.png" ) );
+			this.guard = ImageIO.read( new File( "images/guardFront.png" ) );
+			this.guardSleeping = ImageIO.read( new File( "images/guardSleepingFront.png" ) );
+			this.ogre = ImageIO.read( new File( "images/OgreFront.png" ) );
+			this.ogreStunned = ImageIO.read( new File( "images/ogreStunnedFront.png" ) );
+			this.leverClosed = ImageIO.read( new File( "images/leverClosed.png" ) );
+			this.leverOpened = ImageIO.read( new File( "images/leverOpened.png" ) );
+			this.key = ImageIO.read( new File( "images/key.png" ) );
+			this.clubUp = ImageIO.read( new File( "images/swordUp.png" ) );
+			this.clubDown = ImageIO.read( new File( "images/swordDown.png" ) );
+			this.clubLeft = ImageIO.read( new File( "images/swordLeft.png" ) );
+			this.clubRight = ImageIO.read( new File( "images/swordRight.png" ) );
 			
 		} catch (IOException e1) {
 			System.out.println(e1.getCause());

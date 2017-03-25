@@ -234,28 +234,30 @@ public class window1 {
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				level('w');
+				img.requestFocus();
 			}
 		});
 
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				level('a');
+				img.requestFocus();
 			}
 		});
 
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				level('d');
+				img.requestFocus();
 			}
 		});
 
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				level('s');
+				img.requestFocus();
 			}
 		});
-		img.setFocusable(true);
-		img.requestFocus();
 	}
 
 	///////////////////////////////////////// USEFUL//////////////////////////////////////
