@@ -42,11 +42,6 @@ public class ImgPanel extends JPanel{
 	
 	
 	public ImgPanel(){
-		KeyListener k = new MyKey();
-		addKeyListener(k);
-		setFocusable(true);
-		requestFocus();
-
 		try {
 			this.start = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/cover.png" ) );
 			this.wall = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/wall.png" ) );

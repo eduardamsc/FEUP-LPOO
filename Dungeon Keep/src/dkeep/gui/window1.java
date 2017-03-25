@@ -34,6 +34,8 @@ import java.awt.event.ActionEvent;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class window1 {
 	
@@ -140,6 +142,28 @@ public class window1 {
 		frame.getContentPane().add(btnNewGame);
 		
 		img = new ImgPanel();
+		img.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int key = e.getKeyCode();
+				
+				switch(key)
+				{
+				case KeyEvent.VK_UP:
+					level('w');
+					break;
+				case KeyEvent.VK_DOWN:
+					level('s');
+					break;
+				case KeyEvent.VK_LEFT:
+					level('a');
+					break;
+				case KeyEvent.VK_RIGHT:
+					level('d');
+					break;
+				}
+			}
+		});
 		img.setBounds(20, 113, 314, 317);
 		frame.getContentPane().add(img);
 		
@@ -203,6 +227,7 @@ public class window1 {
 
 				j = new int[g2.getOgres().size()];
 				Arrays.fill(j, 0);
+				img.requestFocus();
 			}
 		});
 		

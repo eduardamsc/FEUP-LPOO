@@ -16,7 +16,7 @@ public class TestDungeonGameLogic {
 	char[][] map2 =  {{'X','X','X','X','X'},
 			{'X','H',' ','O','X'},
 			{'I',' ',' ',' ','X'},
-			{'I','K',' ',' ','X'},
+			{'I','K',' ','*','X'},
 			{'X','X','X','X','X'}};
 	
 	@Test
@@ -238,6 +238,25 @@ public class TestDungeonGameLogic {
 		game.moveHero('d');
 		assertEquals(1,game.getHero().getX());
 		assertEquals(2,game.getHero().getY());
+		assertEquals(true, game.OgreCatchHero());
+	}
+	
+	public void testMoveHeroToClub()
+	{
+		Map map = new Map(this.map);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.moveHero('s');
+		assertEquals(2,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.moveHero('d');
+		assertEquals(2,game.getHero().getX());
+		assertEquals(2,game.getHero().getY());
+		game.moveHero('s');
+		assertEquals(3,game.getHero().getX());
+		assertEquals(2,game.getHero().getY());
+		assertEquals(true,game.getHero().getArmed());
 		assertEquals(true, game.OgreCatchHero());
 	}
 }
