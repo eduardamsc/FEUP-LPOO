@@ -304,23 +304,25 @@ public class Game {
 	{
 		for (int j=0; j<ogres.size();j++)
 		{
-
-			if (((ogres.get(j).getX() - 1 == hero.getX() && ogres.get(j).getY() == hero.getY())
-					|| (ogres.get(j).getX() + 1 == hero.getX() && ogres.get(j).getY() == hero.getY())
-					|| (ogres.get(j).getX() == hero.getX() && ogres.get(j).getY() - 1 == hero.getY())
-					|| (ogres.get(j).getX() == hero.getX() && ogres.get(j).getY() + 1 == hero.getY())) && hero.getArmed())
-			// if ogre is near hero's club (up,down,left,right) and hero is
-			// armed with it
+			if ((auxStun(j,-1,0)||auxStun(j,1,0)||auxStun(j,0,-1)||auxStun(j,0,1)) && hero.getArmed())
 			{
-				// ogre turns to 8 and updates
 				ogres.get(j).stun();
 				updateCharacterPosition(ogres.get(j));
 			} else if (ogres.get(j).getStunned() && i[j] == 2) {
-				// otherwise, ogre goes back to O and updates
 				ogres.get(j).notStunned();
 				updateCharacterPosition(ogres.get(j));
 			}
 		}
+	}
+	/**
+	 * @brief Auxiliary method to see surrounding sides of Hero to stun Ogre.
+	 */
+	public boolean auxStun(int z, int x, int y)
+	{
+		int a=x+ogres.get(z).getX(), b=y+ogres.get(z).getY();
+		if (a == hero.getX() && b == hero.getY())
+			return true;
+		else return false;
 	}
 	/**
 	 * @brief Deals with all logic of Hero movement and picking up things in Level 2.
@@ -371,18 +373,14 @@ public class Game {
 	public void moveOgre() {
 		
 		for (int i = 0; i < ogres.size(); i++) {
-			// generates ogre's trajectory randomly
 			char direction = ogres.get(i).randomTrajectory();
-
 			while (!ogres.get(i).wall(map, direction)) {
 				direction = ogres.get(i).randomTrajectory();
 			}
-			
 			eraseTrailC(ogres.get(i)); // erases ogre's trail as it changes position
 			ogres.get(i).movement(map, direction);
 			updateCharacterPosition(ogres.get(i)); // updates ogre's position on map
 
-			// generates club's position randomly
 			if (ogres.get(i).getArmed()) {
 				eraseTrailC(clubs.get(i + 1));
 				clubs.get(i + 1).movement(map, ogres.get(i).getX(), ogres.get(i).getY());
