@@ -140,10 +140,9 @@ public class window1 {
 		frame.getContentPane().add(btnNewGame);
 		
 		img = new ImgPanel();
-		img.addKeyListener(img);
 		img.setBounds(20, 113, 314, 317);
-		img.setFocusable(true);
 		frame.getContentPane().add(img);
+		
 ////////////////////////////////////////MOVEMENT/////////////////////////////////////////////////
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,9 +157,6 @@ public class window1 {
 				level=1;
 				
 				lblGameStatus.setText("-----LEVEL 1-----");
-
-				
-
 				g.loadElementsLevel1();
 				for (int i = 0; i < g.getGuards().size(); i++) {
 					g.eraseTrailC(g.getGuards().get(i));
@@ -190,7 +186,6 @@ public class window1 {
 				g2.getOgres().clear();
 				g2.getClubs().clear();
 				g2.getClubs().add(new Club(7, 5));
-				g2.getMap().insertCharacter(g2.getClubs().get(0));
 				g2.getMap().insertCharacter(g2.getClubs().get(0));
 				for (int i = 0; i < Integer.parseInt(textField.getText()); i++) {
 					g2.getOgres().add(new Ogre(1, 4));
@@ -234,7 +229,8 @@ public class window1 {
 				level('s');
 			}
 		});
-
+		img.setFocusable(true);
+		img.requestFocus();
 	}
 
 	///////////////////////////////////////// USEFUL//////////////////////////////////////
@@ -289,9 +285,7 @@ public class window1 {
 		else if (g.checkVictory())
 		{
 			lblGameStatus.setText("YOU WIN");
-			System.out.println("1:"+level);
 			level++;
-			System.out.println("2:"+level);
 		}
 	}
 

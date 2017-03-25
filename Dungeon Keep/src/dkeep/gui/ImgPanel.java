@@ -13,13 +13,17 @@ import javax.swing.JPanel;
 import dkeep.logic.Game;
 import dkeep.logic.Map;
 
-public class ImgPanel extends JPanel implements KeyListener{
+public class ImgPanel extends JPanel{
 	private BufferedImage start;
 	private BufferedImage wall;
 	private BufferedImage exitClosed;
 	private BufferedImage exitOpened;
 	private BufferedImage hero;
+	private BufferedImage heroArmed;
+	private BufferedImage heroKey;
+	private BufferedImage heroDead;
 	private BufferedImage guard;
+	private BufferedImage guardSleeping;
 	private BufferedImage ogre;
 	private BufferedImage ogreStunned;
 	private BufferedImage leverClosed;
@@ -38,6 +42,10 @@ public class ImgPanel extends JPanel implements KeyListener{
 	
 	
 	public ImgPanel(){
+		KeyListener k = new MyKey();
+		addKeyListener(k);
+		setFocusable(true);
+		requestFocus();
 
 		try {
 			this.start = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/cover.png" ) );
@@ -45,8 +53,13 @@ public class ImgPanel extends JPanel implements KeyListener{
 			this.exitClosed = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/exitClosed.png" ) );
 			this.exitOpened = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/exitOpened.png" ) );
 			this.hero = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/heroFront.png" ) );
-			this.guard = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/19GuardTras.png" ) );
+			this.heroArmed = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/heroArmedFront.png" ) );
+			this.heroKey = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/heroKeyFront.png" ) );
+			this.heroDead = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/heroDeadFront.png" ) );
+			this.guard = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/guardFront.png" ) );
+			this.guardSleeping = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/guardSleepingFront.png" ) );
 			this.ogre = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/OgreFront.png" ) );
+			this.ogreStunned = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/ogreStunnedFront.png" ) );
 			this.leverClosed = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/leverClosed.png" ) );
 			this.leverOpened = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/leverOpened.png" ) );
 			this.key = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/key.png" ) );
@@ -109,13 +122,24 @@ public class ImgPanel extends JPanel implements KeyListener{
 		paintOgres(g, i, j);
 	}
 	
-	public void paintHeros(Graphics g, int i, int j)
-	{
+	public void paintHeros(Graphics g, int i, int j) {
 		if (this.map[j][i] == 'H') {
 			g.drawImage(this.hero, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		} else if (this.map[j][i] == 'A') {
+			g.drawImage(this.heroArmed, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		} else if (this.map[j][i] == 'K') {
+			g.drawImage(this.heroKey, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		}
+		if (level == 1) {
+			if ((this.map[j][i] == 'H') && game.GuardCatchHero())
+				g.drawImage(this.heroDead, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+
+		} else if (level == 2) {
+			if ((this.map[j][i] == 'H'||this.map[j][i] == 'A'||this.map[j][i] == 'K') && game.OgreCatchHero())
+				g.drawImage(this.heroDead, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		}
 	}
-	
+
 	public void paintOgres(Graphics g, int i, int j)
 	{
 		if (this.map[j][i] == 'O') {
@@ -129,6 +153,8 @@ public class ImgPanel extends JPanel implements KeyListener{
 	{
 		if (this.map[j][i] == 'G') {
 			g.drawImage(this.guard, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		} else if (this.map[j][i] == 'g') {
+			g.drawImage(this.guardSleeping, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		}
 	}
 	
@@ -165,7 +191,7 @@ public class ImgPanel extends JPanel implements KeyListener{
 			else if (aux(j, i, 0, -1)) g.drawImage(this.clubDown, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 			else if (aux(j, i, 1, 0)) g.drawImage(this.clubLeft, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 			else if (aux(j, i, -1, 0)) g.drawImage(this.clubRight, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-			
+			else g.drawImage(this.clubUp, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		}
 	}
 	
@@ -177,33 +203,5 @@ public class ImgPanel extends JPanel implements KeyListener{
 		else return false;
 	}
 	
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		
-		switch(key)
-		{
-		case KeyEvent.VK_UP:
-			break;
-		case KeyEvent.VK_DOWN:
-			break;
-		case KeyEvent.VK_LEFT:
-			break;
-		case KeyEvent.VK_RIGHT:
-			break;
-		}
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
