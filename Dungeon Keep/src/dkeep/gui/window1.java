@@ -262,12 +262,7 @@ public class window1 {
 			g.logicLevel1(direction);
 			img.updateMap(g.getMap().getMap(), g, g2, level, j);
 			img.repaint();
-			if (g.getGameOver()) {
-				lblGameStatus.setText("*********** *GAME OVER* ***********");
-			} else if (g.checkVictory()) {
-				lblGameStatus.setText("YOU WIN");
-				level = 2;
-			}
+			levelEnd(g);
 		}
 	}
 
@@ -278,17 +273,23 @@ public class window1 {
 			img.updateMap(g2.getMap().getMap(), g, g2, level, j);
 			img.repaint();
 			for (int w = 0; w < g2.getOgres().size(); w++) {
-				if (!g2.getOgres().get(w).getStunned()) {
+				if (!g2.getOgres().get(w).getStunned())
 					j[w] = 0;
-				} else {
+				else
 					j[w]++;
-				}
 			}
-			if (g2.getGameOver()) {
-				lblGameStatus.setText("*********** *GAME OVER* ***********");
-			} else if (g2.checkVictory()) {
-				lblGameStatus.setText("YOU WIN");
-			}
+			levelEnd(g2);
+		}
+	}
+	
+	public void levelEnd(Game g)
+	{
+		if (g.getGameOver())
+			lblGameStatus.setText("*********** *GAME OVER* ***********");
+		else if (g2.checkVictory())
+		{
+			lblGameStatus.setText("YOU WIN");
+			level++;
 		}
 	}
 

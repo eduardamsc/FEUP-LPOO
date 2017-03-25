@@ -175,22 +175,13 @@ public class Game {
 	 */	
 	public boolean logicLevel2(char direction, int[] i) {
 		setGameOver(false);
-		
 		moveHero(direction);
-		pickClub(); // checks if hero has picked up club and updates
-		pickKey(); // checks if hero has picked up key and updates
-		
 		moveOgre();
 		nearKey(); // checks if ogre is near key and updates
-		
-		stunOgre(i); //checks if hero stuns ogre
-
+		stunOgre(i); // checks if hero stuns ogre
 		checkExitsOpen();
-		
-		for (int j=0; j<ogres.size();j++)
-		{
-			if (!ogres.get(j).getStunned())
-			{
+		for (int j = 0; j < ogres.size(); j++) {
+			if (!ogres.get(j).getStunned()) {
 				if (OgreCatchHero()) { // checks if ogre has caught hero
 					setGameOver(true);
 					return true;
