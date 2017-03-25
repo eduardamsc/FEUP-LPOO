@@ -383,9 +383,11 @@ public class Game {
 			updateCharacterPosition(ogres.get(i)); // updates ogre's position on map
 
 			// generates club's position randomly
-			eraseTrailC(clubs.get(i+1));
-			clubs.get(i+1).movement(map, ogres.get(i).getX(), ogres.get(i).getY());
-			updateCharacterPosition(clubs.get(i+1));
+			if (ogres.get(i).getArmed()) {
+				eraseTrailC(clubs.get(i + 1));
+				clubs.get(i + 1).movement(map, ogres.get(i).getX(), ogres.get(i).getY());
+				updateCharacterPosition(clubs.get(i + 1));
+			}
 		}
 	}
 	/**
@@ -551,10 +553,9 @@ public class Game {
 		clubs = new Vector<Club>();
 		clubs.add(new Club(7,5)); //hero's club
 		
-		for (int i=1; i<ogres.size()+1;i++)
-		{
-			clubs.add(new Club(7,3)); //ogre's club
-			clubs.get(i).movement(map, ogres.get(i-1).getX(), ogres.get(i-1).getY());
+		for (int i = 1; i < ogres.size() + 1; i++) {
+				clubs.add(new Club(7, 3)); // ogre's club
+				clubs.get(i).movement(map, ogres.get(i - 1).getX(), ogres.get(i - 1).getY());
 		}
 		
 		

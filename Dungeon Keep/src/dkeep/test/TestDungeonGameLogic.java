@@ -103,9 +103,15 @@ public class TestDungeonGameLogic {
 	{
 		Map map = new Map(this.map2);
 		Game game = new Game(map);
-		game.getOgres().get(0).setArmed(false);
 		assertEquals(1,game.getHero().getX());
 		assertEquals(1,game.getHero().getY());
+		if (game.getClubs().get(0).getX()==1 && game.getClubs().get(0).getY()==2)
+		{
+			game.eraseTrailC(game.getClubs().get(0));
+			game.getClubs().get(0).setX(2);
+			game.getClubs().get(0).setY(3);
+			game.updateCharacterPosition(game.getClubs().get(0));
+		}
 		game.moveHero('d');
 		assertEquals(1,game.getHero().getX());
 		assertEquals(2,game.getHero().getY());
@@ -191,5 +197,47 @@ public class TestDungeonGameLogic {
 				moveRight=true;
 			} else fail("Error!");
 		}
+	}
+
+	//extra
+	//LEVEL1
+	public void testMoveHeroTog()
+	{
+		Map map = new Map(this.map);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.getGuards().get(0).setSymbol('g');
+		game.moveHero('d');
+		assertEquals(1,game.getHero().getX());
+		assertEquals(2,game.getHero().getY());
+		assertEquals(false, game.GuardCatchHero());
+	}
+	
+	//LEVEL2
+	public void testMoveHeroTo8()
+	{
+		Map map = new Map(this.map);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.getOgres().get(0).setSymbol('8');
+		game.moveHero('d');
+		assertEquals(1,game.getHero().getX());
+		assertEquals(2,game.getHero().getY());
+		assertEquals(false, game.OgreCatchHero());
+	}
+	
+	public void testMoveHeroTo$()
+	{
+		Map map = new Map(this.map);
+		Game game = new Game(map);
+		assertEquals(1,game.getHero().getX());
+		assertEquals(1,game.getHero().getY());
+		game.getOgres().get(0).setSymbol('$');
+		game.moveHero('d');
+		assertEquals(1,game.getHero().getX());
+		assertEquals(2,game.getHero().getY());
+		assertEquals(true, game.OgreCatchHero());
 	}
 }
