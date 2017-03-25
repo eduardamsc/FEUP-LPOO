@@ -29,9 +29,8 @@ public class Menu {
 		boolean end = false;
 		while (end != true) {
 			char direction = s.next().charAt(0);
-			end = g.logicLevel1(direction);
+			g.logicLevel1(direction);
 			printMap(g.getMap());
-			if (end) nextLevel=false;
 			nextLevel = levelEnd(g);
 			if (nextLevel) break;
 		}
