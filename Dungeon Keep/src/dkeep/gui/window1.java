@@ -258,7 +258,6 @@ public class window1 {
 	
 	public void level1(char direction) {
 		if (g.getHero().wall(g.getMap(), direction)) {
-			System.out.println("1");
 			lblGameStatus.setText("-----LEVEL 1-----");
 			g.logicLevel1(direction);
 			img.updateMap(g.getMap().getMap(), g, g2, level, j);

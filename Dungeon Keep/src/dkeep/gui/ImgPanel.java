@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import dkeep.logic.Game;
+import dkeep.logic.Map;
 
 public class ImgPanel extends JPanel implements KeyListener{
 	private BufferedImage start;
@@ -20,6 +21,7 @@ public class ImgPanel extends JPanel implements KeyListener{
 	private BufferedImage hero;
 	private BufferedImage guard;
 	private BufferedImage ogre;
+	private BufferedImage ogreStunned;
 	private BufferedImage leverClosed;
 	private BufferedImage leverOpened;
 	private BufferedImage key;
@@ -30,7 +32,7 @@ public class ImgPanel extends JPanel implements KeyListener{
 	
 	private char[][] map = new char[][] { {'D'}};
 	private Game game;
-	private Game game2;
+	//private Game game2;
 	private int level;
 	private int[] j;
 	
@@ -41,7 +43,7 @@ public class ImgPanel extends JPanel implements KeyListener{
 			this.wall = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/wall.png" ) );
 			this.exitClosed = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/exitClosed.png" ) );
 			this.exitOpened = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/exitOpened.png" ) );
-			this.hero = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/ogreFront.png" ) );
+			this.hero = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/heroFront.png" ) );
 			this.guard = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/19GuardTras.png" ) );
 			this.ogre = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/OgreFront.png" ) );
 			this.leverClosed = ImageIO.read( new File( "/Users/eduardacunha/Documents/Uni/2º/LPOO/images/leverClosed.png" ) );
@@ -62,7 +64,7 @@ public class ImgPanel extends JPanel implements KeyListener{
 	{
 		this.map=map;
 		this.game=g;
-		this.game2=g;
+		//this.game2=g;
 		this.level = level;
 		this.j=j;
 	}
@@ -99,66 +101,79 @@ public class ImgPanel extends JPanel implements KeyListener{
 	}
 
 	public void paintCharacters(Graphics g, int i, int j) {
+		paintHeros(g, i, j);
+		paintGuards(g, i, j);
+		paintOgres(g, i, j);
+	}
+	
+	public void paintHeros(Graphics g, int i, int j)
+	{
 		if (this.map[j][i] == 'H') {
 			g.drawImage(this.hero, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		}
-
-		if (this.map[j][i] == 'G') {
-			g.drawImage(this.guard, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-		}
-
+	}
+	
+	public void paintOgres(Graphics g, int i, int j)
+	{
 		if (this.map[j][i] == 'O') {
 			g.drawImage(this.ogre, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		} else if (this.map[j][i] == '8') {
+			g.drawImage(this.ogreStunned, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		}
+	}
+	
+	public void paintGuards(Graphics g, int i, int j)
+	{
+		if (this.map[j][i] == 'G') {
+			g.drawImage(this.guard, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		}
 	}
 	
 	public void paintObjects(Graphics g, int i, int j) {
-		if (this.level == 1) {
-			if (this.map[j][i] == 'k' && !this.game.getLever().getOpen()) {
-				g.drawImage(this.leverClosed, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-			} else if (this.map[j][i] == 'k' && this.game.getLever().getOpen()) {
-				g.drawImage(this.leverOpened, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-			}
-		}
-		if (this.level == 2) {
-			if (this.map[j][i] == 'k') {
-				g.drawImage(this.key, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-			}
-			
-			if (this.map[j][i] == '*') {
-				for (int z=0;z<game2.getOgres().size();z++)
-				{
-					if (game2.getOgres().get(z).getX()-1==j && game2.getOgres().get(z).getY()==i)
-					{
-						g.drawImage(this.clubUp, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-					} else if (game.getOgres().get(z).getX()+1==j && game.getOgres().get(z).getY()==i)
-					{
-						g.drawImage(this.clubDown, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-					} else if (game.getOgres().get(z).getX()==j && game.getOgres().get(z).getY()-1==i)
-					{
-						g.drawImage(this.clubLeft, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-					} else if (game.getOgres().get(z).getX()==j && game.getOgres().get(z).getY()+1==i)
-					{
-						g.drawImage(this.clubRight, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-					}
-				}
-				if (game.getHero().getX()-1==j && game.getHero().getY()==i)
-				{
-					g.drawImage(this.clubUp, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-				} else if (game.getHero().getX()+1==j && game.getHero().getY()==i)
-				{
-					g.drawImage(this.clubDown, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-				} else if (game.getHero().getX()==j && game.getHero().getY()-1==i)
-				{
-					g.drawImage(this.clubLeft, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-				} else if (game.getHero().getX()+1==j && game.getHero().getY()+1==i)
-				{
-					g.drawImage(this.clubRight, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-				}
-			}
+		switch(level)
+		{
+		case 1:
+			paintLevers(g,i,j);
+			break;
+		case 2:
+			paintKey(g,i,j);
+			paintClubs(g,i,j);
+			break;
 		}
 	}
-
+	
+	public void paintLevers(Graphics g, int i, int j) {
+		if (this.map[j][i] == 'k' && !this.game.getLever().getOpen()) {
+			g.drawImage(this.leverClosed, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		} else if (this.map[j][i] == 'k' && this.game.getLever().getOpen()) {
+			g.drawImage(this.leverOpened, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		}
+	}
+	
+	public void paintKey(Graphics g, int i, int j) {
+		if (this.map[j][i] == 'k') {
+			g.drawImage(this.key, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		}
+	}
+	
+	public void paintClubs(Graphics g, int i, int j) {
+		if (this.map[j][i] == '*') {
+			if (aux(j, i, 0, 1)) g.drawImage(this.clubUp, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+			else if (aux(j, i, 0, -1)) g.drawImage(this.clubDown, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+			else if (aux(j, i, 1, 0)) g.drawImage(this.clubLeft, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+			else if (aux(j, i, -1, 0)) g.drawImage(this.clubRight, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+			
+		}
+	}
+	
+	public boolean aux(int j, int i,int x, int y)
+	{
+		int a=x+i, b=y+j;
+		if (this.map[b][a] == 'O' || this.map[b][a] == '8' || this.map[b][a] == '$')
+			return true;
+		else return false;
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
