@@ -286,10 +286,12 @@ public class window1 {
 	{
 		if (g.getGameOver())
 			lblGameStatus.setText("*********** *GAME OVER* ***********");
-		else if (g2.checkVictory())
+		else if (g.checkVictory())
 		{
 			lblGameStatus.setText("YOU WIN");
+			System.out.println("1:"+level);
 			level++;
+			System.out.println("2:"+level);
 		}
 	}
 

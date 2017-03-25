@@ -498,8 +498,8 @@ public class Game {
 		// guard
 		guards = new Vector<Guard>();
 		guards.add(new GuardRookie(1, 8)); //Rookie
-		guards.add(new GuardDrunken(1, 8)); //Drunken
-		guards.add(new GuardSuspicious(1, 8)); //Suspicious
+		//guards.add(new GuardDrunken(1, 8)); //Drunken
+		//guards.add(new GuardSuspicious(1, 8)); //Suspicious
 		
 		for (int i = 0; i < guards.size(); i++) {
 			map.insertCharacter(guards.get(i));
