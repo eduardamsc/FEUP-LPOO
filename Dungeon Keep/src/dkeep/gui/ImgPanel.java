@@ -156,7 +156,7 @@ public class ImgPanel extends JPanel{
 			for (int j = 0; j < this.map[i].length; j++) {
 				if(this.map[j][i]=='D')
 				{
-					//g.drawImage(this.start, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+					g.drawImage(this.start, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 				}
 				paintMap(g, i, j);
 				paintCharacters(g, i, j);
