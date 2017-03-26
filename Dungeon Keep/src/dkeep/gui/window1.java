@@ -658,53 +658,49 @@ public class window1{
 		
 		for (int i = 0; i < g.getMap().getMap().length; i++) {
 			for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
-				if (g.getMap().getMap()[i][j] == 'H') {
-					g.getHero().setX(i);
-					g.getHero().setY(j);
-					g.updateCharacterPosition(g.getHero());
-				} else if (g.getMap().getMap()[i][j] == 'G') {
-					if (comboBox.getSelectedItem() == "Rookie") {
-						g.getGuards().add(new GuardRookie(i, j));
-					} else if (comboBox.getSelectedItem() == "Drunken") {
-						g.getGuards().add(new GuardDrunken(i, j));
-					}
-					if (comboBox.getSelectedItem() == "Suspicious") {
-						g.getGuards().add(new GuardSuspicious(i, j));
-					}
-				} else if (g.getMap().getMap()[i][j] == 'O')
-				{
-					g.getOgres().add(new Ogre(i, j));
-				}
-				else if (g.getMap().getMap()[i][j] == 'I')
-				{
-					g.getExits().add(new Exit(i, j));
-				}
-				else if (g.getMap().getMap()[i][j] == 'p') {
-					g.getKey().setX(i);
-					g.getKey().setY(j);
-					g.updateObjectPosition(g.getKey());
-				} else if (g.getMap().getMap()[i][j] == '*') {
-					g.getClubs().add(new Club(i,j));
-					g.updateObjectPosition(g.getKey());
-				}
+				loadCharacters(i,j);
+				loadObjects(i,j);
 			}
 		}
-		
-		for(int i=0; i<g.getGuards().size();i++){
-			g.updateCharacterPosition(g.getGuards().get(i));
-		}
-
-		for (int i = 0; i < g.getOgres().size(); i++) {
-			Club c=new Club();
-			c.movement(g.getMap(), g.getOgres().get(i).getX(), g.getOgres().get(i).getY());
-			g.updateCharacterPosition(g.getOgres().get(i));
-			g.getClubs().add(c);
-			g.updateCharacterPosition(g.getClubs().get(i));
-		}
-		
-		for(int i=0; i<g.getExits().size();i++)
+	}
+	
+	public void loadCharacters(int i, int j)
+	{
+		if (g.getMap().getMap()[i][j] == 'H') {
+			g.getHero().setX(i);
+			g.getHero().setY(j);
+			g.updateCharacterPosition(g.getHero());
+		} else if (g.getMap().getMap()[i][j] == 'O')
 		{
-			g.updateObjectPosition(g.getExits().get(i));
+			g.getOgres().add(new Ogre(i, j));
+		}
+		
+		for (int z = 0; z < g.getOgres().size(); z++) {
+			Club c=new Club();
+			c.movement(g.getMap(), g.getOgres().get(z).getX(), g.getOgres().get(z).getY());
+			g.updateCharacterPosition(g.getOgres().get(z));
+			g.getClubs().add(c);
+			g.updateCharacterPosition(g.getClubs().get(z));
+		}
+	}
+	
+	public void loadObjects(int i, int j)
+	{
+		if (g.getMap().getMap()[i][j] == 'I')
+		{
+			g.getExits().add(new Exit(i, j));
+		}
+		else if (g.getMap().getMap()[i][j] == 'p') {
+			g.getKey().setX(i);
+			g.getKey().setY(j);
+			g.updateObjectPosition(g.getKey());
+		} else if (g.getMap().getMap()[i][j] == '*') {
+			g.getClubs().add(new Club(i,j));
+			g.updateObjectPosition(g.getKey());
+		}
+		for(int z=0; z<g.getExits().size();z++)
+		{
+			g.updateObjectPosition(g.getExits().get(z));
 		}
 	}
 
