@@ -3,14 +3,6 @@ public class Lever extends Object {
 
 	private boolean open;
 	/**
-	 * @brief Constructor for class Lever.
-	 */	
-	public Lever() {
-		super();
-		open = false;
-		this.symbol = 'k';
-	}
-	/**
 	 * @brief Constructor for class Lever with coordinates.
 	 */	
 	public Lever(int x, int y) {

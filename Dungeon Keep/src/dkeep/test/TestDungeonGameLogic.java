@@ -225,6 +225,14 @@ public class TestDungeonGameLogic {
 	}
 	
 	@Test
+	public void logic1()
+	{
+		Game g = new Game();
+		g.loadElementsLevel1();
+		assertEquals(false,g.logicLevel1('d'));
+	}
+	
+	@Test
 	public void testMoveHeroTog()
 	{
 		Map map = new Map(this.map);
@@ -263,6 +271,15 @@ public class TestDungeonGameLogic {
 	}
 	
 	@Test
+	public void logic2()
+	{
+		Game g = new Game();
+		g.loadElementsLevel2();
+		int[] i={0};
+		assertEquals(false,g.logicLevel2('d',i));
+	}
+	
+	@Test
 	public void test8()
 	{
 		Map map = new Map(this.map2);
@@ -291,6 +308,24 @@ public class TestDungeonGameLogic {
 		game.moveHero('s');
 		assertEquals(true,game.pickClub());
 		assertEquals(true,game.getHero().getArmed());
+	}
+	
+	@Test
+	public void testOgreNearKey()
+	{
+		Game game = new Game();
+		game.loadElementsLevel2();
+		for(int i=0; i<game.getOgres().size();i++)
+		{
+			game.eraseTrailC(game.getOgres().get(i));
+			game.updateCharacterPosition(game.getOgres().get(i));
+		}
+		game.getOgres().clear();
+		game.getOgres().add(new Ogre(1,6));
+		game.updateCharacterPosition(game.getOgres().get(0));
+		
+		game.ogreNearKey();
+		assertEquals('$',game.getOgres().get(0).getSymbol());
 	}
 	
 	@Test(timeout=1000)
