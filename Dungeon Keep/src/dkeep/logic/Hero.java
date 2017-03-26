@@ -1,5 +1,12 @@
 package dkeep.logic;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class Hero.
+ */
 public class Hero extends Character {
+	
+	/** The armed. */
 	boolean armed =false;
 	/**
 	 * Constructor for class Hero.
@@ -8,8 +15,14 @@ public class Hero extends Character {
 		super();
 		this.symbol = 'H';
 	}
+	
 	/**
 	 * Constructor for class Hero with coordinates.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */	
 	public Hero(int x, int y) {
 		this.x = x;

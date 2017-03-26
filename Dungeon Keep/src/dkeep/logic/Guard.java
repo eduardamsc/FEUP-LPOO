@@ -1,10 +1,24 @@
 package dkeep.logic;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Guard.
+ */
 public abstract class Guard extends Character {
+	
+	/** The awake. */
 	boolean awake = true;
+	
+	/** The i. */
 	protected int i;
+	
+	/** The x fixed. */
 	protected int[] xFixed;
+	
+	/** The y fixed. */
 	protected int[] yFixed;
+	
+	/** The right way. */
 	boolean rightWay;
 	/**
 	 * Constructor for class Guard.
@@ -13,8 +27,14 @@ public abstract class Guard extends Character {
 		super();
 		defineSymbol();
 	}
+	
 	/**
 	 * Constructor for class Guard with coordinates.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */	
 	public Guard(int x, int y) {
 		this.x = x;
@@ -60,6 +80,11 @@ public abstract class Guard extends Character {
 	
 	/**
 	 * Auxiliar to behaviour.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	public void identifier(int x, int y)
 	{

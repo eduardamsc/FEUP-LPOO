@@ -1,8 +1,15 @@
 package dkeep.logic;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Ogre.
+ */
 public class Ogre extends Character {
 
+	/** The stunned. */
 	boolean stunned=false;
+	
+	/** The armed. */
 	boolean armed=true;
 	/**
 	 * Get for attribute armed.
@@ -11,8 +18,12 @@ public class Ogre extends Character {
 	public boolean getArmed() {
 		return armed;
 	}
+	
 	/**
 	 * Set for attribute armed.
+	 *
+	 * @param armed
+	 *            the new armed
 	 */
 	public void setArmed(boolean armed) {
 		this.armed = armed;
@@ -23,8 +34,14 @@ public class Ogre extends Character {
 	public Ogre() {
 		super();
 	}
+	
 	/**
 	 * Constructor for class Ogre, with coordinates.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	public Ogre(int x, int y) {
 		this.x = x;

@@ -1,9 +1,21 @@
 package dkeep.logic;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class Lever.
+ */
 public class Lever extends Object {
 
+	/** The open. */
 	private boolean open;
+	
 	/**
 	 * Constructor for class Lever with coordinates.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */	
 	public Lever(int x, int y) {
 		this.x = x;

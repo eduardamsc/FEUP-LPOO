@@ -1,7 +1,12 @@
 package dkeep.logic;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Exit.
+ */
 public class Exit extends Object {
 
+	/** The open. */
 	private boolean open;
 
 	/**
@@ -12,8 +17,14 @@ public class Exit extends Object {
 		open = false;
 		this.symbol = 'I';
 	}
+	
 	/**
 	 * Constructor for class Exit with coordinates.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */	
 	public Exit(int x, int y) {
 		this.x = x;

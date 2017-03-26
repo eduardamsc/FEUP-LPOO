@@ -6,7 +6,18 @@ import java.util.Scanner;
 import dkeep.logic.Game;
 import dkeep.logic.Map;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Menu.
+ */
 public class Menu {
+	
+	/**
+	 * The main method.
+	 *
+	 * @param args
+	 *            the arguments
+	 */
 	public static void main(String[] args) {
 		System.out.println("*******");
 		System.out.println("*START*");
@@ -18,8 +29,13 @@ public class Menu {
 		if (nextLevel) 
 			level2(g);
 	}
+	
 	/**
 	 * Calls level 1 dealing with input and output (interface).
+	 *
+	 * @param g
+	 *            the g
+	 * @return true, if successful
 	 */
 	public static boolean level1(Game g)
 	{
@@ -38,8 +54,12 @@ public class Menu {
 		}
 		return nextLevel;
 	}
+	
 	/**
 	 * Calls level 2 dealing with input and output (interface).
+	 *
+	 * @param g
+	 *            the g
 	 */
 	public static void level2(Game g)
 	{	
@@ -64,8 +84,13 @@ public class Menu {
 			levelEnd(g);
 		}
 	}
+	
 	/**
 	 * Tests for victory and loss.
+	 *
+	 * @param g
+	 *            the g
+	 * @return true, if successful
 	 */
 	public static boolean levelEnd(Game g)
 	{
@@ -83,8 +108,12 @@ public class Menu {
 		}
 		return false;
 	}
+	
 	/**
 	 * Prints map.
+	 *
+	 * @param map
+	 *            the map
 	 */
 	public static void printMap(Map map)
 	{

@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Club.
+ */
 public class Club extends Character{
 	/**
 	 * Constructor for class Club.
@@ -8,8 +12,14 @@ public class Club extends Character{
 		super();
 		this.symbol = '*';
 	}
+	
 	/**
 	 * Constructor for class Club with coordinates.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */	
 	public Club(int x, int y) {
 		this.x = x;
@@ -51,10 +61,18 @@ public class Club extends Character{
 
 		}
 	}
+	
 	/**
 	 * Checks if Club can move to a certain position around the Ogre.
-	 * @param map Map in which Club is moving.
-	 * @param direction Direction in which Club is trying to move.
+	 *
+	 * @param map
+	 *            Map in which Club is moving.
+	 * @param direction
+	 *            Direction in which Club is trying to move.
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return True for permission to move.
 	 */	
 	public boolean wall(Map map, char direction, int x, int y) {
@@ -71,6 +89,21 @@ public class Club extends Character{
 		return true;
 	}
 	
+	/**
+	 * Wall aux.
+	 *
+	 * @param map
+	 *            the map
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 * @return true, if successful
+	 */
 	public boolean wallAux(Map map, int x, int y, int i, int j)
 	{
 		int a=x+i, b=y+j;

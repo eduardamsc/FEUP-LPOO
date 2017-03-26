@@ -1,7 +1,12 @@
 package dkeep.logic;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Key.
+ */
 public class Key extends Object {
 
+	/** The picked up. */
 	private boolean pickedUp;
 	/**
 	 * Constructor for class Key.
@@ -11,8 +16,14 @@ public class Key extends Object {
 		pickedUp = false;
 		this.symbol = 'k';
 	}
+	
 	/**
 	 * Constructor for class Hero with coordinates.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */	
 	public Key(int x, int y) {
 		this.x = x;

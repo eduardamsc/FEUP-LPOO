@@ -13,34 +13,88 @@ import javax.swing.JPanel;
 import dkeep.logic.Game;
 import dkeep.logic.Map;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ImgPanel.
+ */
 public class ImgPanel extends JPanel{
+	
+	/** The start. */
 	private BufferedImage start;
+	
+	/** The wall. */
 	private BufferedImage wall;
+	
+	/** The nothing. */
 	private BufferedImage nothing;
+	
+	/** The exit closed. */
 	private BufferedImage exitClosed;
+	
+	/** The exit opened. */
 	private BufferedImage exitOpened;
+	
+	/** The hero. */
 	private BufferedImage hero;
+	
+	/** The hero armed. */
 	private BufferedImage heroArmed;
+	
+	/** The hero key. */
 	private BufferedImage heroKey;
+	
+	/** The hero dead. */
 	private BufferedImage heroDead;
+	
+	/** The guard. */
 	private BufferedImage guard;
+	
+	/** The guard sleeping. */
 	private BufferedImage guardSleeping;
+	
+	/** The ogre. */
 	private BufferedImage ogre;
+	
+	/** The ogre stunned. */
 	private BufferedImage ogreStunned;
+	
+	/** The lever closed. */
 	private BufferedImage leverClosed;
+	
+	/** The lever opened. */
 	private BufferedImage leverOpened;
+	
+	/** The key. */
 	private BufferedImage key;
+	
+	/** The club up. */
 	private BufferedImage clubUp;
+	
+	/** The club down. */
 	private BufferedImage clubDown;
+	
+	/** The club left. */
 	private BufferedImage clubLeft;
+	
+	/** The club right. */
 	private BufferedImage clubRight;
 	
+	/** The map. */
 	private char[][] map = new char[][] { {'D'}};
+	
+	/** The game. */
 	private Game game;
+	
+	/** The level. */
 	private int level;
+	
+	/** The j. */
 	private int[] j;
 	
 	
+	/**
+	 * Instantiates a new img panel.
+	 */
 	public ImgPanel(){
 		try {
 			this.start = ImageIO.read( new File( "images/cover.png" ) );
@@ -70,6 +124,18 @@ public class ImgPanel extends JPanel{
 		}	
 	}
 	
+	/**
+	 * Update map.
+	 *
+	 * @param map
+	 *            the map
+	 * @param g
+	 *            the g
+	 * @param level
+	 *            the level
+	 * @param j
+	 *            the j
+	 */
 	public void updateMap(char[][] map, Game g, int level, int[] j)
 	{
 		this.map=map;
@@ -78,6 +144,9 @@ public class ImgPanel extends JPanel{
 		this.j=j;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paint(java.awt.Graphics)
+	 */
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
@@ -96,6 +165,16 @@ public class ImgPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Paint map.
+	 *
+	 * @param g
+	 *            the g
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void paintMap(Graphics g, int i, int j) {
 		if(this.map[j][i]=='X')
 		{
@@ -111,12 +190,32 @@ public class ImgPanel extends JPanel{
 		}
 	}
 
+	/**
+	 * Paint characters.
+	 *
+	 * @param g
+	 *            the g
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void paintCharacters(Graphics g, int i, int j) {
 		paintHeros(g, i, j);
 		paintGuards(g, i, j);
 		paintOgres(g, i, j);
 	}
 	
+	/**
+	 * Paint heros.
+	 *
+	 * @param g
+	 *            the g
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void paintHeros(Graphics g, int i, int j) {
 		if (this.map[j][i] == 'H') {
 			g.drawImage(this.hero, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
@@ -135,6 +234,16 @@ public class ImgPanel extends JPanel{
 		}
 	}
 
+	/**
+	 * Paint ogres.
+	 *
+	 * @param g
+	 *            the g
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void paintOgres(Graphics g, int i, int j)
 	{
 		if (this.map[j][i] == 'O') {
@@ -146,6 +255,16 @@ public class ImgPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Paint guards.
+	 *
+	 * @param g
+	 *            the g
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void paintGuards(Graphics g, int i, int j)
 	{
 		if (this.map[j][i] == 'G') {
@@ -155,6 +274,16 @@ public class ImgPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Paint objects.
+	 *
+	 * @param g
+	 *            the g
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void paintObjects(Graphics g, int i, int j) {
 		switch(level)
 		{
@@ -172,6 +301,16 @@ public class ImgPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Paint levers.
+	 *
+	 * @param g
+	 *            the g
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void paintLevers(Graphics g, int i, int j) {
 		if (this.map[j][i] == 'k' && !this.game.getLever().getOpen()) {
 			g.drawImage(this.leverClosed, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
@@ -180,12 +319,32 @@ public class ImgPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Paint key.
+	 *
+	 * @param g
+	 *            the g
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void paintKey(Graphics g, int i, int j) {
 		if ((this.map[j][i] == 'k' ||this.map[j][i] == 'p')) {
 			g.drawImage(this.key, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		}
 	}
 	
+	/**
+	 * Paint clubs.
+	 *
+	 * @param g
+	 *            the g
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void paintClubs(Graphics g, int i, int j) {
 		if (this.map[j][i] == '*') {
 			if (aux(j, i, 0, 1)) g.drawImage(this.clubUp, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
@@ -196,6 +355,19 @@ public class ImgPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Aux.
+	 *
+	 * @param j
+	 *            the j
+	 * @param i
+	 *            the i
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @return true, if successful
+	 */
 	public boolean aux(int j, int i,int x, int y)
 	{
 		int a=x+i, b=y+j;

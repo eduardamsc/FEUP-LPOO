@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import java.util.Random;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GuardSuspicious.
+ */
 public class GuardSuspicious extends Guard{
 	/**
 	 * Constructor for class GuardSuspicious.
@@ -13,6 +17,11 @@ public class GuardSuspicious extends Guard{
 	
 	/**
 	 * Constructor for class GuardSuspicious with coordinates.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	public GuardSuspicious(int x, int y) {
 		identifier(x, y);

@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import java.util.Random;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Character.
+ */
 public abstract class Character extends Element{
 
 	/////////////////////////////////////////MOVEMENTS//////////////////////////////////////

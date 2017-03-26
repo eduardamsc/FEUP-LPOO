@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GuardRookie.
+ */
 public class GuardRookie extends Guard{
 	/**
 	 * Constructor for class GuardRookie.
@@ -11,6 +15,11 @@ public class GuardRookie extends Guard{
 	
 	/**
 	 * Constructor for class GuardRookie with coordinates.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	public GuardRookie(int x, int y) {
 		identifier(x, y);

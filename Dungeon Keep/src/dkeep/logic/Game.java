@@ -5,16 +5,37 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Game.
+ */
 public class Game {
+	
+	/** The hero. */
 	private Hero hero = new Hero();
+	
+	/** The guards. */
 	private Vector<Guard> guards;
+	
+	/** The ogres. */
 	private ArrayList<Ogre> ogres=new ArrayList<Ogre>();
+	
+	/** The clubs. */
 	private Vector<Club> clubs;
+	
+	/** The map. */
 	private Map map;
+	
+	/** The lever. */
 	private Lever lever;
+	
+	/** The exits. */
 	private Vector<Exit> exits;
+	
+	/** The key. */
 	private Key key;
 
+	/** The game over. */
 	private boolean gameOver=false;
 
 	/**
@@ -71,6 +92,8 @@ public class Game {
 	///////////////////Characters & Objects//////////////////////
 	/**
 	 * Get for object of type Hero.
+	 *
+	 * @return the hero
 	 */
 	public Hero getHero() {
 		return hero;
@@ -117,14 +140,21 @@ public class Game {
 	public Key getKey() {
 		return key;
 	}
+	
 	/**
 	 * Get for object of type Map.
+	 *
+	 * @return the map
 	 */	
 	public Map getMap() {
 		return map;
 	}
+	
 	/**
 	 * Set for object of type Map.
+	 *
+	 * @param map
+	 *            the new map
 	 * @return object map.
 	 */
 	public void setMap(Map map) {
@@ -137,8 +167,12 @@ public class Game {
 	public boolean getGameOver() {
 		return gameOver;
 	}
+	
 	/**
 	 * Set for object of type gameOver.
+	 *
+	 * @param gameOver
+	 *            the new game over
 	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
@@ -216,8 +250,17 @@ public class Game {
 		}
 		return false;
 	}
+	
 	/**
 	 * Auxiliary method to see surrounding sides of Exit.
+	 *
+	 * @param z
+	 *            the z
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @return true, if successful
 	 */
 	public boolean auxExit(int z, int x, int y)
 	{
@@ -302,8 +345,12 @@ public class Game {
 		}
 		return false;
 	}
+	
 	/**
 	 * Changes Ogres' symbols according to being stunned or not.
+	 *
+	 * @param i
+	 *            the i
 	 */	
 	public void stunOgre(int[] i)
 	{
@@ -319,8 +366,17 @@ public class Game {
 			}
 		}
 	}
+	
 	/**
 	 * Auxiliary method to see surrounding sides of Hero to stun Ogre.
+	 *
+	 * @param z
+	 *            the z
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @return true, if successful
 	 */
 	public boolean auxStun(int z, int x, int y)
 	{
@@ -329,8 +385,12 @@ public class Game {
 			return true;
 		else return false;
 	}
+	
 	/**
 	 * Deals with all logic of Hero movement and picking up things in Level 2.
+	 *
+	 * @param direction
+	 *            the direction
 	 */
 	public void heroLevel2(char direction)
 	{
@@ -370,6 +430,14 @@ public class Game {
 	
 	/**
 	 * Auxiliary method to see surrounding sides of Guard to catch Hero.
+	 *
+	 * @param z
+	 *            the z
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @return true, if successful
 	 */
 	public boolean auxGuard(int z, int x, int y)
 	{
@@ -469,8 +537,12 @@ public class Game {
 			}
 		}
 	}
+	
 	/**
 	 * Deals with all logic of Ogre movement and being near things in Level 2.
+	 *
+	 * @param i
+	 *            the i
 	 */
 	public void ogreLevel2(int[] i)
 	{
@@ -478,8 +550,17 @@ public class Game {
 		nearKey(); // checks if ogre is near key and updates
 		stunOgre(i); // checks if hero stuns ogre
 	}
+	
 	/**
 	 * Auxiliary method to see surrounding sides of Ogre to look for Key.
+	 *
+	 * @param z
+	 *            the z
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @return true, if successful
 	 */
 	public boolean auxKey(int z, int x, int y)
 	{
@@ -580,18 +661,29 @@ public class Game {
 
 	/**
 	 * Deletes Characters trail.
+	 *
+	 * @param c
+	 *            the c
 	 */	
 	public void eraseTrailC(Character c) {
 		map.getMap()[c.getX()][c.getY()] = ' ';
 	}
+	
 	/**
 	 * Updates Characters' position and appearance on map.
+	 *
+	 * @param c
+	 *            the c
 	 */	
 	public void updateCharacterPosition(Character c) {
 		map.insertCharacter(c);
 	}
+	
 	/**
 	 * Updates Objects' position and appearance on map.
+	 *
+	 * @param o
+	 *            the o
 	 */	
 	public void updateObjectPosition(Object o) {
 		map.insertObject(o);

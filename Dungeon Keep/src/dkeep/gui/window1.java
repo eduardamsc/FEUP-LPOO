@@ -47,38 +47,98 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class window1.
+ */
 public class window1{
 
+	/** The img. */
 	private static ImgPanel img;
+	
+	/** The frame. */
 	private JFrame frame;
+	
+	/** The text field. */
 	private JTextField textField;
+	
+	/** The lbl game status. */
 	private JLabel lblGameStatus;
+	
+	/** The btn new game. */
 	private JButton btnNewGame;
+	
+	/** The btn exit. */
 	private JButton btnExit;
+	
+	/** The btn edit level. */
 	private JButton btnEditLevel;
+	
+	/** The btn up. */
 	private JButton btnUp;
+	
+	/** The btn down. */
 	private JButton btnDown;
+	
+	/** The btn left. */
 	private JButton btnLeft;
+	
+	/** The btn right. */
 	private JButton btnRight;
+	
+	/** The combo box. */
 	private JComboBox comboBox;
+	
+	/** The g. */
 	private Game g;
+	
+	/** The g 2. */
 	private Game g2;
+	
+	/** The level. */
 	private int level;
+	
+	/** The j. */
 	int[] j;
+	
+	/** The lbl maze size. */
 	private JLabel lblMazeSize;
+	
+	/** The text field size. */
 	private JTextField textFieldSize;
+	
+	/** The btn door. */
 	private JButton btnDoor;
+	
+	/** The btn wall. */
 	private JButton btnWall;
+	
+	/** The btn key. */
 	private JButton btnKey;
+	
+	/** The btn hero. */
 	private JButton btnHero;
+	
+	/** The btn ogre. */
 	private JButton btnOgre;
+	
+	/** The btn delete. */
 	private JButton btnDelete;
+	
+	/** The btn validate maze. */
 	private JButton btnValidateMaze;
+	
+	/** The size. */
 	private int size;
+	
+	/** The element. */
 	private char element;
 
 	/**
 	 * Launch the application.
+	 *
+	 * @param args
+	 *            the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -117,6 +177,12 @@ public class window1{
 		callAllButtons();
 	}
 
+	/**
+	 * Level.
+	 *
+	 * @param direction
+	 *            the direction
+	 */
 	///////////////////////////////////////// USEFUL//////////////////////////////////////
 	public void level(char direction) {
 		if (level == 1 && !g.getGameOver())
@@ -128,6 +194,12 @@ public class window1{
 		}
 	}
 
+	/**
+	 * Level 1.
+	 *
+	 * @param direction
+	 *            the direction
+	 */
 	public void level1(char direction) {
 		if (g.getHero().wall(g.getMap(), direction)) {
 			lblGameStatus.setText("-----LEVEL 1-----");
@@ -138,6 +210,12 @@ public class window1{
 		}
 	}
 
+	/**
+	 * Level 2.
+	 *
+	 * @param direction
+	 *            the direction
+	 */
 	public void level2(char direction) {
 		if (g2.getHero().wall(g2.getMap(), direction)) {
 			lblGameStatus.setText("-----LEVEL 2-----");
@@ -154,6 +232,12 @@ public class window1{
 		}
 	}
 
+	/**
+	 * Level editable.
+	 *
+	 * @param direction
+	 *            the direction
+	 */
 	public void levelEditable(char direction)
 	{
 		if (g.getHero().wall(g.getMap(), direction)) {
@@ -190,6 +274,11 @@ public class window1{
 		}
 	}
 	
+	/**
+	 * Aux club catch.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean auxClubCatch()
 	{
 		for (int i = 0; i < g.getOgres().size(); i++) {
@@ -203,6 +292,12 @@ public class window1{
 		return false;
 	}
 	
+	/**
+	 * Level end.
+	 *
+	 * @param g
+	 *            the g
+	 */
 	public void levelEnd(Game g) {
 		if (g.getGameOver()) {
 			lblGameStatus.setText("*********** *GAME OVER* ***********");
@@ -213,6 +308,13 @@ public class window1{
 		}
 	}
 
+	/**
+	 * Prints the map.
+	 *
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	public static String printMap(Map map) {
 		String p = "";
 		for (int i = 0; i < map.getMap().length; i++) {
@@ -224,6 +326,15 @@ public class window1{
 		return p;
 	}
 
+	/**
+	 * Draw editable map.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @return the char[][]
+	 */
 	public char[][] drawEditableMap(int x, int y) {
 		char[][] map = new char[x][y];
 		for (int i = 0; i < map.length; i++) {
@@ -234,6 +345,12 @@ public class window1{
 		return map;
 	}
 
+/**
+ * Movement buttons.
+ *
+ * @param a
+ *            the a
+ */
 /////////////////////////////////////////BUTTONS//////////////////////////////////////
 	public void movementButtons(boolean a) {
 		btnUp.setEnabled(a);
@@ -242,6 +359,9 @@ public class window1{
 		btnLeft.setEnabled(a);
 	}
 
+	/**
+	 * Action movement buttons.
+	 */
 	public void actionMovementButtons() {
 		btnUp = new JButton("Up");
 		btnUp.setEnabled(false);
@@ -292,6 +412,12 @@ public class window1{
 		});
 	}
 
+	/**
+	 * Image buttons.
+	 *
+	 * @param a
+	 *            the a
+	 */
 	/////////////////////////////////////////IMAGE BUTTONS//////////////////////////////////////
 	public void imageButtons(boolean a) {
 		btnDoor.setEnabled(a);
@@ -310,6 +436,9 @@ public class window1{
 		btnDelete.setVisible(a);
 	}
 
+	/**
+	 * Action image buttons map.
+	 */
 	public void actionImageButtonsMap() {
 		btnDoor = new JButton("");
 		btnDoor.addActionListener(new ActionListener() {
@@ -351,6 +480,9 @@ public class window1{
 		frame.getContentPane().add(btnDelete);
 	}
 	
+	/**
+	 * Action image buttons characters.
+	 */
 	public void actionImageButtonsCharacters()
 	{
 		btnHero = new JButton("");
@@ -384,6 +516,9 @@ public class window1{
 		frame.getContentPane().add(btnOgre);
 	}
 	
+	/**
+	 * Action image buttons objects.
+	 */
 	public void actionImageButtonsObjects()
 	{
 		btnKey = new JButton("");
@@ -407,6 +542,9 @@ public class window1{
 		}
 	}
 
+/**
+ * Action exit button.
+ */
 /////////////////////////////////////////OTHER BUTTONS//////////////////////////////////////
 	public void actionExitButton() {
 		btnExit = new JButton("Exit");
@@ -419,6 +557,9 @@ public class window1{
 		});
 	}
 	
+	/**
+	 * Action new game button.
+	 */
 	public void actionNewGameButton() {
 		btnNewGame = new JButton("New Game");
 		btnNewGame.setBounds(366, 129, 117, 29);
@@ -433,6 +574,9 @@ public class window1{
 		});
 	}
 	
+	/**
+	 * New game level 1.
+	 */
 	public void newGameLevel1() {
 		if (Float.parseFloat(textField.getText()) > 5.0 || Float.parseFloat(textField.getText()) < 1.0
 				|| (Float.parseFloat(textField.getText()) % 1 != 0))
@@ -460,6 +604,9 @@ public class window1{
 		img.repaint();
 	}
 	
+	/**
+	 * New game level 2.
+	 */
 	public void newGameLevel2()
 	{
 		g2 = new Game();
@@ -488,6 +635,9 @@ public class window1{
 		img.requestFocus();
 	}
 
+	/**
+	 * Call all buttons.
+	 */
 	public void callAllButtons()
 	{
 		actionExitButton();
@@ -497,6 +647,9 @@ public class window1{
 		imageButtons(false);
 	}
 
+/**
+ * Output panel.
+ */
 /////////////////////////////////////////INPUT OUTPUT//////////////////////////////////////
 	public void outputPanel()
 	{
@@ -538,6 +691,9 @@ public class window1{
 		frame.getContentPane().add(img);
 	}
 
+	/**
+	 * Input fixed level.
+	 */
 	public void inputFixedLevel()
 	{
 		comboBox = new JComboBox();
@@ -559,6 +715,9 @@ public class window1{
 		frame.getContentPane().add(lblGuardPersonality);
 	}
 	
+	/**
+	 * Input editable level.
+	 */
 	public void inputEditableLevel() {
 		lblMazeSize = new JLabel("Maze Size");
 		lblMazeSize.setBounds(426, 59, 99, 16);
@@ -570,6 +729,9 @@ public class window1{
 		frame.getContentPane().add(textFieldSize);
 	}
 	
+/**
+ * Action editable level all buttons.
+ */
 /////////////////////////////////////////EDITABLE//////////////////////////////////////
 	public void actionEditableLevelAllButtons()
 	{
@@ -580,6 +742,9 @@ public class window1{
 		actionImageButtonsObjects();
 	}
 
+	/**
+	 * Editable level button.
+	 */
 	public void editableLevelButton()
 	{
 		btnEditLevel = new JButton("Edit Level");
@@ -607,6 +772,9 @@ public class window1{
 		});
 	}
 	
+	/**
+	 * Validate maze button.
+	 */
 	public void validateMazeButton()
 	{
 		btnValidateMaze = new JButton("Validate Maze");
@@ -633,6 +801,11 @@ public class window1{
 		frame.getContentPane().add(btnValidateMaze);
 	}
 	
+	/**
+	 * Check maze valide.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean checkMazeValide()
 	{
 		int hero=0, ogre=0, key=0, door=0, club=0;
@@ -651,6 +824,9 @@ public class window1{
 		} else return true;
 	}
 
+	/**
+	 * Load characters editable maze.
+	 */
 	public void loadCharactersEditableMaze() {
 		Map edit = g.getMap();
 		g.loadElementsEditableLevel();
@@ -664,6 +840,14 @@ public class window1{
 		}
 	}
 	
+	/**
+	 * Load characters.
+	 *
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void loadCharacters(int i, int j)
 	{
 		if (g.getMap().getMap()[i][j] == 'H') {
@@ -684,6 +868,14 @@ public class window1{
 		}
 	}
 	
+	/**
+	 * Load objects.
+	 *
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 */
 	public void loadObjects(int i, int j)
 	{
 		if (g.getMap().getMap()[i][j] == 'I')
@@ -704,6 +896,9 @@ public class window1{
 		}
 	}
 
+	/**
+	 * Play editable maze.
+	 */
 	public void playEditableMaze() {
 		lblGameStatus.setText("-----EDITABLE LEVEL-----");
 		imageButtons(false);
