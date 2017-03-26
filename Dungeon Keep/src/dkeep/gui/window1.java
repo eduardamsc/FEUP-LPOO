@@ -191,7 +191,7 @@ public class window1{
 			level2(direction);
 		else if (level == 5 && !g.getGameOver() && !g.checkVictory()) {
 			levelEditable(direction);
-		}
+		} else movementButtons(false);
 	}
 
 	/**
