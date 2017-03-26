@@ -109,13 +109,6 @@ public class ImgPanel extends JPanel{
 		{
 			g.drawImage(this.exitOpened, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		}
-		if(level==3)
-		{
-			if(this.map[j][i]==' ')
-			{
-				g.drawImage(this.nothing, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
-			}
-		}
 	}
 
 	public void paintCharacters(Graphics g, int i, int j) {
@@ -148,6 +141,8 @@ public class ImgPanel extends JPanel{
 			g.drawImage(this.ogre, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		} else if (this.map[j][i] == '8') {
 			g.drawImage(this.ogreStunned, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		} else if (this.map[j][i] == '$') {
+			g.drawImage(this.ogre, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		}
 	}
 	
@@ -170,7 +165,7 @@ public class ImgPanel extends JPanel{
 			paintKey(g,i,j);
 			paintClubs(g,i,j);
 			break;
-		case 3:
+		case 5:
 			paintKey(g,i,j);
 			paintClubs(g,i,j);
 			break;
@@ -186,7 +181,7 @@ public class ImgPanel extends JPanel{
 	}
 	
 	public void paintKey(Graphics g, int i, int j) {
-		if (this.map[j][i] == 'k') {
+		if ((this.map[j][i] == 'k' ||this.map[j][i] == 'p')) {
 			g.drawImage(this.key, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 		}
 	}

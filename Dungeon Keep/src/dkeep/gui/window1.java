@@ -71,9 +71,7 @@ public class window1{
 	private JButton btnWall;
 	private JButton btnKey;
 	private JButton btnHero;
-	private JButton btnGuard;
 	private JButton btnOgre;
-	private JButton btnClub;
 	private JButton btnDelete;
 	private JButton btnValidateMaze;
 	private int size;
@@ -123,11 +121,10 @@ public class window1{
 	public void level(char direction) {
 		if (level == 1 && !g.getGameOver())
 			level1(direction);
-		else
+		else if (level == 2 && !g2.getGameOver()  && !g2.checkVictory())
 			level2(direction);
-
-		if (g.getGameOver() || g2.getGameOver()) {
-			movementButtons(false);
+		else if (level == 5 && !g.getGameOver() && !g.checkVictory()) {
+			levelEditable(direction);
 		}
 	}
 
@@ -157,10 +154,60 @@ public class window1{
 		}
 	}
 
+	public void levelEditable(char direction)
+	{
+		if (g.getHero().wall(g.getMap(), direction)) {
+		
+			g.moveHero(direction);
+			g.pickKey();
+			for (int i = 0; i < g.getOgres().size(); i++) {
+				direction = g.getOgres().get(i).randomTrajectory();
+				while (!g.getOgres().get(i).wall(g.getMap(), direction)) {
+					direction = g.getOgres().get(i).randomTrajectory();
+				}
+				g.eraseTrailC(g.getOgres().get(i)); // erases ogre's trail as it changes position
+				g.getOgres().get(i).movement(g.getMap(), direction);
+				g.updateCharacterPosition(g.getOgres().get(i)); // updates ogre's position on map
+
+				if (g.getOgres().get(i).getArmed()) {
+					g.eraseTrailC(g.getClubs().get(i));
+					g.getClubs().get(i).movement(g.getMap(), g.getOgres().get(i).getX(), g.getOgres().get(i).getY());
+					g.updateCharacterPosition(g.getClubs().get(i));
+				}
+			}
+			for (int j = 0; j < g.getOgres().size(); j++) {
+				if (!g.getOgres().get(j).getStunned()) {
+					if (g.OgreCatchHero() || auxClubCatch()) { // checks if ogre has caught hero
+						g.setGameOver(true);
+					} 
+				}
+			}
+			g.nearKey(); // checks if ogre is near key and updates
+			g.checkExitsOpen();
+			img.updateMap(g.getMap().getMap(), g, level, j);
+			img.repaint();
+			levelEnd(g);
+		}
+	}
+	
+	public boolean auxClubCatch()
+	{
+		for (int i = 0; i < g.getOgres().size(); i++) {
+			if ((g.getClubs().get(i).getX() - 1 == g.getHero().getX() && g.getClubs().get(i).getY() == g.getHero().getY()) 
+				|| (g.getClubs().get(i).getX() + 1 == g.getHero().getX() && g.getClubs().get(i).getY() == g.getHero().getY())
+					|| (g.getClubs().get(i).getX() == g.getHero().getX() && g.getClubs().get(i).getY() - 1 == g.getHero().getY())
+					|| (g.getClubs().get(i).getX() == g.getHero().getX() && g.getClubs().get(i).getY() + 1 == g.getHero().getY())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void levelEnd(Game g) {
-		if (g.getGameOver())
+		if (g.getGameOver()) {
 			lblGameStatus.setText("*********** *GAME OVER* ***********");
-		else if (g.checkVictory()) {
+			movementButtons(false);
+		} else if (g.checkVictory()) {
 			lblGameStatus.setText("YOU WIN");
 			level++;
 		}
@@ -181,13 +228,13 @@ public class window1{
 		char[][] map = new char[x][y];
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
-				map[i][j] = ' ';
+				map[i][j] = 'X';
 			}
 		}
 		return map;
 	}
 
-	/////////////////////////////////////////BUTTONS//////////////////////////////////////
+/////////////////////////////////////////BUTTONS//////////////////////////////////////
 	public void movementButtons(boolean a) {
 		btnUp.setEnabled(a);
 		btnDown.setEnabled(a);
@@ -245,6 +292,7 @@ public class window1{
 		});
 	}
 
+	/////////////////////////////////////////IMAGE BUTTONS//////////////////////////////////////
 	public void imageButtons(boolean a) {
 		btnDoor.setEnabled(a);
 		btnDoor.setVisible(a);
@@ -254,12 +302,8 @@ public class window1{
 		btnKey.setVisible(a);
 		btnHero.setEnabled(a);
 		btnHero.setVisible(a);
-		btnGuard.setEnabled(a);
-		btnGuard.setVisible(a);
 		btnOgre.setEnabled(a);
 		btnOgre.setVisible(a);
-		btnClub.setEnabled(a);
-		btnClub.setVisible(a);
 		btnValidateMaze.setEnabled(a);
 		btnValidateMaze.setVisible(a);
 		btnDelete.setEnabled(a);
@@ -324,21 +368,6 @@ public class window1{
 		btnHero.setBounds(524, 270, 31, 31);
 		frame.getContentPane().add(btnHero);
 
-		btnGuard = new JButton("");
-		btnGuard.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				element='G';
-			}
-		});
-		try {
-			Image a = ImageIO.read(new File("images/guardFront.png"));
-			btnGuard.setIcon(new ImageIcon(a));
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		btnGuard.setBounds(524, 313, 31, 31);
-		frame.getContentPane().add(btnGuard);
-
 		btnOgre = new JButton("");
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -351,7 +380,7 @@ public class window1{
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnOgre.setBounds(524, 355, 31, 31);
+		btnOgre.setBounds(524, 313, 31, 31);
 		frame.getContentPane().add(btnOgre);
 	}
 	
@@ -360,7 +389,7 @@ public class window1{
 		btnKey = new JButton("");
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				element='k';
+				element='p';
 			}
 		});
 		try {
@@ -371,23 +400,14 @@ public class window1{
 		}
 		btnKey.setBounds(524, 224, 31, 31);
 		frame.getContentPane().add(btnKey);
-
-		btnClub = new JButton("");
-		btnClub.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				element='*';
-			}
-		});
 		try {
 			Image a = ImageIO.read(new File("images/swordUp.png"));
-			btnClub.setIcon(new ImageIcon(a));
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnClub.setBounds(524, 399, 31, 31);
-		frame.getContentPane().add(btnClub);
 	}
 
+/////////////////////////////////////////OTHER BUTTONS//////////////////////////////////////
 	public void actionExitButton() {
 		btnExit = new JButton("Exit");
 		btnExit.setBounds(366, 387, 117, 29);
@@ -468,44 +488,6 @@ public class window1{
 		img.requestFocus();
 	}
 
-	public void editableLevelButton()
-	{
-		btnEditLevel = new JButton("Edit Level");
-		btnEditLevel.setBounds(450, 20, 117, 29);
-		frame.getContentPane().add(btnEditLevel);
-		
-		btnEditLevel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				level=3;
-				
-
-				if (Float.parseFloat(textFieldSize.getText()) > 10 || Float.parseFloat(textFieldSize.getText()) < 5
-						|| (Float.parseFloat(textFieldSize.getText()) % 1 != 0)) {
-					return;
-				}
-				movementButtons(false);
-				imageButtons(true);
-
-				Map a = new Map(1);
-				size=Integer.parseInt(textFieldSize.getText());
-				a.setMap(drawEditableMap(size,size));
-
-				g = new Game(a);
-				img.updateMap(a.getMap(), g, level, new int[] { 0 });
-				img.repaint();
-			}
-		});
-	}
-	
-	public void actionEditableLevelAllButtons()
-	{
-		editableLevelButton();
-		validateMazeButton();
-		actionImageButtonsMap();
-		actionImageButtonsCharacters();
-		actionImageButtonsObjects();
-	}
-
 	public void callAllButtons()
 	{
 		actionExitButton();
@@ -515,6 +497,7 @@ public class window1{
 		imageButtons(false);
 	}
 
+/////////////////////////////////////////INPUT OUTPUT//////////////////////////////////////
 	public void outputPanel()
 	{
 		img = new ImgPanel();
@@ -587,74 +570,152 @@ public class window1{
 		frame.getContentPane().add(textFieldSize);
 	}
 	
+/////////////////////////////////////////EDITABLE//////////////////////////////////////
+	public void actionEditableLevelAllButtons()
+	{
+		editableLevelButton();
+		validateMazeButton();
+		actionImageButtonsMap();
+		actionImageButtonsCharacters();
+		actionImageButtonsObjects();
+	}
+
+	public void editableLevelButton()
+	{
+		btnEditLevel = new JButton("Edit Level");
+		btnEditLevel.setBounds(450, 20, 117, 29);
+		frame.getContentPane().add(btnEditLevel);
+		
+		btnEditLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				level=5;
+				if (Float.parseFloat(textFieldSize.getText()) > 10 || Float.parseFloat(textFieldSize.getText()) < 5
+						|| (Float.parseFloat(textFieldSize.getText()) % 1 != 0)) {
+					return;
+				}
+				movementButtons(false);
+				imageButtons(true);
+
+				Map a = new Map(1);
+				size=Integer.parseInt(textFieldSize.getText());
+				a.setMap(drawEditableMap(size,size));
+
+				g = new Game(a);
+				img.updateMap(a.getMap(), g, level, new int[] { 0 });
+				img.repaint();
+			}
+		});
+	}
+	
 	public void validateMazeButton()
 	{
-		
 		btnValidateMaze = new JButton("Validate Maze");
 		btnValidateMaze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int hero=0, guard=0, ogre=0, key=0, door=0, club=0;
-				for (int i = 0; i < g.getMap().getMap().length; i++) {
-					for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
-						if (g.getMap().getMap()[i][j] == 'H') hero++;
-						else if (g.getMap().getMap()[i][j] == 'G') guard++;
-						else if (g.getMap().getMap()[i][j] == 'O') ogre++;
-						else if (g.getMap().getMap()[i][j] == 'k') key++;
-						else if (g.getMap().getMap()[i][j] == 'I') door++;
-					}
-				}
-				
-				if (hero!=1 || (guard==0 && ogre==0) || door<1 || key!=1 || club>1)
+				if (checkMazeValide())
 				{
+					lblGameStatus.setText("Your maze is valid! Go ahead and play!");
+					level=5;
+					playEditableMaze();
+				} else {
 					for (int i = 0; i < g.getMap().getMap().length; i++) {
 						for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
 							g.getMap().getMap()[i][j]='X';
 						}
 					}
-					img.repaint();
 					lblGameStatus.setText("Start Over. Your maze isn't valid.");
-				} else lblGameStatus.setText("Your maze is valid! Go ahead and play!");	
+				}
+				img.repaint();
+				img.requestFocus();
 			}
 		});
 		btnValidateMaze.setBounds(450, 87, 117, 29);
 		frame.getContentPane().add(btnValidateMaze);
 	}
-
-	public void playEditableMaze() {
-		lblGameStatus.setText("-----EDITABLE LEVEL-----");
+	
+	public boolean checkMazeValide()
+	{
+		int hero=0, ogre=0, key=0, door=0, club=0;
 		for (int i = 0; i < g.getMap().getMap().length; i++) {
 			for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
-				if (g.getMap().getMap()[i][j] == 'H')
-				{
+				if (g.getMap().getMap()[i][j] == 'H') hero++;
+				else if (g.getMap().getMap()[i][j] == 'O') ogre++;
+				else if (g.getMap().getMap()[i][j] == 'p') key++;
+				else if (g.getMap().getMap()[i][j] == 'I') door++;
+			}
+		}
+		
+		if (hero!=1 || ogre<1 || door<1 || key!=1)
+		{
+			return false;
+		} else return true;
+	}
+
+	public void loadCharactersEditableMaze() {
+		Map edit = g.getMap();
+		g.loadElementsEditableLevel();
+		g.getMap().setMap(edit.getMap());
+		
+		for (int i = 0; i < g.getMap().getMap().length; i++) {
+			for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
+				if (g.getMap().getMap()[i][j] == 'H') {
 					g.getHero().setX(i);
 					g.getHero().setY(j);
-				} else if (g.getMap().getMap()[i][j] == 'G')
-				{
-					g.getGuards().add(new GuardRookie(i,j));
+					g.updateCharacterPosition(g.getHero());
+				} else if (g.getMap().getMap()[i][j] == 'G') {
+					if (comboBox.getSelectedItem() == "Rookie") {
+						g.getGuards().add(new GuardRookie(i, j));
+					} else if (comboBox.getSelectedItem() == "Drunken") {
+						g.getGuards().add(new GuardDrunken(i, j));
+					}
+					if (comboBox.getSelectedItem() == "Suspicious") {
+						g.getGuards().add(new GuardSuspicious(i, j));
+					}
 				} else if (g.getMap().getMap()[i][j] == 'O')
 				{
-					g.getOgres().add(new Ogre(i,j));
-				} else if (g.getMap().getMap()[i][j] == 'I')
+					g.getOgres().add(new Ogre(i, j));
+				}
+				else if (g.getMap().getMap()[i][j] == 'I')
 				{
-					g.getExits().add(new Exit(i,j));
-				} else if (g.getMap().getMap()[i][j] == 'k')
-				{
+					g.getExits().add(new Exit(i, j));
+				}
+				else if (g.getMap().getMap()[i][j] == 'p') {
 					g.getKey().setX(i);
 					g.getKey().setY(j);
+					g.updateObjectPosition(g.getKey());
+				} else if (g.getMap().getMap()[i][j] == '*') {
+					g.getClubs().add(new Club(i,j));
+					g.updateObjectPosition(g.getKey());
 				}
 			}
 		}
 		
-		if (comboBox.getSelectedItem() == "Rookie") {
-			
-		} else if (comboBox.getSelectedItem() == "Drunken") {
-			
+		for(int i=0; i<g.getGuards().size();i++){
+			g.updateCharacterPosition(g.getGuards().get(i));
 		}
-		if (comboBox.getSelectedItem() == "Suspicious") {
-			
+
+		for (int i = 0; i < g.getOgres().size(); i++) {
+			Club c=new Club();
+			c.movement(g.getMap(), g.getOgres().get(i).getX(), g.getOgres().get(i).getY());
+			g.updateCharacterPosition(g.getOgres().get(i));
+			g.getClubs().add(c);
+			g.updateCharacterPosition(g.getClubs().get(i));
 		}
-		g.getMap().insertCharacter(g.getGuards().get(0));
+		
+		for(int i=0; i<g.getExits().size();i++)
+		{
+			g.updateObjectPosition(g.getExits().get(i));
+		}
+	}
+
+	public void playEditableMaze() {
+		lblGameStatus.setText("-----EDITABLE LEVEL-----");
+		loadCharactersEditableMaze();
+		movementButtons(true);
+		j = new int[g.getOgres().size()];
+		Arrays.fill(j, 0);
 		img.updateMap(g.getMap().getMap(), g, level, j);
 		img.repaint();
 	}
+
 }

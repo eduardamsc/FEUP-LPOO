@@ -324,7 +324,7 @@ public class TestDungeonGameLogic {
 		game.getOgres().add(new Ogre(1,6));
 		game.updateCharacterPosition(game.getOgres().get(0));
 		
-		game.ogreNearKey();
+		game.nearKey();
 		assertEquals('$',game.getOgres().get(0).getSymbol());
 	}
 	

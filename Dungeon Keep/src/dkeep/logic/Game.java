@@ -210,9 +210,10 @@ public class Game {
 	public boolean checkExitsOpen()
 	{
 		for (int i = 0; i < exits.size(); i++) {
-			if (exits.get(i).getX() == hero.getX() && exits.get(i).getY() + 1 == hero.getY() && key.getPickedUp()) {
-				// if hero is close to exit and has the key
-				// the exit turns to stairs
+			if ((exits.get(i).getX() == hero.getX() && exits.get(i).getY() + 1 == hero.getY() && key.getPickedUp())
+					||(exits.get(i).getX() == hero.getX() && exits.get(i).getY() - 1 == hero.getY() && key.getPickedUp())
+					||(exits.get(i).getX()+1 == hero.getX() && exits.get(i).getY()== hero.getY() && key.getPickedUp())
+					||(exits.get(i).getX()-1 == hero.getX() && exits.get(i).getY()== hero.getY() && key.getPickedUp())) {
 				exits.get(i).open();
 				updateObjectPosition(exits.get(i));
 				return true;
@@ -391,6 +392,20 @@ public class Game {
 	 * @brief Checks if any Ogre has caught Hero.
 	 * @return True for Hero caught.
 	 */	
+	public boolean OgreAndClubCatchHero() {
+
+		if(!OgreCatchHero()) this.gameOver = false;
+		if(!ClubCatchHero()) this.gameOver = false;
+		if (OgreCatchHero()||ClubCatchHero())
+		{
+			return true;
+		}else return false;
+	}
+	
+	/**
+	 * @brief Checks if any Ogre has caught Hero.
+	 * @return True for Hero caught.
+	 */	
 	public boolean OgreCatchHero() {
 
 		for (int i = 0; i < ogres.size(); i++) {
@@ -402,7 +417,15 @@ public class Game {
 				return true;
 			}
 		}
-		
+		return false;
+	}
+	
+	/**
+	 * @brief Checks if any Club has hit Hero.
+	 * @return True for Hero caught.
+	 */	
+	public boolean ClubCatchHero() {
+
 		for (int i = 0; i < ogres.size(); i++) {
 			if ((clubs.get(i + 1).getX() - 1 == hero.getX() && clubs.get(i + 1).getY() == hero.getY()) 
 				|| (clubs.get(i + 1).getX() + 1 == hero.getX() && clubs.get(i + 1).getY() == hero.getY())
@@ -412,21 +435,13 @@ public class Game {
 				return true;
 			}
 		}
-
 		this.gameOver = false;
 		return false;
 	}
 	/**
-	 * @brief Changes Ogres' and respective Clubs symbols according to Key proximity.
-	 */	
-	public void nearKey() {
-		ogreNearKey();
-		clubNearKey();
-	}
-	/**
 	 * @brief Changes Ogres' symbols according to Key proximity.
 	 */	
-	public void ogreNearKey() {
+	public void nearKey() {
 		for (int i = 0; i < ogres.size(); i++) {
 			if (auxKey(i,-1, 0)||auxKey(i,1, 0)||auxKey(i,0,-1)||auxKey(i,0,1)
 					&& !key.getPickedUp()) {
@@ -438,24 +453,6 @@ public class Game {
 			} else {
 				ogres.get(i).setSymbol('O');
 				updateCharacterPosition(ogres.get(i));
-			}
-		}
-	}
-	/**
-	 * @brief Changes Clubs' symbols according to Key proximity.
-	 */	
-	public void clubNearKey() {
-		for (int j = 1; j < clubs.size(); j++) {
-			if (((key.getX() - 1 == clubs.get(j).getX() && key.getY() == clubs.get(j).getY())
-					|| (key.getX() + 1 == clubs.get(j).getX() && key.getY() == clubs.get(j).getY())
-					|| (key.getX() == clubs.get(j).getX() && key.getY() - 1 == clubs.get(j).getY())
-					|| (key.getX() == clubs.get(j).getX() && key.getY() + 1 == clubs.get(j).getY()))
-					&& !key.getPickedUp()) {
-				clubs.get(j).setSymbol('$');
-				updateCharacterPosition(clubs.get(j));
-			} else {
-				clubs.get(j).setSymbol('*');
-				updateCharacterPosition(clubs.get(j));
 			}
 		}
 	}
@@ -567,7 +564,7 @@ public class Game {
 			map.insertCharacter(clubs.get(i));
 		}
 	}
-	
+
 	/**
 	 * @brief Deletes Characters trail.
 	 */	
@@ -585,5 +582,15 @@ public class Game {
 	 */	
 	public void updateObjectPosition(Object o) {
 		map.insertObject(o);
+	}
+
+	/**
+	 * @brief initializes all objects and inserts them on editable map.
+	 */	
+	public void loadElementsEditableLevel() {
+		map = new Map(2);
+		key = new Key();
+		exits = new Vector<Exit>();
+		hero = new Hero();
 	}
 }
