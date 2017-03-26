@@ -16,6 +16,7 @@ import dkeep.logic.Map;
 public class ImgPanel extends JPanel{
 	private BufferedImage start;
 	private BufferedImage wall;
+	private BufferedImage nothing;
 	private BufferedImage exitClosed;
 	private BufferedImage exitOpened;
 	private BufferedImage hero;
@@ -36,7 +37,6 @@ public class ImgPanel extends JPanel{
 	
 	private char[][] map = new char[][] { {'D'}};
 	private Game game;
-	//private Game game2;
 	private int level;
 	private int[] j;
 	
@@ -45,6 +45,7 @@ public class ImgPanel extends JPanel{
 		try {
 			this.start = ImageIO.read( new File( "images/cover.png" ) );
 			this.wall = ImageIO.read( new File( "images/wall.png" ) );
+			this.nothing = ImageIO.read( new File( "images/11floor.png" ) );
 			this.exitClosed = ImageIO.read( new File( "images/exitClosed.png" ) );
 			this.exitOpened = ImageIO.read( new File( "images/exitOpened.png" ) );
 			this.hero = ImageIO.read( new File( "images/heroFront.png" ) );
@@ -69,11 +70,10 @@ public class ImgPanel extends JPanel{
 		}	
 	}
 	
-	public void updateMap(char[][] map, Game g, Game g2, int level, int[] j)
+	public void updateMap(char[][] map, Game g, int level, int[] j)
 	{
 		this.map=map;
 		this.game=g;
-		//this.game2=g;
 		this.level = level;
 		this.j=j;
 	}
@@ -87,7 +87,7 @@ public class ImgPanel extends JPanel{
 			for (int j = 0; j < this.map[i].length; j++) {
 				if(this.map[j][i]=='D')
 				{
-					g.drawImage(this.start, this.start.getWidth() * i, this.start.getWidth() * j, null);
+				//	g.drawImage(this.start, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
 				}
 				paintMap(g, i, j);
 				paintCharacters(g, i, j);
@@ -108,6 +108,13 @@ public class ImgPanel extends JPanel{
 		if(this.map[j][i]=='S')
 		{
 			g.drawImage(this.exitOpened, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+		}
+		if(level==3)
+		{
+			if(this.map[j][i]==' ')
+			{
+				g.drawImage(this.nothing, this.wall.getWidth() * i, this.wall.getHeight() * j, null);
+			}
 		}
 	}
 
