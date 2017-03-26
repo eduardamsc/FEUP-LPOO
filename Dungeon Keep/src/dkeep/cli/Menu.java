@@ -18,7 +18,9 @@ public class Menu {
 		if (nextLevel) 
 			level2(g);
 	}
-	
+	/**
+	 * Calls level 1 dealing with input and output (interface).
+	 */
 	public static boolean level1(Game g)
 	{
 		boolean nextLevel = true; // permission to play level 2
@@ -36,7 +38,9 @@ public class Menu {
 		}
 		return nextLevel;
 	}
-	
+	/**
+	 * Calls level 2 dealing with input and output (interface).
+	 */
 	public static void level2(Game g)
 	{	
 		System.out.println("-----LEVEL 2-----");
@@ -60,7 +64,9 @@ public class Menu {
 			levelEnd(g);
 		}
 	}
-	
+	/**
+	 * Tests for victory and loss.
+	 */
 	public static boolean levelEnd(Game g)
 	{
 		if (g.getGameOver())
@@ -77,7 +83,9 @@ public class Menu {
 		}
 		return false;
 	}
-	
+	/**
+	 * Prints map.
+	 */
 	public static void printMap(Map map)
 	{
 		for (int i = 0; i < map.getMap().length; i++) {

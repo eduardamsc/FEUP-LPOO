@@ -6,31 +6,31 @@ public abstract class Character extends Element{
 
 	/////////////////////////////////////////MOVEMENTS//////////////////////////////////////
 	/**
-	 * @brief Moves Character up by reducing the attribute x.
+	 * Moves Character up by reducing the attribute x.
 	 */	
 	public void moveUp() {
 		x--;
 	}
 	/**
-	 * @brief Moves Character down by adding to the attribute x.
+	 * Moves Character down by adding to the attribute x.
 	 */	
 	public void moveDown() {
 		x++;
 	}
 	/**
-	 * @brief Moves Character left by reducing the attribute y.
+	 * Moves Character left by reducing the attribute y.
 	 */	
 	public void moveLeft() {
 		y--;
 	}
 	/**
-	 * @brief Moves Character up by adding to the attribute y.
+	 * Moves Character up by adding to the attribute y.
 	 */	
 	public void moveRight() {
 		y++;
 	}
 	/**
-	 * @brief Checks if Character can move in a certain direction.
+	 * Checks if Character can move in a certain direction.
 	 * @param map Map in which Character is moving.
 	 * @param direction Direction in which Character is trying to move.
 	 * @return True for permission to move.
@@ -50,7 +50,7 @@ public abstract class Character extends Element{
 		return true;
 	}	
 	/**
-	 * @brief Checks if Character can move.
+	 * Checks if Character can move.
 	 * @param map Map in which Character is moving.
 	 * @param i parameter added to coordinate x.
 	 * @param j parameter added to coordinate y.
@@ -67,7 +67,7 @@ public abstract class Character extends Element{
 		else return true;
 	}
 	/**
-	 * @brief Moves Character in all directions as long as it's possible.
+	 * Moves Character in all directions as long as it's possible.
 	 * @param map Map in which Character is moving.
 	 * @param direction Direction in which Character is trying to move.
 	 */	
@@ -93,7 +93,7 @@ public abstract class Character extends Element{
 		}
 	}
 	/**
-	 * @brief Generates random direction.
+	 * Generates random direction.
 	 * @return char referring to a direction (a for left, w for up, s for down and d for right).
 	 */	
 	public char randomTrajectory() {

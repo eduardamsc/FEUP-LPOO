@@ -3,7 +3,7 @@ public class Lever extends Object {
 
 	private boolean open;
 	/**
-	 * @brief Constructor for class Lever with coordinates.
+	 * Constructor for class Lever with coordinates.
 	 */	
 	public Lever(int x, int y) {
 		this.x = x;
@@ -14,7 +14,7 @@ public class Lever extends Object {
 
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	/**
-	 * @brief Get for attribute open, which represents if Lever has been raised.
+	 * Get for attribute open, which represents if Lever has been raised.
 	 * @return open.
 	 */
 	public boolean getOpen() {

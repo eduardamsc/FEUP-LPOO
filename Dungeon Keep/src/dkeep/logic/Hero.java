@@ -2,14 +2,14 @@ package dkeep.logic;
 public class Hero extends Character {
 	boolean armed =false;
 	/**
-	 * @brief Constructor for class Hero.
+	 * Constructor for class Hero.
 	 */	
 	public Hero() {
 		super();
 		this.symbol = 'H';
 	}
 	/**
-	 * @brief Constructor for class Hero with coordinates.
+	 * Constructor for class Hero with coordinates.
 	 */	
 	public Hero(int x, int y) {
 		this.x = x;
@@ -19,7 +19,7 @@ public class Hero extends Character {
 	
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	/**
-	 * @brief Get for attribute armed, which represents if Hero has picked up a Club.
+	 * Get for attribute armed, which represents if Hero has picked up a Club.
 	 * @return armed.
 	 */
 	public boolean getArmed()
@@ -29,13 +29,13 @@ public class Hero extends Character {
 
 	///////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @brief Changes Hero's symbol to K, as he has caught the Key.
+	 * Changes Hero's symbol to K, as he has caught the Key.
 	 */
 	public void hasKey() {
 		this.symbol = 'K';
 	}
 	/**
-	 * @brief Changes Hero's state to armed and symbol to A.
+	 * Changes Hero's state to armed and symbol to A.
 	 */
 	public void armed()
 	{
@@ -43,7 +43,7 @@ public class Hero extends Character {
 		this.symbol='A';
 	}
 	/**
-	 * @brief Checks if Hero can move in a certain direction.
+	 * Checks if Hero can move in a certain direction.
 	 * @param map Map in which Hero is moving.
 	 * @param direction Direction in which Hero is trying to move.
 	 * @return True for permission to move.
@@ -63,7 +63,7 @@ public class Hero extends Character {
 		return true;
 	}
 	/**
-	 * @brief Checks if Character can move.
+	 * Checks if Character can move.
 	 * @param map Map in which Character is moving.
 	 * @param i parameter added to coordinate x.
 	 * @param j parameter added to coordinate y.

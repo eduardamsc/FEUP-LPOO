@@ -18,7 +18,7 @@ public class Game {
 	private boolean gameOver=false;
 
 	/**
-	 * @brief Default constructor for class Game.
+	 * Default constructor for class Game.
 	 */
 	public Game()
 	{
@@ -26,7 +26,7 @@ public class Game {
 	}
 
 	/**
-	 * @brief Constructor for class Game with parameter.
+	 * Constructor for class Game with parameter.
 	 * @param map Array of chars which defines a map.
 	 */
 	public Game(Map map)
@@ -70,75 +70,75 @@ public class Game {
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	///////////////////Characters & Objects//////////////////////
 	/**
-	 * @brief Get for object of type Hero.
+	 * Get for object of type Hero.
 	 */
 	public Hero getHero() {
 		return hero;
 	}
 	/**
-	 * @brief Get for object of type Vector of Guards.
+	 * Get for object of type Vector of Guards.
 	 * @return object vector of Guards.
 	 */
 	public Vector<Guard> getGuards() {
 		return guards;
 	}
 	/**
-	 * @brief Get for object of type ArrayList of Ogres.
+	 * Get for object of type ArrayList of Ogres.
 	 * @return object arraylist of Ogres.
 	 */
 	public ArrayList<Ogre> getOgres() {
 		return ogres;
 	}
 	/**
-	 * @brief Get for object of type Vector of Clubs.
+	 * Get for object of type Vector of Clubs.
 	 * @return object vector of Clubs. 
 	 */
 	public Vector<Club> getClubs() {
 		return clubs;
 	}
 	/**
-	 * @brief Get for object of type Vector of Exits.
+	 * Get for object of type Vector of Exits.
 	 * @return object vector of Exits. 
 	 */
 	public Vector<Exit> getExits() {
 		return exits;
 	}
 	/**
-	 * @brief Get for object of type Lever.
+	 * Get for object of type Lever.
 	 * @return object lever.
 	 */
 	public Lever getLever() {
 		return lever;
 	}
 	/**
-	 * @brief Get for object of type Key.
+	 * Get for object of type Key.
 	 * @return object key.
 	 */
 	public Key getKey() {
 		return key;
 	}
 	/**
-	 * @brief Get for object of type Map.
+	 * Get for object of type Map.
 	 */	
 	public Map getMap() {
 		return map;
 	}
 	/**
-	 * @brief Set for object of type Map.
+	 * Set for object of type Map.
 	 * @return object map.
 	 */
 	public void setMap(Map map) {
 		this.map = map;
 	}
 	/**
-	 * @brief Get for object of type Game Over.
+	 * Get for object of type Game Over.
 	 * @return True for game over.
 	 */
 	public boolean getGameOver() {
 		return gameOver;
 	}
 	/**
-	 * @brief Set for object of type gameOver.
+	 * Set for object of type gameOver.
 	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
@@ -146,7 +146,7 @@ public class Game {
 	
 	/////////////////////////////////////////LEVELS//////////////////////////////////////
 	/**
-	 * @brief Deals with all the logic related to level 1.
+	 * Deals with all the logic related to level 1.
 	 * @param direction Direction received as input from the user to move the Hero.
 	 * @return End of game and permission to play level 2.
 	 */	
@@ -163,7 +163,7 @@ public class Game {
 		return false;
 	}
 	/**
-	 * @brief Deals with all the logic related to level 2.
+	 * Deals with all the logic related to level 2.
 	 * @param direction Direction received as input from the user to move the Hero.
 	 * @param i Array of ints with amount of consecutive turns that certain Ogres have been stunned.
 	 * @return End of game.
@@ -186,7 +186,7 @@ public class Game {
 	
 	///////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @brief Checks if Hero is past the exits, winning.
+	 * Checks if Hero is past the exits, winning.
 	 * @return True for victory.
 	 */	
 	public boolean checkVictory() {
@@ -202,7 +202,7 @@ public class Game {
 		return false;
 	}
 	/**
-	 * @brief Checks if Exits are opened.
+	 * Checks if Exits are opened.
 	 * @return True for open Exits.
 	 */	
 	public boolean checkExitsOpen()
@@ -217,7 +217,7 @@ public class Game {
 		return false;
 	}
 	/**
-	 * @brief Auxiliary method to see surrounding sides of Exit.
+	 * Auxiliary method to see surrounding sides of Exit.
 	 */
 	public boolean auxExit(int z, int x, int y)
 	{
@@ -229,7 +229,7 @@ public class Game {
 	
 	/////////////////////////////////////////HERO//////////////////////////////////////
 	/**
-	 * @brief Moves Hero.
+	 * Moves Hero.
 	 * @param direction Direction received as input from the user to move the Hero.
 	 */	
 	public void moveHero(char direction) {
@@ -241,7 +241,7 @@ public class Game {
 		}
 	}
 	/**
-	 * @brief Checks if Hero has caught Key.
+	 * Checks if Hero has caught Key.
 	 * @return True for caught Key.
 	 */	
 	public boolean pickKey() {
@@ -263,7 +263,7 @@ public class Game {
 		return false;
 	}
 	/**
-	 * @brief Checks if Hero has raised Lever.
+	 * Checks if Hero has raised Lever.
 	 * @return True for raised Lever.
 	 */	
 	public boolean openLever() {
@@ -284,7 +284,7 @@ public class Game {
 		}else return false;
 	}
 	/**
-	 * @brief Checks if Hero has picked up Club.
+	 * Checks if Hero has picked up Club.
 	 * @return True for Club picked up.
 	 */	
 	public boolean pickClub() {
@@ -303,7 +303,7 @@ public class Game {
 		return false;
 	}
 	/**
-	 * @brief Changes Ogres' symbols according to being stunned or not.
+	 * Changes Ogres' symbols according to being stunned or not.
 	 */	
 	public void stunOgre(int[] i)
 	{
@@ -320,7 +320,7 @@ public class Game {
 		}
 	}
 	/**
-	 * @brief Auxiliary method to see surrounding sides of Hero to stun Ogre.
+	 * Auxiliary method to see surrounding sides of Hero to stun Ogre.
 	 */
 	public boolean auxStun(int z, int x, int y)
 	{
@@ -330,7 +330,7 @@ public class Game {
 		else return false;
 	}
 	/**
-	 * @brief Deals with all logic of Hero movement and picking up things in Level 2.
+	 * Deals with all logic of Hero movement and picking up things in Level 2.
 	 */
 	public void heroLevel2(char direction)
 	{
@@ -340,7 +340,7 @@ public class Game {
 	}
 	/////////////////////////////////////////GUARD//////////////////////////////////////
 	/**
-	 * @brief Moves Guards.
+	 * Moves Guards.
 	 */	
 	public void moveGuard()
 	{
@@ -352,7 +352,7 @@ public class Game {
 		}
 	}
 	/**
-	 * @brief Checks if any Guard has caught Hero.
+	 * Checks if any Guard has caught Hero.
 	 * @return True for Hero caught.
 	 */	
 	public boolean GuardCatchHero() {
@@ -369,7 +369,7 @@ public class Game {
 	}
 	
 	/**
-	 * @brief Auxiliary method to see surrounding sides of Guard to catch Hero.
+	 * Auxiliary method to see surrounding sides of Guard to catch Hero.
 	 */
 	public boolean auxGuard(int z, int x, int y)
 	{
@@ -381,7 +381,7 @@ public class Game {
 	
 	/////////////////////////////////////////OGRE//////////////////////////////////////
 	/**
-	 * @brief Moves Ogres and respective Clubs.
+	 * Moves Ogres and respective Clubs.
 	 */	
 	public void moveOgre() {
 		
@@ -402,7 +402,7 @@ public class Game {
 		}
 	}
 	/**
-	 * @brief Checks if any Ogre has caught Hero.
+	 * Checks if any Ogre has caught Hero.
 	 * @return True for Hero caught.
 	 */	
 	public boolean OgreAndClubCatchHero() {
@@ -416,7 +416,7 @@ public class Game {
 	}
 	
 	/**
-	 * @brief Checks if any Ogre has caught Hero.
+	 * Checks if any Ogre has caught Hero.
 	 * @return True for Hero caught.
 	 */	
 	public boolean OgreCatchHero() {
@@ -434,7 +434,7 @@ public class Game {
 	}
 	
 	/**
-	 * @brief Checks if any Club has hit Hero.
+	 * Checks if any Club has hit Hero.
 	 * @return True for Hero caught.
 	 */	
 	public boolean ClubCatchHero() {
@@ -452,7 +452,7 @@ public class Game {
 		return false;
 	}
 	/**
-	 * @brief Changes Ogres' symbols according to Key proximity.
+	 * Changes Ogres' symbols according to Key proximity.
 	 */	
 	public void nearKey() {
 		for (int i = 0; i < ogres.size(); i++) {
@@ -470,7 +470,7 @@ public class Game {
 		}
 	}
 	/**
-	 * @brief Deals with all logic of Ogre movement and being near things in Level 2.
+	 * Deals with all logic of Ogre movement and being near things in Level 2.
 	 */
 	public void ogreLevel2(int[] i)
 	{
@@ -479,7 +479,7 @@ public class Game {
 		stunOgre(i); // checks if hero stuns ogre
 	}
 	/**
-	 * @brief Auxiliary method to see surrounding sides of Ogre to look for Key.
+	 * Auxiliary method to see surrounding sides of Ogre to look for Key.
 	 */
 	public boolean auxKey(int z, int x, int y)
 	{
@@ -490,7 +490,7 @@ public class Game {
 	}
 	/////////////////////////////////////////UPDATE MAP//////////////////////////////////////
 	/**
-	 * @brief initializes all objects and inserts them on level 1 map.
+	 * initializes all objects and inserts them on level 1 map.
 	 */		
 	public void loadElementsLevel1() {
 		// map
@@ -530,7 +530,7 @@ public class Game {
 		map.insertCharacter(hero);
 	}
 	/**
-	 * @brief initializes all objects and inserts them on level 2 map.
+	 * initializes all objects and inserts them on level 2 map.
 	 */	
 	public void loadElementsLevel2() {
 		map = new Map(2);
@@ -548,7 +548,7 @@ public class Game {
 		map.insertCharacter(hero);
 	}
 	/**
-	 * @brief initializes all ogres and clubs and inserts them on level 2 map.
+	 * initializes all ogres and clubs and inserts them on level 2 map.
 	 */	
 	public void loadOgres() {
 		Random n = new Random();
@@ -564,7 +564,7 @@ public class Game {
 		}
 	}
 	/**
-	 * @brief initializes all clubs and inserts them on level 2 map.
+	 * initializes all clubs and inserts them on level 2 map.
 	 */	
 	public void loadClubs() {
 		clubs = new Vector<Club>();
@@ -579,26 +579,26 @@ public class Game {
 	}
 
 	/**
-	 * @brief Deletes Characters trail.
+	 * Deletes Characters trail.
 	 */	
 	public void eraseTrailC(Character c) {
 		map.getMap()[c.getX()][c.getY()] = ' ';
 	}
 	/**
-	 * @brief Updates Characters' position and appearance on map.
+	 * Updates Characters' position and appearance on map.
 	 */	
 	public void updateCharacterPosition(Character c) {
 		map.insertCharacter(c);
 	}
 	/**
-	 * @brief Updates Objects' position and appearance on map.
+	 * Updates Objects' position and appearance on map.
 	 */	
 	public void updateObjectPosition(Object o) {
 		map.insertObject(o);
 	}
 
 	/**
-	 * @brief initializes all objects and inserts them on editable map.
+	 * initializes all objects and inserts them on editable map.
 	 */	
 	public void loadElementsEditableLevel() {
 		map = new Map(2);

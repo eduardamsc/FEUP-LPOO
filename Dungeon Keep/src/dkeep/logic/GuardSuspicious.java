@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class GuardSuspicious extends Guard{
 	/**
-	 * @brief Constructor for class GuardSuspicious.
+	 * Constructor for class GuardSuspicious.
 	 */
 	public GuardSuspicious()
 	{
@@ -12,15 +12,14 @@ public class GuardSuspicious extends Guard{
 	}
 	
 	/**
-	 * @brief Constructor for class GuardSuspicious with coordinates,.
+	 * Constructor for class GuardSuspicious with coordinates.
 	 */
 	public GuardSuspicious(int x, int y) {
 		identifier(x, y);
 	}
 
 	/**
-	 * @brief Determines GuardSuspicious's behavior which is following his fixed
-	 *        trajectory and reversing his trajectory.
+	 * Determines GuardSuspicious's behavior which is following his fixed trajectory and reversing his trajectory.       
 	 */
 	public void behavior()
 	{

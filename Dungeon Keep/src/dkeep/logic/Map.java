@@ -4,27 +4,27 @@ public class Map {
 
 	private char[][] map;
 	/**
-	 * @brief Get for attribute map, which is a matrix of chars.
+	 * Get for attribute map, which is a matrix of chars.
 	 * @return map.
 	 */
 	public char[][] getMap() {
 		return map;
 	}
 	/**
-	 * @brief Set for attribute map.
+	 * Set for attribute map.
 	 */
 	public void setMap(char[][] map) {
 		this.map = map;
 	}
 	/**
-	 * @brief Constructor for class Map.
+	 * Constructor for class Map.
 	 */
 	public Map(char[][] map)
 	{
 		this.map=map;
 	}
 	/**
-	 * @brief Constructor for class Map according to level.
+	 * Constructor for class Map according to level.
 	 */
 	public Map(int level) {
 		if (level == 1)
@@ -34,7 +34,7 @@ public class Map {
 	}
 
 	/**
-	 * @brief Generates map for level 1.
+	 * Generates map for level 1.
 	 */
 	public char[][] firstMap() {
 
@@ -53,7 +53,7 @@ public class Map {
 	}
 
 	/**
-	 * @brief Generates map for level 2.
+	 * Generates map for level 2.
 	 */
 	public char[][] secondMap() {
 
@@ -67,7 +67,7 @@ public class Map {
 	}
 
 	/**
-	 * @brief Inserts Character on map.
+	 * Inserts Character on map.
 	 * @param c Character.
 	 */
 	public void insertCharacter(Character c) {
@@ -75,7 +75,7 @@ public class Map {
 	}
 
 	/**
-	 * @brief Inserts Object on map.
+	 * Inserts Object on map.
 	 * @param o Object.
 	 */
 	public void insertObject(Object o) {

@@ -2,14 +2,14 @@ package dkeep.logic;
 
 public class Club extends Character{
 	/**
-	 * @brief Constructor for class Club.
+	 * Constructor for class Club.
 	 */	
 	public Club() {
 		super();
 		this.symbol = '*';
 	}
 	/**
-	 * @brief Constructor for class Club with coordinates.
+	 * Constructor for class Club with coordinates.
 	 */	
 	public Club(int x, int y) {
 		this.x = x;
@@ -19,7 +19,7 @@ public class Club extends Character{
 
 	/////////////////////////////////////////MOVEMENTS//////////////////////////////////////
 	/**
-	 * @brief Moves Club around Ogre.
+	 * Moves Club around Ogre.
 	 * @param map Map in which Club is moving.
 	 * @param x Line of Ogre's current position.
 	 * @param y Column of Ogre's current position.
@@ -52,7 +52,7 @@ public class Club extends Character{
 		}
 	}
 	/**
-	 * @brief Checks if Club can move to a certain position around the Ogre.
+	 * Checks if Club can move to a certain position around the Ogre.
 	 * @param map Map in which Club is moving.
 	 * @param direction Direction in which Club is trying to move.
 	 * @return True for permission to move.

@@ -4,7 +4,7 @@ public class Key extends Object {
 
 	private boolean pickedUp;
 	/**
-	 * @brief Constructor for class Key.
+	 * Constructor for class Key.
 	 */	
 	public Key() {
 		super();
@@ -12,7 +12,7 @@ public class Key extends Object {
 		this.symbol = 'k';
 	}
 	/**
-	 * @brief Constructor for class Hero with coordinates.
+	 * Constructor for class Hero with coordinates.
 	 */	
 	public Key(int x, int y) {
 		this.x = x;
@@ -23,7 +23,7 @@ public class Key extends Object {
 
 	/////////////////////////////////////////GETS AND SETS//////////////////////////////////////
 	/**
-	 * @brief Get for attribute pickedUp, which represents if Key has been picked up.
+	 * Get for attribute pickedUp, which represents if Key has been picked up.
 	 * @return pickedUp.
 	 */
 	public boolean getPickedUp() {
@@ -32,7 +32,7 @@ public class Key extends Object {
 
 	///////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @brief Changes Key to being pickedUp and symbol to empty, as it should no longer appear on the map.
+	 * Changes Key to being pickedUp and symbol to empty, as it should no longer appear on the map.
 	 */
 	public void pickedUp() {
 		pickedUp = true;
