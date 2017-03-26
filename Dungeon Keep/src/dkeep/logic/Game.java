@@ -523,22 +523,24 @@ public class Game {
 	 * @brief initializes all objects and inserts them on level 2 map.
 	 */	
 	public void loadElementsLevel2() {
-		// map
 		map = new Map(2);
-
-		// key
 		key = new Key(1, 7);
 		map.insertObject(key);
-
-		// exits
 		exits = new Vector<Exit>();
 		exits.add(new Exit(1, 0));
-
 		for (int i = 0; i < exits.size(); i++) {
 			map.insertObject(exits.get(i));
 		}
-
-		// ogre
+		loadOgres();
+		loadClubs();
+		hero.setX(7);
+		hero.setY(1);
+		map.insertCharacter(hero);
+	}
+	/**
+	 * @brief initializes all ogres and clubs and inserts them on level 2 map.
+	 */	
+	public void loadOgres() {
 		Random n = new Random();
 		int value = n.nextInt(5);
 		while(value==0)
@@ -550,25 +552,22 @@ public class Game {
 			ogres.add(new Ogre(1,4));
 			map.insertCharacter(ogres.get(i));
 		}
-		
+	}
+	/**
+	 * @brief initializes all clubs and inserts them on level 2 map.
+	 */	
+	public void loadClubs() {
 		clubs = new Vector<Club>();
 		clubs.add(new Club(7,5)); //hero's club
-		
 		for (int i = 1; i < ogres.size() + 1; i++) {
 				clubs.add(new Club(7, 3)); // ogre's club
 				clubs.get(i).movement(map, ogres.get(i - 1).getX(), ogres.get(i - 1).getY());
 		}
-		
-		
 		for (int i = 0; i < clubs.size(); i++) {
 			map.insertCharacter(clubs.get(i));
 		}
-
-		// hero
-		hero.setX(7);
-		hero.setY(1);
-		map.insertCharacter(hero);
 	}
+	
 	/**
 	 * @brief Deletes Characters trail.
 	 */	
