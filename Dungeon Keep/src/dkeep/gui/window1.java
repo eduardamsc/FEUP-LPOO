@@ -11,6 +11,7 @@ import javax.swing.OverlayLayout;
 
 import dkeep.cli.Menu;
 import dkeep.logic.Club;
+import dkeep.logic.Exit;
 import dkeep.logic.Game;
 import dkeep.logic.Guard;
 import dkeep.logic.GuardDrunken;
@@ -30,8 +31,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 import javax.imageio.ImageIO;
@@ -66,7 +69,6 @@ public class window1{
 	private JTextField textFieldSize;
 	private JButton btnDoor;
 	private JButton btnWall;
-	private JButton btnLever;
 	private JButton btnKey;
 	private JButton btnHero;
 	private JButton btnGuard;
@@ -248,8 +250,6 @@ public class window1{
 		btnDoor.setVisible(a);
 		btnWall.setEnabled(a);
 		btnWall.setVisible(a);
-		btnLever.setEnabled(a);
-		btnLever.setVisible(a);
 		btnKey.setEnabled(a);
 		btnKey.setVisible(a);
 		btnHero.setEnabled(a);
@@ -279,7 +279,7 @@ public class window1{
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnDoor.setBounds(524, 113, 31, 31);
+		btnDoor.setBounds(524, 138, 31, 31);
 		frame.getContentPane().add(btnDoor);
 
 		btnWall = new JButton("");
@@ -294,7 +294,7 @@ public class window1{
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnWall.setBounds(524, 156, 31, 31);
+		btnWall.setBounds(524, 181, 31, 31);
 		frame.getContentPane().add(btnWall);
 		
 		btnDelete = new JButton("Delete Element");
@@ -303,7 +303,7 @@ public class window1{
 				element=' ';
 			}
 		});
-		btnDelete.setBounds(440, 452, 127, 31);
+		btnDelete.setBounds(438, 436, 127, 31);
 		frame.getContentPane().add(btnDelete);
 	}
 	
@@ -321,7 +321,7 @@ public class window1{
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnHero.setBounds(524, 286, 31, 31);
+		btnHero.setBounds(524, 270, 31, 31);
 		frame.getContentPane().add(btnHero);
 
 		btnGuard = new JButton("");
@@ -336,7 +336,7 @@ public class window1{
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnGuard.setBounds(524, 329, 31, 31);
+		btnGuard.setBounds(524, 313, 31, 31);
 		frame.getContentPane().add(btnGuard);
 
 		btnOgre = new JButton("");
@@ -351,31 +351,16 @@ public class window1{
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnOgre.setBounds(524, 372, 31, 31);
+		btnOgre.setBounds(524, 355, 31, 31);
 		frame.getContentPane().add(btnOgre);
 	}
 	
 	public void actionImageButtonsObjects()
 	{
-		btnLever = new JButton("");
-		btnLever.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				element='p';
-			}
-		});
-		try {
-			Image a = ImageIO.read(new File("images/leverClosed.png"));
-			btnLever.setIcon(new ImageIcon(a));
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		btnLever.setBounds(524, 200, 31, 31);
-		frame.getContentPane().add(btnLever);
-
 		btnKey = new JButton("");
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				element='o';
+				element='k';
 			}
 		});
 		try {
@@ -384,7 +369,7 @@ public class window1{
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnKey.setBounds(524, 243, 31, 31);
+		btnKey.setBounds(524, 224, 31, 31);
 		frame.getContentPane().add(btnKey);
 
 		btnClub = new JButton("");
@@ -399,7 +384,7 @@ public class window1{
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnClub.setBounds(524, 415, 31, 31);
+		btnClub.setBounds(524, 399, 31, 31);
 		frame.getContentPane().add(btnClub);
 	}
 
@@ -608,19 +593,18 @@ public class window1{
 		btnValidateMaze = new JButton("Validate Maze");
 		btnValidateMaze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int hero=0, guard=0, ogre=0, key=0, lever=0, door=0, club=0;
+				int hero=0, guard=0, ogre=0, key=0, door=0, club=0;
 				for (int i = 0; i < g.getMap().getMap().length; i++) {
 					for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
 						if (g.getMap().getMap()[i][j] == 'H') hero++;
 						else if (g.getMap().getMap()[i][j] == 'G') guard++;
 						else if (g.getMap().getMap()[i][j] == 'O') ogre++;
-						else if (g.getMap().getMap()[i][j] == 'p') lever++;
-						else if (g.getMap().getMap()[i][j] == 'o') key++;
+						else if (g.getMap().getMap()[i][j] == 'k') key++;
 						else if (g.getMap().getMap()[i][j] == 'I') door++;
 					}
 				}
 				
-				if (hero!=1 || (guard==0 && ogre==0) || door<1 || (lever==0 && key==0) || club>1)
+				if (hero!=1 || (guard==0 && ogre==0) || door<1 || key!=1 || club>1)
 				{
 					for (int i = 0; i < g.getMap().getMap().length; i++) {
 						for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
@@ -634,5 +618,43 @@ public class window1{
 		});
 		btnValidateMaze.setBounds(450, 87, 117, 29);
 		frame.getContentPane().add(btnValidateMaze);
+	}
+
+	public void playEditableMaze() {
+		lblGameStatus.setText("-----EDITABLE LEVEL-----");
+		for (int i = 0; i < g.getMap().getMap().length; i++) {
+			for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
+				if (g.getMap().getMap()[i][j] == 'H')
+				{
+					g.getHero().setX(i);
+					g.getHero().setY(j);
+				} else if (g.getMap().getMap()[i][j] == 'G')
+				{
+					g.getGuards().add(new GuardRookie(i,j));
+				} else if (g.getMap().getMap()[i][j] == 'O')
+				{
+					g.getOgres().add(new Ogre(i,j));
+				} else if (g.getMap().getMap()[i][j] == 'I')
+				{
+					g.getExits().add(new Exit(i,j));
+				} else if (g.getMap().getMap()[i][j] == 'k')
+				{
+					g.getKey().setX(i);
+					g.getKey().setY(j);
+				}
+			}
+		}
+		
+		if (comboBox.getSelectedItem() == "Rookie") {
+			
+		} else if (comboBox.getSelectedItem() == "Drunken") {
+			
+		}
+		if (comboBox.getSelectedItem() == "Suspicious") {
+			
+		}
+		g.getMap().insertCharacter(g.getGuards().get(0));
+		img.updateMap(g.getMap().getMap(), g, level, j);
+		img.repaint();
 	}
 }

@@ -170,6 +170,10 @@ public class ImgPanel extends JPanel{
 			paintKey(g,i,j);
 			paintClubs(g,i,j);
 			break;
+		case 3:
+			paintKey(g,i,j);
+			paintClubs(g,i,j);
+			break;
 		}
 	}
 	
