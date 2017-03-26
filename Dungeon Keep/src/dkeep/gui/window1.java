@@ -706,6 +706,7 @@ public class window1{
 
 	public void playEditableMaze() {
 		lblGameStatus.setText("-----EDITABLE LEVEL-----");
+		imageButtons(false);
 		loadCharactersEditableMaze();
 		movementButtons(true);
 		j = new int[g.getOgres().size()];
