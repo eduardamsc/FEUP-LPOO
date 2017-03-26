@@ -59,6 +59,7 @@ public class window1 {
 	private JLabel lblMazeWidth;
 	private JTextField textFieldHeight;
 	private JTextField textFieldWidth;
+	private JButton btnDoor;
 	private JButton btnWall;
 	private JButton btnLever;
 	private JButton btnKey;
@@ -207,7 +208,7 @@ public class window1 {
 		textFieldWidth.setBounds(524, 82, 43, 21);
 		frame.getContentPane().add(textFieldWidth);
 		
-		JButton btnDoor = new JButton("");
+		btnDoor = new JButton("");
 		try {
 		    Image a = ImageIO.read(new File("images/exitClosed.png"));
 		    btnDoor.setIcon(new ImageIcon(a));
@@ -286,6 +287,7 @@ public class window1 {
 		  }
 		btnClub.setBounds(524, 415, 31, 31);
 		frame.getContentPane().add(btnClub);
+		imageButtons(false);
 		
 ////////////////////////////////////////MOVEMENT/////////////////////////////////////////////////
 		btnNewGame.addActionListener(new ActionListener() {
@@ -354,6 +356,7 @@ public class window1 {
 		btnEditLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				movementButtons(false);
+				imageButtons(true);
 				
 				if (Float.parseFloat(textFieldHeight.getText()) > 15 || Float.parseFloat(textFieldHeight.getText()) < 5
 						|| (Float.parseFloat(textFieldHeight.getText()) % 1 != 0)) {
@@ -364,9 +367,6 @@ public class window1 {
 						|| (Float.parseFloat(textFieldWidth.getText()) % 1 != 0)) {
 					return;
 				}
-				
-				
-				
 				
 				Map a = new Map(1);
 				a.setMap(drawEditableMap(Integer.parseInt(textFieldHeight.getText()),Integer.parseInt(textFieldWidth.getText())));
@@ -412,6 +412,25 @@ public class window1 {
 		btnDown.setEnabled(a);
 		btnRight.setEnabled(a);
 		btnLeft.setEnabled(a);
+	}
+	
+	public void imageButtons(boolean a) {
+		btnDoor.setEnabled(a);
+		btnDoor.setVisible(a);
+		btnWall.setEnabled(a);
+		btnWall.setVisible(a);
+		btnLever.setEnabled(a);
+		btnLever.setVisible(a);
+		btnKey.setEnabled(a);
+		btnKey.setVisible(a);
+		btnHero.setEnabled(a);
+		btnHero.setVisible(a);
+		btnGuard.setEnabled(a);
+		btnGuard.setVisible(a);
+		btnOgre.setEnabled(a);
+		btnOgre.setVisible(a);
+		btnClub.setEnabled(a);
+		btnClub.setVisible(a);
 	}
 	
 	public void level(char direction)
