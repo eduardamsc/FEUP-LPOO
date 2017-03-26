@@ -49,8 +49,6 @@ public class Game {
 				} else if (map.getMap()[i][j]=='O')
 				{
 					ogres.add(new Ogre(i,j));
-					/*clubs.add(new Club()); //ogre's club
-					clubs.get(i).movement(map, ogres.get(i-1).getX(), ogres.get(i-1).getY());*/
 				} else if (map.getMap()[i][j]=='I')
 				{
 					exits.add(new Exit(i,j));
@@ -210,16 +208,23 @@ public class Game {
 	public boolean checkExitsOpen()
 	{
 		for (int i = 0; i < exits.size(); i++) {
-			if ((exits.get(i).getX() == hero.getX() && exits.get(i).getY() + 1 == hero.getY() && key.getPickedUp())
-					||(exits.get(i).getX() == hero.getX() && exits.get(i).getY() - 1 == hero.getY() && key.getPickedUp())
-					||(exits.get(i).getX()+1 == hero.getX() && exits.get(i).getY()== hero.getY() && key.getPickedUp())
-					||(exits.get(i).getX()-1 == hero.getX() && exits.get(i).getY()== hero.getY() && key.getPickedUp())) {
+			if (auxExit(i,-1,0)||auxExit(i,1,0)||auxExit(i,0,-1)||auxExit(i,0,1)) {
 				exits.get(i).open();
 				updateObjectPosition(exits.get(i));
 				return true;
 			}
 		}
 		return false;
+	}
+	/**
+	 * @brief Auxiliary method to see surrounding sides of Exit.
+	 */
+	public boolean auxExit(int z, int x, int y)
+	{
+		int a=x+exits.get(z).getX(), b=y+exits.get(z).getY();
+		if (a == hero.getX() && b == hero.getY())
+			return true;
+		else return false;
 	}
 	
 	/////////////////////////////////////////HERO//////////////////////////////////////
@@ -353,10 +358,7 @@ public class Game {
 	public boolean GuardCatchHero() {
 
 		for (int i = 0; i < guards.size(); i++) {
-			if (((guards.get(i).getX() - 1 == hero.getX() && guards.get(i).getY() == hero.getY())
-					|| (guards.get(i).getX() + 1 == hero.getX() && guards.get(i).getY() == hero.getY())
-					|| (guards.get(i).getX() == hero.getX() && guards.get(i).getY() - 1 == hero.getY())
-					|| (guards.get(i).getX() == hero.getX() && guards.get(i).getY() + 1 == hero.getY()))
+			if ((auxGuard(i,-1,0)||auxGuard(i,1,0)||auxGuard(i,0,1)||auxGuard(i,0,-1))
 					&& guards.get(i).getAwake()) {
 				this.gameOver = true;
 				return true;
@@ -364,6 +366,17 @@ public class Game {
 		}
 		this.gameOver = false;
 		return false;
+	}
+	
+	/**
+	 * @brief Auxiliary method to see surrounding sides of Guard to catch Hero.
+	 */
+	public boolean auxGuard(int z, int x, int y)
+	{
+		int a=x+guards.get(z).getX(), b=y+guards.get(z).getY();
+		if (a == hero.getX() && b == hero.getY())
+			return true;
+		else return false;
 	}
 	
 	/////////////////////////////////////////OGRE//////////////////////////////////////
