@@ -40,8 +40,11 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
 
-public class window1 {
+public class window1{
 
 	private static ImgPanel img;
 	private JFrame frame;
@@ -57,12 +60,10 @@ public class window1 {
 	private JComboBox comboBox;
 	private Game g;
 	private Game g2;
-	private int level = 3;
+	private int level;
 	int[] j;
-	private JLabel lblMazeHeight;
-	private JLabel lblMazeWidth;
-	private JTextField textFieldHeight;
-	private JTextField textFieldWidth;
+	private JLabel lblMazeSize;
+	private JTextField textFieldSize;
 	private JButton btnDoor;
 	private JButton btnWall;
 	private JButton btnLever;
@@ -71,6 +72,10 @@ public class window1 {
 	private JButton btnGuard;
 	private JButton btnOgre;
 	private JButton btnClub;
+	private JButton btnDelete;
+	private JButton btnValidateMaze;
+	private int size;
+	private char element;
 
 	/**
 	 * Launch the application.
@@ -180,7 +185,7 @@ public class window1 {
 		return map;
 	}
 
-	///////////////////////////////////////// BUTTONS//////////////////////////////////////
+	/////////////////////////////////////////BUTTONS//////////////////////////////////////
 	public void movementButtons(boolean a) {
 		btnUp.setEnabled(a);
 		btnDown.setEnabled(a);
@@ -255,10 +260,19 @@ public class window1 {
 		btnOgre.setVisible(a);
 		btnClub.setEnabled(a);
 		btnClub.setVisible(a);
+		btnValidateMaze.setEnabled(a);
+		btnValidateMaze.setVisible(a);
+		btnDelete.setEnabled(a);
+		btnDelete.setVisible(a);
 	}
 
 	public void actionImageButtonsMap() {
 		btnDoor = new JButton("");
+		btnDoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element='I';
+			}
+		});
 		try {
 			Image a = ImageIO.read(new File("images/exitClosed.png"));
 			btnDoor.setIcon(new ImageIcon(a));
@@ -269,19 +283,38 @@ public class window1 {
 		frame.getContentPane().add(btnDoor);
 
 		btnWall = new JButton("");
+		btnWall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element='X';
+			}
+		});
 		try {
 			Image a = ImageIO.read(new File("images/wall.png"));
 			btnWall.setIcon(new ImageIcon(a));
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		btnWall.setBounds(524, 157, 31, 31);
+		btnWall.setBounds(524, 156, 31, 31);
 		frame.getContentPane().add(btnWall);
+		
+		btnDelete = new JButton("Delete Element");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element=' ';
+			}
+		});
+		btnDelete.setBounds(440, 452, 127, 31);
+		frame.getContentPane().add(btnDelete);
 	}
 	
 	public void actionImageButtonsCharacters()
 	{
 		btnHero = new JButton("");
+		btnHero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element='H';
+			}
+		});
 		try {
 			Image a = ImageIO.read(new File("images/heroFront.png"));
 			btnHero.setIcon(new ImageIcon(a));
@@ -292,6 +325,11 @@ public class window1 {
 		frame.getContentPane().add(btnHero);
 
 		btnGuard = new JButton("");
+		btnGuard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element='G';
+			}
+		});
 		try {
 			Image a = ImageIO.read(new File("images/guardFront.png"));
 			btnGuard.setIcon(new ImageIcon(a));
@@ -302,6 +340,11 @@ public class window1 {
 		frame.getContentPane().add(btnGuard);
 
 		btnOgre = new JButton("");
+		btnOgre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element='O';
+			}
+		});
 		try {
 			Image a = ImageIO.read(new File("images/ogreFront.png"));
 			btnOgre.setIcon(new ImageIcon(a));
@@ -315,6 +358,11 @@ public class window1 {
 	public void actionImageButtonsObjects()
 	{
 		btnLever = new JButton("");
+		btnLever.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element='p';
+			}
+		});
 		try {
 			Image a = ImageIO.read(new File("images/leverClosed.png"));
 			btnLever.setIcon(new ImageIcon(a));
@@ -325,6 +373,11 @@ public class window1 {
 		frame.getContentPane().add(btnLever);
 
 		btnKey = new JButton("");
+		btnKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element='o';
+			}
+		});
 		try {
 			Image a = ImageIO.read(new File("images/key.png"));
 			btnKey.setIcon(new ImageIcon(a));
@@ -335,6 +388,11 @@ public class window1 {
 		frame.getContentPane().add(btnKey);
 
 		btnClub = new JButton("");
+		btnClub.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element='*';
+			}
+		});
 		try {
 			Image a = ImageIO.read(new File("images/swordUp.png"));
 			btnClub.setIcon(new ImageIcon(a));
@@ -343,7 +401,6 @@ public class window1 {
 		}
 		btnClub.setBounds(524, 415, 31, 31);
 		frame.getContentPane().add(btnClub);
-		imageButtons(false);
 	}
 
 	public void actionExitButton() {
@@ -363,6 +420,7 @@ public class window1 {
 		frame.getContentPane().add(btnNewGame);
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				imageButtons(false);
 				movementButtons(true);
 				newGameLevel1();
 				newGameLevel2();
@@ -433,22 +491,19 @@ public class window1 {
 		
 		btnEditLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				level=3;
+				
+
+				if (Float.parseFloat(textFieldSize.getText()) > 10 || Float.parseFloat(textFieldSize.getText()) < 5
+						|| (Float.parseFloat(textFieldSize.getText()) % 1 != 0)) {
+					return;
+				}
 				movementButtons(false);
 				imageButtons(true);
 
-				if (Float.parseFloat(textFieldHeight.getText()) > 15 || Float.parseFloat(textFieldHeight.getText()) < 5
-						|| (Float.parseFloat(textFieldHeight.getText()) % 1 != 0)) {
-					return;
-				}
-
-				if (Float.parseFloat(textFieldWidth.getText()) > 15 || Float.parseFloat(textFieldWidth.getText()) < 5
-						|| (Float.parseFloat(textFieldWidth.getText()) % 1 != 0)) {
-					return;
-				}
-
 				Map a = new Map(1);
-				a.setMap(drawEditableMap(Integer.parseInt(textFieldHeight.getText()),
-						Integer.parseInt(textFieldWidth.getText())));
+				size=Integer.parseInt(textFieldSize.getText());
+				a.setMap(drawEditableMap(size,size));
 
 				g = new Game(a);
 				img.updateMap(a.getMap(), g, level, new int[] { 0 });
@@ -460,6 +515,7 @@ public class window1 {
 	public void actionEditableLevelAllButtons()
 	{
 		editableLevelButton();
+		validateMazeButton();
 		actionImageButtonsMap();
 		actionImageButtonsCharacters();
 		actionImageButtonsObjects();
@@ -471,6 +527,7 @@ public class window1 {
 		actionNewGameButton();
 		actionMovementButtons();
 		actionEditableLevelAllButtons();
+		imageButtons(false);
 	}
 
 	public void outputPanel()
@@ -494,6 +551,19 @@ public class window1 {
 					level('d');
 					break;
 				}
+			}
+		});
+		img.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				float x = e.getX();
+				float y = e.getY();
+				double coorX = ((float) (x / img.getWidth())*size);
+				double coorY = ((float) (y / img.getHeight())*size);
+				g.getMap().getMap()[(int)coorY][(int)coorX] = element;
+				img.updateMap(g.getMap().getMap(), g, level, new int[] { 0 });
+				img.repaint();
+				
 			}
 		});
 		img.setBounds(20, 113, 314, 317);
@@ -522,21 +592,47 @@ public class window1 {
 	}
 	
 	public void inputEditableLevel() {
-		lblMazeHeight = new JLabel("Maze Height");
-		lblMazeHeight.setBounds(426, 59, 99, 16);
-		frame.getContentPane().add(lblMazeHeight);
-		lblMazeWidth = new JLabel("Maze Width");
-		lblMazeWidth.setBounds(426, 85, 99, 16);
-		frame.getContentPane().add(lblMazeWidth);
-		textFieldHeight = new JTextField();
-		textFieldHeight.setText("10");
-		textFieldHeight.setColumns(10);
-		textFieldHeight.setBounds(524, 56, 43, 21);
-		frame.getContentPane().add(textFieldHeight);
-		textFieldWidth = new JTextField();
-		textFieldWidth.setText("10");
-		textFieldWidth.setColumns(10);
-		textFieldWidth.setBounds(524, 82, 43, 21);
-		frame.getContentPane().add(textFieldWidth);
+		lblMazeSize = new JLabel("Maze Size");
+		lblMazeSize.setBounds(426, 59, 99, 16);
+		frame.getContentPane().add(lblMazeSize);
+		textFieldSize = new JTextField();
+		textFieldSize.setText("10");
+		textFieldSize.setColumns(10);
+		textFieldSize.setBounds(524, 56, 43, 21);
+		frame.getContentPane().add(textFieldSize);
+	}
+	
+	public void validateMazeButton()
+	{
+		
+		btnValidateMaze = new JButton("Validate Maze");
+		btnValidateMaze.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int hero=0, guard=0, ogre=0, key=0, lever=0, door=0, club=0;
+				for (int i = 0; i < g.getMap().getMap().length; i++) {
+					for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
+						if (g.getMap().getMap()[i][j] == 'H') hero++;
+						else if (g.getMap().getMap()[i][j] == 'G') guard++;
+						else if (g.getMap().getMap()[i][j] == 'O') ogre++;
+						else if (g.getMap().getMap()[i][j] == 'p') lever++;
+						else if (g.getMap().getMap()[i][j] == 'o') key++;
+						else if (g.getMap().getMap()[i][j] == 'I') door++;
+					}
+				}
+				
+				if (hero!=1 || (guard==0 && ogre==0) || door<1 || (lever==0 && key==0) || club>1)
+				{
+					for (int i = 0; i < g.getMap().getMap().length; i++) {
+						for (int j = 0; j < g.getMap().getMap()[i].length; j++) {
+							g.getMap().getMap()[i][j]='X';
+						}
+					}
+					img.repaint();
+					lblGameStatus.setText("Start Over. Your maze isn't valid.");
+				} else lblGameStatus.setText("Your maze is valid! Go ahead and play!");	
+			}
+		});
+		btnValidateMaze.setBounds(450, 87, 117, 29);
+		frame.getContentPane().add(btnValidateMaze);
 	}
 }
