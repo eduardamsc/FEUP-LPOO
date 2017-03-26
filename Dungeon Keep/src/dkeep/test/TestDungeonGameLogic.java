@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import dkeep.logic.*;
+import jdk.internal.dynalink.support.Guards;
 
 public class TestDungeonGameLogic {
 
@@ -105,13 +106,6 @@ public class TestDungeonGameLogic {
 		Game game = new Game(map);
 		assertEquals(1,game.getHero().getX());
 		assertEquals(1,game.getHero().getY());
-		if (game.getClubs().get(0).getX()==1 && game.getClubs().get(0).getY()==2)
-		{
-			game.eraseTrailC(game.getClubs().get(0));
-			game.getClubs().get(0).setX(2);
-			game.getClubs().get(0).setY(3);
-			game.updateCharacterPosition(game.getClubs().get(0));
-		}
 		game.moveHero('d');
 		assertEquals(1,game.getHero().getX());
 		assertEquals(2,game.getHero().getY());
@@ -176,6 +170,7 @@ public class TestDungeonGameLogic {
 	{
 		Map map = new Map(this.map2);
 		Game game = new Game(map);
+		game.getOgres().get(0).setArmed(false);
 		boolean moveUp=false, moveDown=false, moveLeft=false, moveRight=false;
 		int x,y;
 		while(!moveUp||!moveDown||!moveLeft||!moveRight)
@@ -201,62 +196,132 @@ public class TestDungeonGameLogic {
 
 	//extra
 	//LEVEL1
+	@Test
+	public void map()
+	{
+		Map map = new Map(1);
+		assertEquals(map.firstMap(),map.getMap());
+		
+	}
+	
+	@Test
+	public void mapSet()
+	{
+		Map map = new Map(1);
+		map.setMap(new char[][] {{'x','H'},{'x','x'}});
+		Game g = new Game(map);
+		assertEquals(g.getMap(), map);
+		assertEquals(0, g.getHero().getX());
+		assertEquals(1, g.getHero().getY());
+	}
+	
+	@Test
+	public void load()
+	{
+		Game g = new Game();
+		g.loadElementsLevel1();
+		assertEquals(8,g.getLever().getX());
+		assertEquals(7,g.getLever().getY());
+	}
+	
+	@Test
 	public void testMoveHeroTog()
 	{
 		Map map = new Map(this.map);
 		Game game = new Game(map);
-		assertEquals(1,game.getHero().getX());
-		assertEquals(1,game.getHero().getY());
-		game.getGuards().get(0).setSymbol('g');
+		game.getGuards().get(0).asleep();
+		game.updateCharacterPosition(game.getGuards().get(0));
+		assertEquals(false,game.getGuards().get(0).getAwake());
+		assertEquals('g',game.getGuards().get(0).getSymbol());
 		game.moveHero('d');
-		assertEquals(1,game.getHero().getX());
-		assertEquals(2,game.getHero().getY());
 		assertEquals(false, game.GuardCatchHero());
 	}
 	
-	//LEVEL2
-	public void testMoveHeroTo8()
+	@Test
+	public void testMoveHeroToDrunken()
 	{
 		Map map = new Map(this.map);
 		Game game = new Game(map);
-		assertEquals(1,game.getHero().getX());
-		assertEquals(1,game.getHero().getY());
-		game.getOgres().get(0).setSymbol('8');
-		game.moveHero('d');
-		assertEquals(1,game.getHero().getX());
-		assertEquals(2,game.getHero().getY());
-		assertEquals(false, game.OgreCatchHero());
+		game.eraseTrailC(game.getGuards().get(0));
+		game.getGuards().clear();
+		Guard s = new GuardDrunken(1,3);
+		map.insertCharacter(s);
+		game.getGuards().add(s);
+		game.updateCharacterPosition(game.getGuards().get(0));
+		assertEquals(1,game.getGuards().get(0).getX());
+		assertEquals(3,game.getGuards().get(0).getY());
+		assertEquals('G',game.getGuards().get(0).getSymbol());
 	}
 	
+	//LEVEL2
+	@Test
+	public void map2()
+	{
+		Map map = new Map(2);
+		assertEquals(map.secondMap(),map.getMap());
+		
+	}
+	
+	@Test
+	public void test8()
+	{
+		Map map = new Map(this.map2);
+		Game game = new Game(map);
+		game.getOgres().get(0).stun();
+		assertEquals('8', game.getOgres().get(0).getSymbol());
+	}
+	
+	@Test
 	public void testMoveHeroTo$()
 	{
-		Map map = new Map(this.map);
+		Map map = new Map(this.map2);
 		Game game = new Game(map);
-		assertEquals(1,game.getHero().getX());
-		assertEquals(1,game.getHero().getY());
-		game.getOgres().get(0).setSymbol('$');
+		game.getOgres().get(0).closeToKey();
 		game.moveHero('d');
-		assertEquals(1,game.getHero().getX());
-		assertEquals(2,game.getHero().getY());
 		assertEquals(true, game.OgreCatchHero());
 	}
 	
+	@Test
 	public void testMoveHeroToClub()
 	{
-		Map map = new Map(this.map);
+		Map map = new Map(this.map2);
 		Game game = new Game(map);
-		assertEquals(1,game.getHero().getX());
-		assertEquals(1,game.getHero().getY());
 		game.moveHero('s');
-		assertEquals(2,game.getHero().getX());
-		assertEquals(1,game.getHero().getY());
 		game.moveHero('d');
-		assertEquals(2,game.getHero().getX());
-		assertEquals(2,game.getHero().getY());
 		game.moveHero('s');
-		assertEquals(3,game.getHero().getX());
-		assertEquals(2,game.getHero().getY());
+		assertEquals(true,game.pickClub());
 		assertEquals(true,game.getHero().getArmed());
-		assertEquals(true, game.OgreCatchHero());
+	}
+	
+	@Test(timeout=1000)
+	public void testClubRandomBehaviour()
+	{
+		Game game = new Game();
+		game.loadElementsLevel2();
+		boolean moveUp=false, moveDown=false, moveLeft=false, moveRight=false;
+		int x,y;
+		while(!moveUp||!moveDown||!moveLeft||!moveRight)
+		{
+			game.getOgres().get(0).setX(2);
+			game.getOgres().get(0).setY(4);
+			x=game.getOgres().get(0).getX();
+			y=game.getOgres().get(0).getY();
+			game.eraseTrailC(game.getClubs().get(1));
+			game.getClubs().get(1).movement(game.getMap(), x, y);
+			game.updateCharacterPosition(game.getClubs().get(1));
+			if (game.getClubs().get(1).getX()==x-1 && game.getClubs().get(1).getY()==y)
+			{
+				moveUp=true;
+			} else if (game.getClubs().get(1).getX()==x+1 && game.getClubs().get(1).getY()==y)
+			{
+				moveDown=true;
+			} else if (game.getClubs().get(1).getX()==x && game.getClubs().get(1).getY()==y-1)
+			{
+				moveLeft=true;
+			} else if (game.getClubs().get(1).getX()==x && game.getClubs().get(1).getY()==y+1)
+			{
+				moveRight=true;
+			} else fail("Error!");
+		}
 	}
 }

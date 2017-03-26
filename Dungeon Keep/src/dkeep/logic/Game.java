@@ -43,15 +43,14 @@ public class Game {
 				if (map.getMap()[i][j]=='H')
 				{
 					hero = new Hero(i,j);
-					clubs.add(new Club()); //hero's club
 				} else if (map.getMap()[i][j]=='G')
 				{
 					guards.add(new GuardRookie(i,j));
 				} else if (map.getMap()[i][j]=='O')
 				{
 					ogres.add(new Ogre(i,j));
-					clubs.add(new Club()); //ogre's club
-					clubs.get(i).movement(map, ogres.get(i-1).getX(), ogres.get(i-1).getY());
+					/*clubs.add(new Club()); //ogre's club
+					clubs.get(i).movement(map, ogres.get(i-1).getX(), ogres.get(i-1).getY());*/
 				} else if (map.getMap()[i][j]=='I')
 				{
 					exits.add(new Exit(i,j));
@@ -61,13 +60,12 @@ public class Game {
 				} else if (map.getMap()[i][j]=='K')
 				{
 					key = new Key(i,j);
+				} else if (map.getMap()[i][j]=='*')
+				{
+					clubs.add(new Club(i,j));
 				}
 					
 			}
-		}
-		
-		for (int i = 0; i < clubs.size(); i++) {
-			map.insertCharacter(clubs.get(i));
 		}
 	}
 
@@ -121,7 +119,6 @@ public class Game {
 	public Key getKey() {
 		return key;
 	}
-	/////////////////////////////////////////
 	/**
 	 * @brief Get for object of type Map.
 	 */	
@@ -284,18 +281,20 @@ public class Game {
 	 * @brief Checks if Hero has picked up Club.
 	 * @return True for Club picked up.
 	 */	
-	public void pickClub() {
+	public boolean pickClub() {
 		if ((clubs.get(0).getX() - 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
 				|| (clubs.get(0).getX() + 1 == hero.getX() && clubs.get(0).getY() == hero.getY())
 				|| (clubs.get(0).getX() == hero.getX() && clubs.get(0).getY() - 1 == hero.getY())
 				|| (clubs.get(0).getX() == hero.getX() && clubs.get(0).getY() + 1 == hero.getY()))
-		// if hero is near clubs.get(1) (up,down,right,left)
+		// if hero is near clubs.get(0) (up,down,right,left)
 		{
 			// clubs.get(0) gets picked up, disappears, hero turns to A and all is updated
 			hero.armed();
 			updateCharacterPosition(hero);
 			eraseTrailC(clubs.get(0));
+			return true;
 		}
+		return false;
 	}
 	/**
 	 * @brief Changes Ogres' symbols according to being stunned or not.
@@ -353,10 +352,10 @@ public class Game {
 	public boolean GuardCatchHero() {
 
 		for (int i = 0; i < guards.size(); i++) {
-			if ((guards.get(i).getX() - 1 == hero.getX() && guards.get(i).getY() == hero.getY())
+			if (((guards.get(i).getX() - 1 == hero.getX() && guards.get(i).getY() == hero.getY())
 					|| (guards.get(i).getX() + 1 == hero.getX() && guards.get(i).getY() == hero.getY())
 					|| (guards.get(i).getX() == hero.getX() && guards.get(i).getY() - 1 == hero.getY())
-					|| (guards.get(i).getX() == hero.getX() && guards.get(i).getY() + 1 == hero.getY())
+					|| (guards.get(i).getX() == hero.getX() && guards.get(i).getY() + 1 == hero.getY()))
 					&& guards.get(i).getAwake()) {
 				this.gameOver = true;
 				return true;
@@ -508,8 +507,8 @@ public class Game {
 		// guard
 		guards = new Vector<Guard>();
 		guards.add(new GuardRookie(1, 8)); //Rookie
-		//guards.add(new GuardDrunken(1, 8)); //Drunken
-		//guards.add(new GuardSuspicious(1, 8)); //Suspicious
+		guards.add(new GuardDrunken(1, 8)); //Drunken
+		guards.add(new GuardSuspicious(1, 8)); //Suspicious
 		
 		for (int i = 0; i < guards.size(); i++) {
 			map.insertCharacter(guards.get(i));
@@ -542,6 +541,10 @@ public class Game {
 		// ogre
 		Random n = new Random();
 		int value = n.nextInt(5);
+		while(value==0)
+		{
+			value = n.nextInt(5);
+		}
 		for (int i=0; i<value;i++)
 		{
 			ogres.add(new Ogre(1,4));
