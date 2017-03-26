@@ -103,76 +103,12 @@ public class window1 {
 		frame.setBounds(100, 100, 592, 523);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		textField = new JTextField();
-		textField.setBounds(150, 28, 43, 21);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		textField.setText("1");
-
 		lblGameStatus = new JLabel("******* *DUNGEON'S KEEPER* *******");
 		lblGameStatus.setBounds(20, 442, 252, 16);
 		frame.getContentPane().add(lblGameStatus);
-
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Rookie", "Drunken", "Suspicious" }));
-		comboBox.setBounds(150, 55, 127, 27);
-		frame.getContentPane().add(comboBox);
-
-		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
-		lblNumberOfOgres.setBounds(20, 31, 113, 16);
-		frame.getContentPane().add(lblNumberOfOgres);
-
-		JLabel lblGuardPersonality = new JLabel("Guard personality");
-		lblGuardPersonality.setBounds(20, 59, 141, 16);
-		frame.getContentPane().add(lblGuardPersonality);
-
-		img = new ImgPanel();
-		img.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				int key = e.getKeyCode();
-
-				switch (key) {
-				case KeyEvent.VK_UP:
-					level('w');
-					break;
-				case KeyEvent.VK_DOWN:
-					level('s');
-					break;
-				case KeyEvent.VK_LEFT:
-					level('a');
-					break;
-				case KeyEvent.VK_RIGHT:
-					level('d');
-					break;
-				}
-			}
-		});
-		img.setBounds(20, 113, 314, 317);
-		frame.getContentPane().add(img);
-
-		lblMazeHeight = new JLabel("Maze Height");
-		lblMazeHeight.setBounds(426, 59, 99, 16);
-		frame.getContentPane().add(lblMazeHeight);
-
-		lblMazeWidth = new JLabel("Maze Width");
-		lblMazeWidth.setBounds(426, 85, 99, 16);
-		frame.getContentPane().add(lblMazeWidth);
-
-		textFieldHeight = new JTextField();
-		textFieldHeight.setText("10");
-		textFieldHeight.setColumns(10);
-		textFieldHeight.setBounds(524, 56, 43, 21);
-		frame.getContentPane().add(textFieldHeight);
-
-		textFieldWidth = new JTextField();
-		textFieldWidth.setText("10");
-		textFieldWidth.setColumns(10);
-		textFieldWidth.setBounds(524, 82, 43, 21);
-		frame.getContentPane().add(textFieldWidth);
-
-		//////////////////////////////////////// MOVEMENT/////////////////////////////////////////////////
+		inputFixedLevel();
+		outputPanel();
+		inputEditableLevel();
 		callAllButtons();
 	}
 
@@ -410,76 +346,10 @@ public class window1 {
 		imageButtons(false);
 	}
 
-	public void actionOtherButtons() {
-		btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(366, 129, 117, 29);
-		frame.getContentPane().add(btnNewGame);
-		
+	public void actionExitButton() {
 		btnExit = new JButton("Exit");
 		btnExit.setBounds(366, 387, 117, 29);
 		frame.getContentPane().add(btnExit);
-		
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				movementButtons(true);
-
-				if (Float.parseFloat(textField.getText()) > 5.0 || Float.parseFloat(textField.getText()) < 1.0
-						|| (Float.parseFloat(textField.getText()) % 1 != 0)) {
-					return;
-				}
-
-				g = new Game();
-				level = 1;
-
-				lblGameStatus.setText("-----LEVEL 1-----");
-				g.loadElementsLevel1();
-				for (int i = 0; i < g.getGuards().size(); i++) {
-					g.eraseTrailC(g.getGuards().get(i));
-				}
-				g.getGuards().clear();
-
-				if (comboBox.getSelectedItem() == "Rookie") {
-					g.getGuards().add(new GuardRookie(1, 8));
-				} else if (comboBox.getSelectedItem() == "Drunken") {
-					g.getGuards().add(new GuardDrunken(1, 8));
-				}
-				if (comboBox.getSelectedItem() == "Suspicious") {
-					g.getGuards().add(new GuardSuspicious(1, 8));
-				}
-				g.getMap().insertCharacter(g.getGuards().get(0));
-				img.updateMap(g.getMap().getMap(), g, level, j);
-				img.repaint();
-
-				g2 = new Game();
-
-				g2.loadElementsLevel2();
-				g2.eraseTrailC(g2.getClubs().get(0));
-				for (int i = 0; i < g2.getOgres().size(); i++) {
-					g2.eraseTrailC(g2.getOgres().get(i));
-					g2.eraseTrailC(g2.getClubs().get(i + 1));
-				}
-				g2.getOgres().clear();
-				g2.getClubs().clear();
-				g2.getClubs().add(new Club(7, 5));
-				g2.getMap().insertCharacter(g2.getClubs().get(0));
-				for (int i = 0; i < Integer.parseInt(textField.getText()); i++) {
-					g2.getOgres().add(new Ogre(1, 4));
-					g2.getMap().insertCharacter(g2.getOgres().get(i));
-				}
-
-				for (int z = 0; z < g2.getOgres().size(); z++) {
-					g2.getClubs().add(new Club(7, 3));
-					g2.getClubs().get(z + 1).movement(g2.getMap(), g2.getOgres().get(z).getX(),
-							g2.getOgres().get(z).getY());
-					g2.getMap().insertCharacter(g2.getClubs().get(z + 1));
-				}
-
-				j = new int[g2.getOgres().size()];
-				Arrays.fill(j, 0);
-				img.requestFocus();
-			}
-		});
-
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -487,6 +357,74 @@ public class window1 {
 		});
 	}
 	
+	public void actionNewGameButton() {
+		btnNewGame = new JButton("New Game");
+		btnNewGame.setBounds(366, 129, 117, 29);
+		frame.getContentPane().add(btnNewGame);
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				movementButtons(true);
+				newGameLevel1();
+				newGameLevel2();
+			}
+		});
+	}
+	
+	public void newGameLevel1() {
+		if (Float.parseFloat(textField.getText()) > 5.0 || Float.parseFloat(textField.getText()) < 1.0
+				|| (Float.parseFloat(textField.getText()) % 1 != 0))
+			return;
+		g = new Game();
+		level = 1;
+
+		lblGameStatus.setText("-----LEVEL 1-----");
+		g.loadElementsLevel1();
+		for (int i = 0; i < g.getGuards().size(); i++) {
+			g.eraseTrailC(g.getGuards().get(i));
+		}
+		g.getGuards().clear();
+
+		if (comboBox.getSelectedItem() == "Rookie") {
+			g.getGuards().add(new GuardRookie(1, 8));
+		} else if (comboBox.getSelectedItem() == "Drunken") {
+			g.getGuards().add(new GuardDrunken(1, 8));
+		}
+		if (comboBox.getSelectedItem() == "Suspicious") {
+			g.getGuards().add(new GuardSuspicious(1, 8));
+		}
+		g.getMap().insertCharacter(g.getGuards().get(0));
+		img.updateMap(g.getMap().getMap(), g, level, j);
+		img.repaint();
+	}
+	
+	public void newGameLevel2()
+	{
+		g2 = new Game();
+		g2.loadElementsLevel2();
+		g2.eraseTrailC(g2.getClubs().get(0));
+		for (int i = 0; i < g2.getOgres().size(); i++) {
+			g2.eraseTrailC(g2.getOgres().get(i));
+			g2.eraseTrailC(g2.getClubs().get(i + 1));
+		}
+		g2.getOgres().clear();
+		g2.getClubs().clear();
+		g2.getClubs().add(new Club(7, 5));
+		g2.getMap().insertCharacter(g2.getClubs().get(0));
+		for (int i = 0; i < Integer.parseInt(textField.getText()); i++) {
+			g2.getOgres().add(new Ogre(1, 4));
+			g2.getMap().insertCharacter(g2.getOgres().get(i));
+		}
+		for (int z = 0; z < g2.getOgres().size(); z++) {
+			g2.getClubs().add(new Club(7, 3));
+			g2.getClubs().get(z + 1).movement(g2.getMap(), g2.getOgres().get(z).getX(),
+					g2.getOgres().get(z).getY());
+			g2.getMap().insertCharacter(g2.getClubs().get(z + 1));
+		}
+		j = new int[g2.getOgres().size()];
+		Arrays.fill(j, 0);
+		img.requestFocus();
+	}
+
 	public void editableLevelButton()
 	{
 		btnEditLevel = new JButton("Edit Level");
@@ -529,8 +467,76 @@ public class window1 {
 
 	public void callAllButtons()
 	{
-		actionOtherButtons();
+		actionExitButton();
+		actionNewGameButton();
 		actionMovementButtons();
 		actionEditableLevelAllButtons();
+	}
+
+	public void outputPanel()
+	{
+		img = new ImgPanel();
+		img.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int key = e.getKeyCode();
+				switch (key) {
+				case KeyEvent.VK_UP:
+					level('w');
+					break;
+				case KeyEvent.VK_DOWN:
+					level('s');
+					break;
+				case KeyEvent.VK_LEFT:
+					level('a');
+					break;
+				case KeyEvent.VK_RIGHT:
+					level('d');
+					break;
+				}
+			}
+		});
+		img.setBounds(20, 113, 314, 317);
+		frame.getContentPane().add(img);
+	}
+
+	public void inputFixedLevel()
+	{
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Rookie", "Drunken", "Suspicious" }));
+		comboBox.setBounds(150, 55, 127, 27);
+		frame.getContentPane().add(comboBox);
+
+		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
+		lblNumberOfOgres.setBounds(20, 31, 113, 16);
+		frame.getContentPane().add(lblNumberOfOgres);
+		textField = new JTextField();
+		textField.setBounds(150, 28, 43, 21);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		textField.setText("1");
+
+		JLabel lblGuardPersonality = new JLabel("Guard personality");
+		lblGuardPersonality.setBounds(20, 59, 141, 16);
+		frame.getContentPane().add(lblGuardPersonality);
+	}
+	
+	public void inputEditableLevel() {
+		lblMazeHeight = new JLabel("Maze Height");
+		lblMazeHeight.setBounds(426, 59, 99, 16);
+		frame.getContentPane().add(lblMazeHeight);
+		lblMazeWidth = new JLabel("Maze Width");
+		lblMazeWidth.setBounds(426, 85, 99, 16);
+		frame.getContentPane().add(lblMazeWidth);
+		textFieldHeight = new JTextField();
+		textFieldHeight.setText("10");
+		textFieldHeight.setColumns(10);
+		textFieldHeight.setBounds(524, 56, 43, 21);
+		frame.getContentPane().add(textFieldHeight);
+		textFieldWidth = new JTextField();
+		textFieldWidth.setText("10");
+		textFieldWidth.setColumns(10);
+		textFieldWidth.setBounds(524, 82, 43, 21);
+		frame.getContentPane().add(textFieldWidth);
 	}
 }
