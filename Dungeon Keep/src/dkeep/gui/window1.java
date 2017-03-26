@@ -173,38 +173,10 @@ public class window1 {
 		frame.getContentPane().add(textFieldWidth);
 
 		//////////////////////////////////////// MOVEMENT/////////////////////////////////////////////////
-		actionOtherButtons();
-		actionImageButtons();
-		actionMovementButtons();
+		callAllButtons();
 	}
 
 	///////////////////////////////////////// USEFUL//////////////////////////////////////
-	public void movementButtons(boolean a) {
-		btnUp.setEnabled(a);
-		btnDown.setEnabled(a);
-		btnRight.setEnabled(a);
-		btnLeft.setEnabled(a);
-	}
-
-	public void imageButtons(boolean a) {
-		btnDoor.setEnabled(a);
-		btnDoor.setVisible(a);
-		btnWall.setEnabled(a);
-		btnWall.setVisible(a);
-		btnLever.setEnabled(a);
-		btnLever.setVisible(a);
-		btnKey.setEnabled(a);
-		btnKey.setVisible(a);
-		btnHero.setEnabled(a);
-		btnHero.setVisible(a);
-		btnGuard.setEnabled(a);
-		btnGuard.setVisible(a);
-		btnOgre.setEnabled(a);
-		btnOgre.setVisible(a);
-		btnClub.setEnabled(a);
-		btnClub.setVisible(a);
-	}
-
 	public void level(char direction) {
 		if (level == 1 && !g.getGameOver())
 			level1(direction);
@@ -272,6 +244,14 @@ public class window1 {
 		return map;
 	}
 
+	///////////////////////////////////////// BUTTONS//////////////////////////////////////
+	public void movementButtons(boolean a) {
+		btnUp.setEnabled(a);
+		btnDown.setEnabled(a);
+		btnRight.setEnabled(a);
+		btnLeft.setEnabled(a);
+	}
+
 	public void actionMovementButtons() {
 		btnUp = new JButton("Up");
 		btnUp.setEnabled(false);
@@ -322,7 +302,26 @@ public class window1 {
 		});
 	}
 
-	public void actionImageButtons() {
+	public void imageButtons(boolean a) {
+		btnDoor.setEnabled(a);
+		btnDoor.setVisible(a);
+		btnWall.setEnabled(a);
+		btnWall.setVisible(a);
+		btnLever.setEnabled(a);
+		btnLever.setVisible(a);
+		btnKey.setEnabled(a);
+		btnKey.setVisible(a);
+		btnHero.setEnabled(a);
+		btnHero.setVisible(a);
+		btnGuard.setEnabled(a);
+		btnGuard.setVisible(a);
+		btnOgre.setEnabled(a);
+		btnOgre.setVisible(a);
+		btnClub.setEnabled(a);
+		btnClub.setVisible(a);
+	}
+
+	public void actionImageButtonsMap() {
 		btnDoor = new JButton("");
 		try {
 			Image a = ImageIO.read(new File("images/exitClosed.png"));
@@ -342,27 +341,10 @@ public class window1 {
 		}
 		btnWall.setBounds(524, 157, 31, 31);
 		frame.getContentPane().add(btnWall);
-
-		btnLever = new JButton("");
-		try {
-			Image a = ImageIO.read(new File("images/leverClosed.png"));
-			btnLever.setIcon(new ImageIcon(a));
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		btnLever.setBounds(524, 200, 31, 31);
-		frame.getContentPane().add(btnLever);
-
-		btnKey = new JButton("");
-		try {
-			Image a = ImageIO.read(new File("images/key.png"));
-			btnKey.setIcon(new ImageIcon(a));
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		btnKey.setBounds(524, 243, 31, 31);
-		frame.getContentPane().add(btnKey);
-
+	}
+	
+	public void actionImageButtonsCharacters()
+	{
 		btnHero = new JButton("");
 		try {
 			Image a = ImageIO.read(new File("images/heroFront.png"));
@@ -392,6 +374,29 @@ public class window1 {
 		}
 		btnOgre.setBounds(524, 372, 31, 31);
 		frame.getContentPane().add(btnOgre);
+	}
+	
+	public void actionImageButtonsObjects()
+	{
+		btnLever = new JButton("");
+		try {
+			Image a = ImageIO.read(new File("images/leverClosed.png"));
+			btnLever.setIcon(new ImageIcon(a));
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+		btnLever.setBounds(524, 200, 31, 31);
+		frame.getContentPane().add(btnLever);
+
+		btnKey = new JButton("");
+		try {
+			Image a = ImageIO.read(new File("images/key.png"));
+			btnKey.setIcon(new ImageIcon(a));
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+		btnKey.setBounds(524, 243, 31, 31);
+		frame.getContentPane().add(btnKey);
 
 		btnClub = new JButton("");
 		try {
@@ -409,13 +414,8 @@ public class window1 {
 		btnNewGame = new JButton("New Game");
 		btnNewGame.setBounds(366, 129, 117, 29);
 		frame.getContentPane().add(btnNewGame);
-
-		btnEditLevel = new JButton("Edit Level");
-		btnEditLevel.setBounds(450, 20, 117, 29);
-		frame.getContentPane().add(btnEditLevel);
 		
 		btnExit = new JButton("Exit");
-
 		btnExit.setBounds(366, 387, 117, 29);
 		frame.getContentPane().add(btnExit);
 		
@@ -480,6 +480,19 @@ public class window1 {
 			}
 		});
 
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+	}
+	
+	public void editableLevelButton()
+	{
+		btnEditLevel = new JButton("Edit Level");
+		btnEditLevel.setBounds(450, 20, 117, 29);
+		frame.getContentPane().add(btnEditLevel);
+		
 		btnEditLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				movementButtons(false);
@@ -504,11 +517,20 @@ public class window1 {
 				img.repaint();
 			}
 		});
+	}
+	
+	public void actionEditableLevelAllButtons()
+	{
+		editableLevelButton();
+		actionImageButtonsMap();
+		actionImageButtonsCharacters();
+		actionImageButtonsObjects();
+	}
 
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+	public void callAllButtons()
+	{
+		actionOtherButtons();
+		actionMovementButtons();
+		actionEditableLevelAllButtons();
 	}
 }
