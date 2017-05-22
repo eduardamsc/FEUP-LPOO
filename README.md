@@ -24,7 +24,7 @@ A variation of the Dungeon Keep developped in Java for a curricular discipline. 
 
 <img style="float: right;" src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/EditableLevel.png" width="400">
 
-<img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/ExempleEditable.png" width="400">
+<img style="float: left;" src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/ExempleEditable.png" width="400">
 	
 #### Tests
 
