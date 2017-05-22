@@ -99,7 +99,6 @@ public class ImgPanel extends JPanel{
 		try {
 			this.start = ImageIO.read( new File( "images/cover.png" ) );
 			this.wall = ImageIO.read( new File( "images/wall.png" ) );
-			this.nothing = ImageIO.read( new File( "images/11floor.png" ) );
 			this.exitClosed = ImageIO.read( new File( "images/exitClosed.png" ) );
 			this.exitOpened = ImageIO.read( new File( "images/exitOpened.png" ) );
 			this.hero = ImageIO.read( new File( "images/heroFront.png" ) );
