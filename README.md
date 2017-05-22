@@ -16,7 +16,7 @@ A variation of the Dungeon Keep developped in Java for a curricular discipline. 
 
 [![BCH compliance](https://bettercodehub.com/edge/badge/eduardamsc/LPOO1617_T4G3?token=badd2537088cac8b6f4722cff85b7a068ddf63e3)](https://bettercodehub.com/)
 
-![PIT Test](https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/PIT.png=50*50)
+![PIT Test](https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/PIT.png =50x50)
 
 EclEmma: https://github.com/eduardamsc/LPOO1617_T4G3/blob/guided-project-delivery/Dungeon%20Keep/images/EclEmma.png
 
