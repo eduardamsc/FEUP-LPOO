@@ -7,11 +7,11 @@ Element | College e-mail
 Beatriz de Henriques Martins | up201502858@fe.up.pt
 Maria Eduarda Santos Cunha | up201506524@fe.up.pt
 
-##First Project
+## First Project
 	
 	A variation of the Dungeon Keep developped in Java for a curricular discipline. The goal of this project was to study the peripheral hardware nd program its behavior on a gaming environment native development.
 	
-####Test
+#### Test
 
 [![BCH compliance](https://bettercodehub.com/edge/badge/eduardamsc/LPOO1617_T4G3?token=badd2537088cac8b6f4722cff85b7a068ddf63e3)](https://bettercodehub.com/)
 
