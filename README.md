@@ -18,6 +18,7 @@ A variation of the Dungeon Keep developped in Java for a curricular discipline. 
 
 <img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/PIT.png" width="650">
 
+<img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/EclEmma.png" width="650">
 
 EclEmma: https://github.com/eduardamsc/LPOO1617_T4G3/blob/guided-project-delivery/Dungeon%20Keep/images/EclEmma.png
 
