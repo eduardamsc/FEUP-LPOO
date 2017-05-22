@@ -20,20 +20,23 @@ A variation of the Dungeon Keep developped in Java for a curricular discipline. 
 
 <img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/GameOver.png?raw=true" width="400">
 
->Editable Game
-
-<img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/EditableLevel.png?raw=true" width="400">
-
-<img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/ExempleEditable.png?raw=true" width="400">
-
 >Game
 
+*Level 1*
+
 <img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/PlayWith1Rockie.png?raw=true" width="400">
+
+*Level 2*
 
 <img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/Play2With1Rockie.png?raw=true" width="400">
 
 <img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/MultipleOgres.png?raw=true" width="400">
 
+*Editable Level*
+
+<img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/EditableLevel.png?raw=true" width="400">
+
+<img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Dungeon%20Keep/exampleImages/ExempleEditable.png?raw=true" width="400">
 
 
 #### Tests
