@@ -1,0 +1,18 @@
+#Internal package file, do not edit.
+#Sat Apr 29 23:09:56 WEST 2017
+1.base=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/res/resources-debug.ap_
+4.file=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/ic_launcher.png
+1.file=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/res/resources-debug.ap_/resources.arsc
+4.set=ANDROID_RESOURCE
+2.base=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/assets/debug
+3.set=ANDROID_RESOURCE
+2.set=ASSET
+2.file=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/assets/debug/background.jpg
+count=5
+1.set=ANDROID_RESOURCE
+3.base=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/res/resources-debug.ap_
+0.set=ASSET
+0.base=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/assets/debug
+3.file=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/res/resources-debug.ap_/AndroidManifest.xml
+0.file=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/assets/debug/badlogic.jpg
+4.base=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/res/resources-debug.ap_

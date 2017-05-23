@@ -1,0 +1,7 @@
+#Sat Apr 29 23:09:59 WEST 2017
+base.0=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b83b24aa72da1323563422ed07047882087acb74
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_b3f8e0a209587cd172e02fd01dd599e9bb02b16a/classes.dex
+base.1=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_b3f8e0a209587cd172e02fd01dd599e9bb02b16a
+file.0=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b83b24aa72da1323563422ed07047882087acb74/classes.dex

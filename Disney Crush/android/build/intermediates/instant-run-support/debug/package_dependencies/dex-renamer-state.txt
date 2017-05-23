@@ -1,0 +1,10 @@
+#Sat Apr 29 19:51:24 WEST 2017
+renamed.2=classes3.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+base.2=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10/gdx-box2d-1.9.6_0e1884142649cad04036c01a89c2ff51f6900805
+base.1=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10/gdx-backend-android-1.9.6_a3605bcc785af8e5bbb9600096dfe5309bdbf7dc
+base.0=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10/gdx-1.9.6_66328c8eca4a7c45afa5a76ce481d612c5422cb9
+file.2=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10/gdx-box2d-1.9.6_0e1884142649cad04036c01a89c2ff51f6900805/classes.dex
+file.1=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10/gdx-backend-android-1.9.6_a3605bcc785af8e5bbb9600096dfe5309bdbf7dc/classes.dex
+file.0=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/10/gdx-1.9.6_66328c8eca4a7c45afa5a76ce481d612c5422cb9/classes.dex
