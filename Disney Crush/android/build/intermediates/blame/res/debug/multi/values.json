@@ -1,23 +1,23 @@
 [
     {
-        "outputFile": "/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+        "outputFile": "/Users/eduardacunha/Documents/Uni/2/LPOO/Disney Crush/android/build/intermediates/res/merged/debug/values/values.xml",
         "map": [
             {
                 "to": {
                     "startLine": 2,
                     "startColumn": 4,
                     "startOffset": 55,
-                    "endColumn": 48,
-                    "endOffset": 99
+                    "endColumn": 49,
+                    "endOffset": 100
                 },
                 "from": {
-                    "file": "/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/res/values/strings.xml",
+                    "file": "/Users/eduardacunha/Documents/Uni/2/LPOO/Disney Crush/android/res/values/strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
                         "startOffset": 56,
-                        "endColumn": 48,
-                        "endOffset": 100
+                        "endColumn": 49,
+                        "endOffset": 101
                     }
                 }
             },
@@ -25,13 +25,13 @@
                 "to": {
                     "startLine": 3,
                     "startColumn": 4,
-                    "startOffset": 104,
+                    "startOffset": 105,
                     "endLine": 10,
                     "endColumn": 12,
-                    "endOffset": 562
+                    "endOffset": 563
                 },
                 "from": {
-                    "file": "/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/res/values/styles.xml",
+                    "file": "/Users/eduardacunha/Documents/Uni/2/LPOO/Disney Crush/android/res/values/styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

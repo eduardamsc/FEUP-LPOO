@@ -1,4 +1,0 @@
-#Sat Apr 29 23:09:58 WEST 2017
-base.0=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/5/slice_9
-renamed.0=classes.dex
-file.0=/Users/eduardacunha/Documents/Uni/2/LPOO/Projeto 2/android/build/intermediates/transforms/dex/debug/folders/1000/5/slice_9/classes.dex

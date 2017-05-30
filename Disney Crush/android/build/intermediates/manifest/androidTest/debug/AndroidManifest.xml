@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.eduardacunha.game.test">
+    package="com.eduarda.game.test">
 
     <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="25" />
 
@@ -9,8 +9,8 @@
     </application>
 
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="com.eduardacunha.game"
+                     android:targetPackage="com.eduarda.game"
                      android:handleProfiling="false"
                      android:functionalTest="false"
-                     android:label="Tests for com.eduardacunha.game"/>
+                     android:label="Tests for com.eduarda.game"/>
 </manifest>
