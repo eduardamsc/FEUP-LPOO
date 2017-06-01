@@ -33,7 +33,7 @@ public class MenuState extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-            sb.draw(background, 0, 0, DisneyCrushDemo.WIDTH, DisneyCrushDemo.HEIGHT);
+            sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         sb.end();
     }
 

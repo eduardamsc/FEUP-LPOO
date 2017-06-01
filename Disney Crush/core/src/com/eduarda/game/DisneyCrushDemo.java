@@ -8,9 +8,6 @@ import com.eduarda.game.States.GameStateManager;
 import com.eduarda.game.States.MenuState;
 
 public class DisneyCrushDemo extends ApplicationAdapter {
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 1600;
-
 	public static final String title = "Disney Crush";
 	private GameStateManager game;
 	private SpriteBatch batch;
