@@ -14,12 +14,10 @@ import java.util.Random;
  */
 
 public class Gem {
-    private static final int GRAVITY = -15;
+    private static final float GRAVITY = -((((float) 3/4) * Gdx.graphics.getHeight())/14);
     private Vector3 position;
     private Vector3 velocity;
     private int symbol;
-
-    public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
 
     private Rectangle bounds;
 
@@ -31,15 +29,14 @@ public class Gem {
         this.symbol = generateSymbol();
         this.gem = new Texture(chooseTexture());
 
-        this.bounds = new Rectangle(position.x, position.y, gem.getWidth(), gem.getHeight());
-        System.out.println("ESTOU AQUIIII" + WIDTH);
+        this.bounds = new Rectangle(position.x, position.y,(((float) 8/10) * Gdx.graphics.getWidth())/8, (((float) 3/4) * Gdx.graphics.getHeight())/14);
     }
 
     public void update(float dt) {
         this.velocity.add(0, GRAVITY, 0);
         this.velocity.scl(dt);
         this.position.add(0, this.velocity.y, 0);
-        if (this.position.y < 100) this.position.y += 100;
+        if (this.position.y < ((((float) 3/4) * Gdx.graphics.getHeight())/14)) this.position.y +=((((float) 3/4) * Gdx.graphics.getHeight())/14); //nao esta adaptavel
 
         velocity.scl(1/dt);
 
@@ -53,6 +50,8 @@ public class Gem {
     public Texture getTexture() {
         return gem;
     }
+
+    public Rectangle getBounds() { return bounds; }
 
     public int generateSymbol() {
         Random r = new Random();
