@@ -38,7 +38,7 @@ public class PlayState extends State {
         lowerBound = new Texture ("lowerBound.png");
 
         score = 0;
-        time = 10;
+        time = 18000;
         labels = "score: " + score + "\n" + "time: " + time;
         b = new BitmapFont();
         b.setColor(1, 1, 1, 1);
@@ -47,6 +47,8 @@ public class PlayState extends State {
 
     @Override
     protected void handleInput() {
+        if (Gdx.input.justTouched()) {
+        }
     }
 
     @Override
@@ -84,6 +86,10 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-
+        for (int i = 0; i < gems.length; i++) {
+            for (int j = 3; j < gems[i].length; j++) {
+                gems[i][j].getTexture().dispose();
+            }
+        }
     }
 }

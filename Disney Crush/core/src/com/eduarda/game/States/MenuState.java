@@ -36,7 +36,6 @@ public class MenuState extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
-
             if (Gdx.input.getX()>buttonX && Gdx.input.getX()<(buttonX*2))
             {
                 float realY = Gdx.graphics.getHeight() - Gdx.input.getY();

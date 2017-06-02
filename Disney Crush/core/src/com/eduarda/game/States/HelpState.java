@@ -22,12 +22,18 @@ public class HelpState extends State {
 
     @Override
     protected void handleInput() {
-        
+        if (Gdx.input.justTouched()) {
+            float realY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            if (Gdx.input.getX()<2*WIDTH && realY<WIDTH) {
+                game.set(new MenuState(game));
+                dispose();
+            }
+        }
     }
 
     @Override
     public void update(float dt) {
-
+        handleInput();
     }
 
     @Override
