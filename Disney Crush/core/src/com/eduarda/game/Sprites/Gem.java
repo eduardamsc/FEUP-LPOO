@@ -21,6 +21,8 @@ public class Gem {
 
     private Rectangle bounds;
 
+    public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
+
     private Texture gem;
 
     public Gem(float x, float y) {
@@ -29,14 +31,14 @@ public class Gem {
         this.symbol = generateSymbol();
         this.gem = new Texture(chooseTexture());
 
-        this.bounds = new Rectangle(position.x, position.y,(((float) 8/10) * Gdx.graphics.getWidth())/8, (((float) 3/4) * Gdx.graphics.getHeight())/14);
+        this.bounds = new Rectangle(position.x, position.y, WIDTH, WIDTH);
     }
 
     public void update(float dt) {
         this.velocity.add(0, GRAVITY, 0);
         this.velocity.scl(dt);
         this.position.add(0, this.velocity.y, 0);
-        if (this.position.y < ((((float) 3/4) * Gdx.graphics.getHeight())/14)) this.position.y +=((((float) 3/4) * Gdx.graphics.getHeight())/14); //nao esta adaptavel
+        if (this.position.y < 3*WIDTH) this.position.y += 3*WIDTH;
 
         velocity.scl(1/dt);
 
@@ -55,14 +57,14 @@ public class Gem {
 
     public int generateSymbol() {
         Random r = new Random();
-        int symbol = r.nextInt(4) + 0;
+        int symbol = r.nextInt(5) + 0;
         char[] symbols = {0, 1, 2, 3, 4};
 
         return symbols[symbol];
     }
 
     public java.lang.String chooseTexture() {
-        java.lang.String[] textures = {"p_cinderella.png", "p_littlemermaid.png", "p_moana.png", "p_tangled.png", "p_yasmin.png"};
+        java.lang.String[] textures = {"v_CapitaoGancho.png", "v_CruelaDeVil.png", "v_Malefica.png", "v_RainhaMa.png", "v_Ursula.png"};
         return textures[this.symbol];
     }
 
