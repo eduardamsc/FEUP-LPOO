@@ -1,11 +1,13 @@
 package com.eduarda.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
+import javax.swing.text.Utilities;
 
 /**
  * Created by eduardacunha on 31/05/2017.
@@ -45,8 +49,15 @@ public class MenuState extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
-            game.set(new PlayState(game));
-            dispose();
+            System.out.println(Gdx.input.getY());
+            System.out.println(buttonPlay);
+            if (Gdx.input.getX()>buttonX && Gdx.input.getX()<(buttonX*2))
+            {
+                if (Gdx.input.getY()<buttonPlay && Gdx.input.getY()>buttonHeight) {
+                    game.set(new PlayState(game));
+                    dispose();
+                }
+            }
         }
     }
 
@@ -69,5 +80,4 @@ public class MenuState extends State {
     public void dispose() {
         background.dispose();
     }
-
 }
