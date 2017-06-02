@@ -1,20 +1,9 @@
 package com.eduarda.game.States;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import javax.swing.text.Utilities;
 
@@ -34,8 +23,6 @@ public class MenuState extends State {
     private float buttonScore = ((float) 2/3*Gdx.graphics.getHeight())-2*buttonHeight;
     private float buttonHelp = ((float) 1/3*Gdx.graphics.getHeight())-buttonHeight;
 
-
-
     public MenuState(GameStateManager game) {
         super(game);
         Gdx.gl.glClearColor(0.3f, 0, 1, 1);
@@ -49,12 +36,23 @@ public class MenuState extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
-            System.out.println(Gdx.input.getY());
-            System.out.println(buttonPlay);
+
             if (Gdx.input.getX()>buttonX && Gdx.input.getX()<(buttonX*2))
             {
-                if (Gdx.input.getY()<buttonPlay && Gdx.input.getY()>buttonHeight) {
+                float realY = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+                if (realY>buttonPlay && realY<(buttonPlay+buttonHeight)) {
                     game.set(new PlayState(game));
+                    dispose();
+                }
+
+                if (realY>buttonScore && realY<(buttonScore+buttonHeight)) {
+                    //game.set(new ScoreState(game));
+                    dispose();
+                }
+
+                if (realY>buttonHelp && realY<(buttonHelp+buttonHeight)) {
+                    game.set(new HelpState(game));
                     dispose();
                 }
             }

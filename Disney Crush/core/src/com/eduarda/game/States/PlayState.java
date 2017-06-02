@@ -38,7 +38,7 @@ public class PlayState extends State {
         lowerBound = new Texture ("lowerBound.png");
 
         score = 0;
-        time = 18000;
+        time = 10;
         labels = "score: " + score + "\n" + "time: " + time;
         b = new BitmapFont();
         b.setColor(1, 1, 1, 1);
