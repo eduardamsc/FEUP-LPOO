@@ -40,17 +40,17 @@ public class MenuState extends State {
             {
                 float realY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-                if (realY>buttonPlay && realY<(buttonPlay + buttonHeight)) {
+                if (realY>buttonPlay && realY<(buttonPlay+buttonHeight)) {
                     game.set(new PlayState(game));
                     dispose();
                 }
 
-                if (realY>buttonScore && realY<(buttonScore + buttonHeight)) {
+                if (realY>buttonScore && realY<(buttonScore+buttonHeight)) {
                     game.set(new ScoreState(game));
                     dispose();
                 }
 
-                if (realY>buttonHelp && realY<(buttonHelp + buttonHeight)) {
+                if (realY>buttonHelp && realY<(buttonHelp+buttonHeight)) {
                     game.set(new HelpState(game));
                     dispose();
                 }
@@ -66,10 +66,10 @@ public class MenuState extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        sb.draw(play, buttonX, buttonPlay, buttonX*2, buttonHeight);
-        sb.draw(score, buttonX, buttonScore, buttonX*2, buttonHeight);
-        sb.draw(help, buttonX, buttonHelp, buttonX*2, buttonHeight);
+            sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            sb.draw(play, buttonX, buttonPlay, buttonX*2, buttonHeight);
+            sb.draw(score, buttonX, buttonScore, buttonX*2, buttonHeight);
+            sb.draw(help, buttonX, buttonHelp, buttonX*2, buttonHeight);
         sb.end();
     }
 

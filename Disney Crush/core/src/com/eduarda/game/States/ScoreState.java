@@ -21,23 +21,23 @@ public class ScoreState extends State{
 
     private Label vilans;
     private Label princess;
-    private float buttonX = ((float) 1/4*Gdx.graphics.getWidth());
-    private float buttonBack = ((float) 2/3*Gdx.graphics.getHeight());
+
+    public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
 
     public ScoreState(GameStateManager game){
         super(game);
 
-        Gdx.gl.glClearColor(0.3f, 0, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClearColor(0.3f, 0, 1, 1);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        this.highScore = new Texture("highScore.png");
+        highScore = new Texture("highScore.png");
         back = new Texture("back.png");
 
-        Table table = new Table();
+       /* Table table = new Table();
         table.top();
 
         //vilans
-        //vilans = new Label(String.format("%02d",game.getScore()),new Label.LabelStyle(LoadGraphics.getFont(), Color.BLACK));
+        vilans = new Label(String.format("%02d",game.getScore()),new Label.LabelStyle(LoadGraphics.getFont(), Color.BLACK));
         vilans.setFontScale(0.75f);
         vilans.setAlignment(Align.center);
         table.center();
@@ -46,46 +46,44 @@ public class ScoreState extends State{
         table.row();
 
         //princess
-        //princess = new Label(String.format("%02d",game.getScore()),new Label.LabelStyle(LoadGraphics.getFont(), Color.BLACK));
+        princess = new Label(String.format("%02d",game.getScore()),new Label.LabelStyle(LoadGraphics.getFont(), Color.BLACK));
         princess.setFontScale(0.75f);
         princess.setAlignment(Align.center);
         table.center();
         table.padTop(170);
         table.add(princess).padLeft(200).padBottom(20);
-        table.row();
+        table.row();*/
 
     }
 
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched()) {
-            if (Gdx.input.getX()>buttonX && Gdx.input.getX()<(buttonX*2))
-            {
-                float realY = Gdx.graphics.getHeight() - Gdx.input.getY();
-
-                if (realY>buttonBack && realY<buttonX) {
-                    game.set(new MenuState(game));
-                    dispose();
-                }
-
+            float realY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            if (Gdx.input.getX()<2*WIDTH && realY<WIDTH) {
+                game.set(new MenuState(game));
+                dispose();
             }
         }
     }
 
     @Override
     public void update(float dt) {
+        handleInput();
 
     }
 
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-         sb.draw(highScore, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            sb.draw(highScore, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            sb.draw(back, 0, 0, 2*WIDTH, WIDTH);
         sb.end();
     }
 
     @Override
     public void dispose() {
         highScore.dispose();
+        back.dispose();
     }
 }

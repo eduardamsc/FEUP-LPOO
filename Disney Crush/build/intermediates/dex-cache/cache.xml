@@ -2,20 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/beatrizHm/git/LPOO1617_T4G3/Disney Crush/core/build/libs/core-1.0.jar"
+        jar="/Users/eduardacunha/Documents/Uni/2/LPOO/Disney Crush/core/build/libs/core-1.0.jar"
         jumboMode="false"
         revision="25.0.3"
-<<<<<<< Updated upstream
-        sha1="2a2dcb46dd71b2c19ee65e25564d9a4037342575">
-=======
-<<<<<<< Updated upstream
-        sha1="6ec4daf75bf31b7c38e7560b0ea0cbabe8f5d5cf">
->>>>>>> Stashed changes
+        sha1="bae63aba319bba9041900d40d7ec753d0e5d35b2">
         <dex dex="/Users/eduardacunha/Documents/Uni/2/LPOO/Disney Crush/android/build/intermediates/pre-dexed/debug/core-1.0_7e46ce906af1e9c42e352095e7e566b80887a811.jar" />
-=======
-        sha1="c582d7e5a02ea0f2657f3f4777f88b72cc436b6c">
-        <dex dex="/Users/beatrizHm/git/LPOO1617_T4G3/Disney Crush/android/build/intermediates/pre-dexed/debug/core-1.0_42b16d5841179aeec5da7ff5088dcf90b674349c.jar" />
->>>>>>> Stashed changes
     </item>
 
 </items>
