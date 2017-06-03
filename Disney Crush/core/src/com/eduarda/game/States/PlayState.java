@@ -45,6 +45,10 @@ public class PlayState extends State {
         b.getData().scale(3);
     }
 
+    public int getScore() {
+        return score;
+    }
+
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched()) {
