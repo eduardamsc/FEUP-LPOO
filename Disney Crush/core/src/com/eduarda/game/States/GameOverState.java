@@ -9,11 +9,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 
 public class GameOverState extends State{
-    private Texture gameOver;
+    private Texture background;
 
     protected GameOverState(GameStateManager game) {
         super(game);
-        gameOver = new Texture("gameOver.png");
+        background = new Texture("gameOverBackground.png");
     }
 
     @Override
@@ -29,13 +29,13 @@ public class GameOverState extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-            sb.draw(gameOver, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         sb.end();
 
     }
 
     @Override
     public void dispose() {
-        gameOver.dispose();
+        background.dispose();
     }
 }

@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
  */
 
 public class ScoreState extends State{
-    private Texture highScore;
+    private Texture background;
     private Texture back;
 
     private Label vilans;
@@ -30,7 +30,7 @@ public class ScoreState extends State{
         //Gdx.gl.glClearColor(0.3f, 0, 1, 1);
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        highScore = new Texture("highScore.png");
+        background = new Texture("scoreBackground.png");
         back = new Texture("back.png");
 
        /* Table table = new Table();
@@ -76,14 +76,14 @@ public class ScoreState extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-            sb.draw(highScore, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             sb.draw(back, 0, 0, 2*WIDTH, WIDTH);
         sb.end();
     }
 
     @Override
     public void dispose() {
-        highScore.dispose();
+        background.dispose();
         back.dispose();
     }
 }
