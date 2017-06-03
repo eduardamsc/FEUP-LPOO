@@ -64,7 +64,7 @@ public class Gem {
     }
 
     public java.lang.String chooseTexture() {
-        java.lang.String[] textures = {"v_CapitaoGancho.png", "v_CruelaDeVil.png", "v_Malefica.png", "v_RainhaMa.png", "v_Ursula.png"};
+        java.lang.String[] textures = {"p_ariel.png", "p_belle.png", "p_cinderella.png", "p_snowWhite.png", "p_rapunzel.png"};
         return textures[this.symbol];
     }
 

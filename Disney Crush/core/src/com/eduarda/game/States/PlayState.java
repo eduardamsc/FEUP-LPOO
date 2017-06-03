@@ -48,6 +48,21 @@ public class PlayState extends State {
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched()) {
+
+            for (int i = 0; i < gems.length; i++) {
+                for (int j = 0; j < gems[i].length; j++) {
+
+                    if (Gdx.input.getX()>gems[i][j].getPosition().x && Gdx.input.getX()<(gems[i][j].getPosition().x+WIDTH))
+                    {
+                        float realY = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+                        if (realY>gems[i][j].getPosition().y && realY<(gems[i][j].getPosition().y+WIDTH)) {
+                            
+                        }
+                    }
+                }
+            }
+
         }
     }
 
