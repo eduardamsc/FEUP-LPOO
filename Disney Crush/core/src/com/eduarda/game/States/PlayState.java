@@ -27,6 +27,10 @@ public class PlayState extends State {
 
     public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
 
+    private Gem gemAux1 = new Gem(0,0);
+    private Gem gemAux2 = new Gem(0,0);
+    private int x, y;
+
     protected PlayState(GameStateManager game) {
         super(game);
         gems = new Gem[8][13];
@@ -47,22 +51,43 @@ public class PlayState extends State {
 
     @Override
     protected void handleInput() {
+
         if (Gdx.input.justTouched()) {
 
             for (int i = 0; i < gems.length; i++) {
                 for (int j = 0; j < gems[i].length; j++) {
-
                     if (Gdx.input.getX()>gems[i][j].getPosition().x && Gdx.input.getX()<(gems[i][j].getPosition().x+WIDTH))
                     {
                         float realY = Gdx.graphics.getHeight() - Gdx.input.getY();
-
                         if (realY>gems[i][j].getPosition().y && realY<(gems[i][j].getPosition().y+WIDTH)) {
-                            
+
+                            if (gemAux1.getPosition().x == 0) {
+                                gemAux1 = gems[i][j];
+                                gemAux1.setGem(gems[i][j].getTexture());
+                                x = i;
+                                y = j;
+                            }
+                            else if (gemAux2.getPosition().x == 0) {
+                                gemAux2 = gems[i][j];
+                                gemAux2.setGem(gems[i][j].getTexture());
+
+                                gems[i][j].setGem(gemAux1.getTexture());
+                                gems[x][y].setGem(gemAux2.getTexture());
+                            }
+                            else {
+                                gemAux1 = new Gem(0,0);
+                                gemAux2 = new Gem(0,0);
+
+                                gemAux1 = gems[i][j];
+                                gemAux1.setGem(gems[i][j].getTexture());
+                                x = i;
+                                y = j;
+                            }
+
                         }
                     }
                 }
             }
-
         }
     }
 
@@ -76,13 +101,10 @@ public class PlayState extends State {
                 }
             }
         }
-        labels = "score: " + score + "\n" + "time: " + time;
-        time --;
-        if (time==0) {
-            game.set(new GameOverState(game));
-            dispose();
-        }
 
+        labels = "score: " + score + "\n" + "time: " + time;
+
+        timeRunningOut();
     }
 
     @Override
@@ -105,6 +127,14 @@ public class PlayState extends State {
             for (int j = 3; j < gems[i].length; j++) {
                 gems[i][j].getTexture().dispose();
             }
+        }
+    }
+
+    public void timeRunningOut() {
+        time --;
+        if (time==0) {
+            game.set(new GameOverState(game));
+            dispose();
         }
     }
 }

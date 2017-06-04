@@ -23,6 +23,10 @@ public class Gem {
 
     public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
 
+    public void setGem(Texture gem) {
+        this.gem = gem;
+    }
+
     private Texture gem;
 
     public Gem(float x, float y) {
