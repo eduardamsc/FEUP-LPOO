@@ -29,7 +29,9 @@ public class PlayState extends State {
 
     private Gem gemAux1 = new Gem(0,0);
     private Gem gemAux2 = new Gem(0,0);
-    private int x, y;
+    private int x = 0, y = 0;
+
+    private char direction;
 
     protected PlayState(GameStateManager game) {
         super(game);
@@ -53,28 +55,33 @@ public class PlayState extends State {
     protected void handleInput() {
 
         if (Gdx.input.justTouched()) {
-
             for (int i = 0; i < gems.length; i++) {
                 for (int j = 0; j < gems[i].length; j++) {
                     if (Gdx.input.getX()>gems[i][j].getPosition().x && Gdx.input.getX()<(gems[i][j].getPosition().x+WIDTH))
                     {
                         float realY = Gdx.graphics.getHeight() - Gdx.input.getY();
                         if (realY>gems[i][j].getPosition().y && realY<(gems[i][j].getPosition().y+WIDTH)) {
-
                             if (gemAux1.getPosition().x == 0) {
                                 gemAux1 = gems[i][j];
                                 gemAux1.setGem(gems[i][j].getTexture());
                                 x = i;
                                 y = j;
-                            }
-                            else if (gemAux2.getPosition().x == 0) {
+                            } else if (gemAux2.getPosition().x == 0) {
                                 gemAux2 = gems[i][j];
                                 gemAux2.setGem(gems[i][j].getTexture());
-
+                                Texture aux = gems[i][j].getTexture();
                                 gems[i][j].setGem(gemAux1.getTexture());
-                                gems[x][y].setGem(gemAux2.getTexture());
-                            }
-                            else {
+                                gems[x][y].setGem(aux);
+
+                                /*if (!(consecutiveMove(i,j) && allowedMove(i,j))) {
+                                    System.out.println("ola");
+                                    gems[i][j].setGem(aux);
+                                    gems[x][y].setGem(gemAux1.getTexture());
+                                }*/
+
+                               // System.out.println("allowed = " + allowedMove(i,j));
+
+                            } else {
                                 gemAux1 = new Gem(0,0);
                                 gemAux2 = new Gem(0,0);
 
@@ -83,7 +90,6 @@ public class PlayState extends State {
                                 x = i;
                                 y = j;
                             }
-
                         }
                     }
                 }
@@ -94,11 +100,10 @@ public class PlayState extends State {
     @Override
     public void update(float dt) {
         handleInput();
+
         for (int i = 0; i < gems.length; i++) {
             for (int j = 0; j < gems[i].length; j++) {
-                if (j!=12){
-                    if(!gems[i][j].collides(gems[i][j+1].getBounds())) gems[i][j].update(dt);
-                }
+                if (j!=12) if(!gems[i][j].collides(gems[i][j+1].getBounds())) gems[i][j].update(dt);
             }
         }
 
@@ -136,5 +141,65 @@ public class PlayState extends State {
             game.set(new GameOverState(game));
             dispose();
         }
+    }
+
+    public boolean consecutiveMove(int i, int j) {
+
+        if (i == 0) {
+            if (j == 0) {
+                if ( x == i + 1 && y != j + 1) return true;
+                else if (y == j + 1) return true;
+            } else if (j == 13) {
+                if (x == i + 1 && y != j - 1) return true;
+                else if (y == j - 1) return true;
+            } else {
+                if (x == i + 1 && ((y != j - 1 && y != j + 1))) return true;
+                else if (y == j - 1 || y == j + 1) return true;
+            }
+        } else if (i == 7) {
+            if (j == 0) {
+                if (x == i - 1 && y != j + 1) return true;
+                else if (y == j + 1) return true;
+            } else if (j == 13) {
+                if (x == i - 1 && y != j - 1) return true;
+                else if (y == j - 1) return true;
+            } else {
+                if (x == i - 1 && ((y != j - 1 && y != j + 1))) return true;
+                else if (y == j - 1 || y == j + 1) return true;
+            }
+        } else if (j == 0) {
+            if ((x == i - 1 || x == i + 1) && y != j + 1) return true;
+            else if (y == j + 1) return true;
+        } else if (j == 13) {
+            if ((x == i - 1 || x == i + 1) && y != j - 1) return true;
+            else if (y == j - 1) return true;
+        }
+
+        if (i > 0 && i < 7 && j > 0 && j < 13) {
+            if ((x == i - 1 || x == i + 1) && ((y != j - 1 && y != j + 1))) return true;
+            else if (y == j - 1 || y == j + 1) return true;
+        }
+
+        return false;
+    }
+
+    public boolean allowedMove(int i, int j) {
+        if ((gems[i][j].getTexture() == gems[i-1][j].getTexture() && gems[i][j].getTexture() == gems[i-2][j].getTexture()) ||
+                (gems[i][j].getTexture() == gems[i-1][j].getTexture() && gems[i][j].getTexture() == gems[i+1][j].getTexture()) ||
+                (gems[i][j].getTexture() == gems[i+1][j].getTexture() && gems[i][j].getTexture() == gems[i+2][j].getTexture())) return true;
+
+        if ((gems[i][j].getTexture() == gems[i][j-1].getTexture() && gems[i][j].getTexture() == gems[i][j-2].getTexture()) ||
+                (gems[i][j].getTexture() == gems[i][j-1].getTexture() && gems[i][j].getTexture() == gems[i][j+1].getTexture()) ||
+                (gems[i][j].getTexture() == gems[i][j+1].getTexture() && gems[i][j].getTexture() == gems[i][j+2].getTexture())) return true;
+
+        if ((gems[i][j].getTexture() == gems[i-1][j].getTexture() && gems[i][j].getTexture() == gems[i-2][j].getTexture()) ||
+                (gems[i][j].getTexture() == gems[i-1][j].getTexture() && gems[i][j].getTexture() == gems[i+1][j].getTexture()) ||
+                (gems[i][j].getTexture() == gems[i+1][j].getTexture() && gems[i][j].getTexture() == gems[i+2][j].getTexture())) return true;
+
+        if ((gems[x][y].getTexture() == gems[x-1][y].getTexture() && gems[x][y].getTexture() == gems[x-2][y].getTexture()) ||
+                (gems[x][y].getTexture() == gems[x-1][y].getTexture() && gems[x][y].getTexture() == gems[x+1][y].getTexture()) ||
+                (gems[x][y].getTexture() == gems[x+1][y].getTexture() && gems[x][y].getTexture() == gems[x+2][y].getTexture())) return true;
+
+       return false;
     }
 }
