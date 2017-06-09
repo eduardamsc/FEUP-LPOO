@@ -8,9 +8,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by eduardacunha on 02/06/2017.
  */
 
+/**
+ * The Class GameOverState.
+ */
 public class GameOverState extends State{
     private Texture background;
 
+    /**
+     * Constructor for GameOverState.
+     * 
+     * @param game GameStateManager.
+     */
     protected GameOverState(GameStateManager game) {
         super(game);
         background = new Texture("gameOverBackground.png");
@@ -26,6 +34,9 @@ public class GameOverState extends State{
 
     }
 
+    /**
+     * Renders all images, textures, fonts...
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
@@ -34,6 +45,9 @@ public class GameOverState extends State{
 
     }
 
+    /**
+     * Disposes of all images, textures, fonts...
+     */
     @Override
     public void dispose() {
         background.dispose();

@@ -11,6 +11,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class victoryState extends State {
     private Texture background;
 
+    
+    /**
+     * Constructor for VictoryState.
+     *
+     * @param game GameStateManager.
+     */
     protected victoryState(GameStateManager game) {
         super(game);
         background = new Texture("victory.png");
@@ -25,6 +31,9 @@ public class victoryState extends State {
     public void update(float dt) {
     }
 
+    /**
+     * Renders all images, textures, fonts...
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
@@ -32,6 +41,9 @@ public class victoryState extends State {
         sb.end();
     }
 
+    /**
+     * Disposes of all images, textures, fonts...
+     */
     @Override
     public void dispose() {
         background.dispose();

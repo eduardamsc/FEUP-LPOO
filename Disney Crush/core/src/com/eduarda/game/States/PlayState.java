@@ -10,6 +10,9 @@ import com.eduarda.game.Sprites.Gem;
  * Created by eduardacunha on 31/05/2017.
  */
 
+/**
+ * The Class PlayState.
+ */
 public class PlayState extends State {
     private Gem[][] gems;
     private Texture lowerBound;
@@ -25,6 +28,11 @@ public class PlayState extends State {
     private Gem gemAux2 = new Gem(0,0);
     private int x = 0, y = 0;
 
+    /**
+     * Constructor for PlayState.
+     *
+     * @param game GameStateManager.
+     */
     protected PlayState(GameStateManager game) {
         super(game);
         gems = new Gem[8][13];
@@ -43,6 +51,9 @@ public class PlayState extends State {
         b.getData().scale(3);
     }
 
+    /**
+     * Handles consequences of user input.
+     */
     @Override
     protected void handleInput() {
 
@@ -83,6 +94,9 @@ public class PlayState extends State {
         }
     }
 
+    /**
+     * Updates game.
+     */
     @Override
     public void update(float dt) {
         handleInput();
@@ -99,6 +113,9 @@ public class PlayState extends State {
         victory();
     }
 
+    /**
+     * Renders all images, textures, fonts...
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
@@ -113,6 +130,9 @@ public class PlayState extends State {
 
     }
 
+    /**
+     * Disposes of all images, textures, fonts...
+     */
     @Override
     public void dispose() {
         for (int i = 0; i < gems.length; i++) {
@@ -122,10 +142,18 @@ public class PlayState extends State {
         }
     }
     
+    /**
+     * Gets static variable score.
+     *
+     * @return Score of type int.
+     */
     public static int getScore() {
         return score;
     }
 
+    /**
+     * Decreases time and switches to GameOverState if time has run out.
+     */
     public void timeRunningOut() {
         time --;
         if (time==0) {
@@ -134,6 +162,9 @@ public class PlayState extends State {
         }
     }
 
+    /**
+     * Switches to VictoryState if score has reached 5000 points.
+     */
     public void victory() {
         if (getScore() >= 5000) {
             game.set(new victoryState(game));
@@ -141,6 +172,14 @@ public class PlayState extends State {
         }
     }
 
+    /**
+     * Checks if the attempted move is being done 1 unit to the left, right, up or down. If not, the move is not allowed.
+     *
+     * @param i Collumn.
+     * @param j Line.
+     *
+     * @return True if move is allowed.
+     */
     public boolean consecutiveMove(int i, int j) {
         if (Math.abs(i-x) + Math.abs(j-y) != 1) return false;
         if (i == 0 && j == 0) return x > i || y > j;
@@ -151,16 +190,43 @@ public class PlayState extends State {
         return false;
     }
 
+    /**
+     * Checks if the attempted move causes a horizontal match.
+     *
+     * @param i Collumn.
+     * @param j Line.
+     * @param texture Texture that falls into that place if the move is done.
+     *
+     * @return True if move causes match.
+     */
     public boolean isHorizontalMatch(int x, int y, Texture texture){
         if (x < 0 || y + 2 > 7) return false;
         return (texture.equals(gems[x+1][y].getTexture()) && texture.equals(gems[x+2][y].getTexture()));
     }
 
+    /**
+     * Checks if the attempted move causes a vertical match.
+     *
+     * @param i Collumn.
+     * @param j Line.
+     * @param texture Texture that falls into that place if the move is done.
+     *
+     * @return True if move causes match.
+     */
     public boolean isVerticalMatch(int x, int y, Texture texture){
         if (y < 0 || y + 2 > 13) return false;
         return (texture.equals(gems[x][y+1].getTexture()) && texture.equals(gems[x][y+2].getTexture()));
     }
 
+    /**
+     * Checks if the attempted move causes any matches. If not, the move is not allowed.
+     *
+     * @param i Collumn.
+     * @param j Line.
+     * @param texture Texture that falls into that place if the move is done.
+     *
+     * @return True if move causes any matches which means it is allowed.
+     */
     public boolean hasMatch(int x, int y, Texture texture) {
         for(int i = -2; i <= 0; i++){
             if(isHorizontalMatch(x, y, texture) || isVerticalMatch(x, y, texture)) return true;

@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by beatrizHm on 02/06/17.
  */
 
+/**
+ * The Class ScoreState.
+ */
 public class ScoreState extends State{
     private Texture background;
     private Texture back;
@@ -18,6 +21,11 @@ public class ScoreState extends State{
 
     public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
 
+    /**
+     * Constructor for ScoreState.
+     *
+     * @param game GameStateManager.
+     */
     public ScoreState(GameStateManager game){
         super(game);
 
@@ -25,6 +33,9 @@ public class ScoreState extends State{
         back = new Texture("back.png");
     }
 
+    /**
+     * Handles consequences of user input.
+     */
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched()) {
@@ -36,12 +47,18 @@ public class ScoreState extends State{
         }
     }
 
+    /**
+     * Updates game.
+     */
     @Override
     public void update(float dt) {
         handleInput();
 
     }
 
+    /**
+     * Renders all images, textures, fonts...
+     */
     @Override
     public void render(SpriteBatch sb) {
         
@@ -65,6 +82,9 @@ public class ScoreState extends State{
         sb.end();
     }
 
+    /**
+     * Disposes of all images, textures, fonts...
+     */
     @Override
     public void dispose() {
         background.dispose();

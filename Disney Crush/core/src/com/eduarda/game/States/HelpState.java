@@ -8,18 +8,29 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by eduardacunha on 02/06/2017.
  */
 
+/**
+ * The Class HelpState.
+ */
 public class HelpState extends State {
     private Texture background;
     private Texture back;
 
     public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
 
+    /**
+     * Constructor for HelpState.
+     *
+     * @param game GameStateManager.
+     */
     protected HelpState(GameStateManager game) {
         super(game);
         background = new Texture("helpBackground.png");
         back = new Texture("back.png");
     }
 
+    /**
+     * Handles consequences of user input.
+     */
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched()) {
@@ -31,11 +42,17 @@ public class HelpState extends State {
         }
     }
 
+    /**
+     * Updates game.
+     */
     @Override
     public void update(float dt) {
         handleInput();
     }
 
+    /**
+     * Renders all images, textures, fonts...
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
@@ -44,6 +61,9 @@ public class HelpState extends State {
         sb.end();
     }
 
+    /**
+     * Disposes of all images, textures, fonts...
+     */
     @Override
     public void dispose() {
         background.dispose();

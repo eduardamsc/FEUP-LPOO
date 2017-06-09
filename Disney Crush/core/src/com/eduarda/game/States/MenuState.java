@@ -10,6 +10,9 @@ import com.eduarda.game.Social.Facebook;
  * Created by eduardacunha on 31/05/2017.
  */
 
+/**
+ * The Class MenuState.
+ */
 public class MenuState extends State {
     private Texture background;
     private Texture play;
@@ -24,6 +27,11 @@ public class MenuState extends State {
 
     private Facebook fb;
 
+    /**
+     * Constructor for MenuState.
+     *
+     * @param game GameStateManager.
+     */
     public MenuState(GameStateManager game) {
         super(game);
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -35,6 +43,9 @@ public class MenuState extends State {
         //fb = new Facebook();
     }
 
+    /**
+     * Handles consequences of user input.
+     */
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()) {
@@ -61,11 +72,17 @@ public class MenuState extends State {
         }
     }
 
+    /**
+     * Updates game.
+     */
     @Override
     public void update(float dt) {
         handleInput();
     }
 
+    /**
+     * Renders all images, textures, fonts...
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
@@ -76,6 +93,9 @@ public class MenuState extends State {
         sb.end();
     }
 
+    /**
+     * Disposes of all images, textures, fonts...
+     */
     @Override
     public void dispose() {
         background.dispose();
