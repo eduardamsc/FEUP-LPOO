@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.eduarda.game.Social.Facebook;
 
-import javax.swing.text.Utilities;
-
 /**
  * Created by eduardacunha on 31/05/2017.
  */
