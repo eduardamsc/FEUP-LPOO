@@ -70,7 +70,7 @@ public class ScoreState extends State{
             sb.draw(back, 0, 0, 2*WIDTH, WIDTH);
             float factor = (float) ((6.7 - (vilans.length() - 1) * 0.25) / 10.0);
             b.draw(sb, vilans, (float) factor*Gdx.graphics.getWidth(), (float) 7/12*Gdx.graphics.getHeight());
-            b.draw(sb, princesses, (float) factor*Gdx.graphics.getWidth(), (float) 6.1/12*Gdx.graphics.getHeight());
+            b.draw(sb, princesses, (float) factor*Gdx.graphics.getWidth(), (float) 6.10/12*Gdx.graphics.getHeight());
         sb.end();
     }
 
