@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+@@ -10,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -54,23 +54,25 @@ public class ScoreState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
+        
         BitmapFont b = new BitmapFont(Gdx.files.internal("font.fnt"));
         b.setColor(1, 1, 1, 1);
         b.getData().scale(1);
-
-
+        
+        
         //vilans
         vilans = String.valueOf(PlayState.getScore());
-
+        
         //princesses
         princesses = String.valueOf(PlayState.getScore());
-
+        
         sb.begin();
             sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             sb.draw(back, 0, 0, 2*WIDTH, WIDTH);
-            float factor = (float) ((6.7 - (vilans.length() - 1) * 0.25) / 10.0);
-            b.draw(sb, vilans, (float) factor*Gdx.graphics.getWidth(), (float) 7/12*Gdx.graphics.getHeight());
-            b.draw(sb, princesses, (float) factor*Gdx.graphics.getWidth(), (float) 6.10/12*Gdx.graphics.getHeight());
+        float factor = (float) ((6.7 - (vilans.length() - 1) * 0.25) / 10.0);
+        b.draw(sb, vilans, (float) factor*Gdx.graphics.getWidth(), (float) 7/12*Gdx.graphics.getHeight());
+         b.draw(sb, princesses, (float) factor*Gdx.graphics.getWidth(), (float) 6.10/12*Gdx.graphics.getHeight());
+
         sb.end();
     }
 

@@ -8,8 +8,8 @@ import com.eduarda.game.DisneyCrushDemo;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = Gdx.graphics.getWidth();
-		config.height = Gdx.graphics.getHeight();
+		config.width = 1000;
+		config.height = 600;
 		config.title = DisneyCrushDemo.title;
 		new LwjglApplication(new DisneyCrushDemo(), config);
 	}

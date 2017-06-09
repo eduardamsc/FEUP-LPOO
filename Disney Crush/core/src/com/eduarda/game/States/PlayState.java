@@ -25,8 +25,6 @@ public class PlayState extends State {
     private Gem gemAux2 = new Gem(0,0);
     private int x = 0, y = 0;
 
-    private char direction;
-
     protected PlayState(GameStateManager game) {
         super(game);
         gems = new Gem[8][13];
@@ -61,20 +59,14 @@ public class PlayState extends State {
                                 x = i;
                                 y = j;
                             } else if (gemAux2.getPosition().x == 0) {
-                                gemAux2 = gems[i][j];
-                                gemAux2.setGem(gems[i][j].getTexture());
-                                Texture aux = gems[i][j].getTexture();
-                                gems[i][j].setGem(gemAux1.getTexture());
-                                gems[x][y].setGem(aux);
-
-                                /*if (!(consecutiveMove(i,j) && allowedMove(i,j))) {
-                                    System.out.println("ola");
+                                if (consecutiveMove(i,j) && (hasMatch(i, j, gems[x][y].getTexture()) || hasMatch(x, y, gems[i][j].getTexture())))
+                                {
+                                    gemAux2 = gems[i][j];
+                                    gemAux2.setGem(gems[i][j].getTexture());
+                                    Texture aux = gems[i][j].getTexture();
+                                    gems[i][j].setGem(gemAux1.getTexture());
                                     gems[i][j].setGem(aux);
-                                    gems[x][y].setGem(gemAux1.getTexture());
-                                }*/
-
-                               // System.out.println("allowed = " + allowedMove(i,j));
-
+                                } else gemAux2 = gems[i][j];
                             } else {
                                 gemAux1 = new Gem(0,0);
                                 gemAux2 = new Gem(0,0);
@@ -104,6 +96,7 @@ public class PlayState extends State {
         labels = "score: " + getScore() + "\n" + "time: " + time;
 
         timeRunningOut();
+        victory();
     }
 
     @Override
@@ -128,6 +121,10 @@ public class PlayState extends State {
             }
         }
     }
+    
+    public static int getScore() {
+        return score;
+    }
 
     public void timeRunningOut() {
         time --;
@@ -137,67 +134,37 @@ public class PlayState extends State {
         }
     }
 
+    public void victory() {
+        if (getScore() >= 5000) {
+            game.set(new victoryState(game));
+            dispose();
+        }
+    }
+
     public boolean consecutiveMove(int i, int j) {
-
-        if (i == 0) {
-            if (j == 0) {
-                if ( x == i + 1 && y != j + 1) return true;
-                else if (y == j + 1) return true;
-            } else if (j == 13) {
-                if (x == i + 1 && y != j - 1) return true;
-                else if (y == j - 1) return true;
-            } else {
-                if (x == i + 1 && ((y != j - 1 && y != j + 1))) return true;
-                else if (y == j - 1 || y == j + 1) return true;
-            }
-        } else if (i == 7) {
-            if (j == 0) {
-                if (x == i - 1 && y != j + 1) return true;
-                else if (y == j + 1) return true;
-            } else if (j == 13) {
-                if (x == i - 1 && y != j - 1) return true;
-                else if (y == j - 1) return true;
-            } else {
-                if (x == i - 1 && ((y != j - 1 && y != j + 1))) return true;
-                else if (y == j - 1 || y == j + 1) return true;
-            }
-        } else if (j == 0) {
-            if ((x == i - 1 || x == i + 1) && y != j + 1) return true;
-            else if (y == j + 1) return true;
-        } else if (j == 13) {
-            if ((x == i - 1 || x == i + 1) && y != j - 1) return true;
-            else if (y == j - 1) return true;
-        }
-
-        if (i > 0 && i < 7 && j > 0 && j < 13) {
-            if ((x == i - 1 || x == i + 1) && ((y != j - 1 && y != j + 1))) return true;
-            else if (y == j - 1 || y == j + 1) return true;
-        }
+        if (Math.abs(i-x) + Math.abs(j-y) != 1) return false;
+        if (i == 0 && j == 0) return x > i || y > j;
+        if (i == 7 && j == 3) return x < i || y < j;
+        if (i == 7) return x <= i;
+        if (j == 13) return y <= j;
 
         return false;
     }
 
-    public boolean allowedMove(int i, int j) {
-        if ((gems[i][j].getTexture() == gems[i-1][j].getTexture() && gems[i][j].getTexture() == gems[i-2][j].getTexture()) ||
-                (gems[i][j].getTexture() == gems[i-1][j].getTexture() && gems[i][j].getTexture() == gems[i+1][j].getTexture()) ||
-                (gems[i][j].getTexture() == gems[i+1][j].getTexture() && gems[i][j].getTexture() == gems[i+2][j].getTexture())) return true;
-
-        if ((gems[i][j].getTexture() == gems[i][j-1].getTexture() && gems[i][j].getTexture() == gems[i][j-2].getTexture()) ||
-                (gems[i][j].getTexture() == gems[i][j-1].getTexture() && gems[i][j].getTexture() == gems[i][j+1].getTexture()) ||
-                (gems[i][j].getTexture() == gems[i][j+1].getTexture() && gems[i][j].getTexture() == gems[i][j+2].getTexture())) return true;
-
-        if ((gems[i][j].getTexture() == gems[i-1][j].getTexture() && gems[i][j].getTexture() == gems[i-2][j].getTexture()) ||
-                (gems[i][j].getTexture() == gems[i-1][j].getTexture() && gems[i][j].getTexture() == gems[i+1][j].getTexture()) ||
-                (gems[i][j].getTexture() == gems[i+1][j].getTexture() && gems[i][j].getTexture() == gems[i+2][j].getTexture())) return true;
-
-        if ((gems[x][y].getTexture() == gems[x-1][y].getTexture() && gems[x][y].getTexture() == gems[x-2][y].getTexture()) ||
-                (gems[x][y].getTexture() == gems[x-1][y].getTexture() && gems[x][y].getTexture() == gems[x+1][y].getTexture()) ||
-                (gems[x][y].getTexture() == gems[x+1][y].getTexture() && gems[x][y].getTexture() == gems[x+2][y].getTexture())) return true;
-
-       return false;
+    public boolean isHorizontalMatch(int x, int y, Texture texture){
+        if (x < 0 || y + 2 > 7) return false;
+        return (texture.equals(gems[x+1][y].getTexture()) && texture.equals(gems[x+2][y].getTexture()));
     }
 
-    public static int getScore() {
-        return score;
+    public boolean isVerticalMatch(int x, int y, Texture texture){
+        if (y < 0 || y + 2 > 13) return false;
+        return (texture.equals(gems[x][y+1].getTexture()) && texture.equals(gems[x][y+2].getTexture()));
+    }
+
+    public boolean hasMatch(int x, int y, Texture texture) {
+        for(int i = -2; i <= 0; i++){
+            if(isHorizontalMatch(x, y, texture) || isVerticalMatch(x, y, texture)) return true;
+        }
+        return false;
     }
 }

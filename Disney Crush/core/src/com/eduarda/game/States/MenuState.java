@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.eduarda.game.Social.Facebook;
 
 import javax.swing.text.Utilities;
 
@@ -23,15 +24,17 @@ public class MenuState extends State {
     private float buttonScore = ((float) 2/3*Gdx.graphics.getHeight())-2*buttonHeight;
     private float buttonHelp = ((float) 1/3*Gdx.graphics.getHeight())-buttonHeight;
 
+    private Facebook fb;
+
     public MenuState(GameStateManager game) {
         super(game);
-        Gdx.gl.glClearColor(0.3f, 0, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         background = new Texture("background.png");
         play = new Texture("play.png");
         score = new Texture("score.png");
         help = new Texture("help.png");
+        //fb = new Facebook();
     }
 
     @Override
@@ -43,6 +46,7 @@ public class MenuState extends State {
 
                 if (realY>buttonPlay && realY<(buttonPlay+buttonHeight)) {
                     game.set(new PlayState(game));
+                    //fb.logIn();
                     dispose();
                 }
 
