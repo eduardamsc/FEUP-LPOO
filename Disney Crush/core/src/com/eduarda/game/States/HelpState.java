@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class HelpState extends State {
     private Texture background;
     private Texture back;
+    SpriteBatch batch;
 
     public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
 
@@ -18,6 +19,7 @@ public class HelpState extends State {
         super(game);
         background = new Texture("helpBackground.png");
         back = new Texture("back.png");
+        this.batch=batch;
     }
 
     @Override

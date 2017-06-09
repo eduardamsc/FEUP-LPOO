@@ -30,4 +30,8 @@ public class DisneyCrushDemo extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 	}
+
+	public SpriteBatch getBatch() {
+		return batch;
+	}
 }

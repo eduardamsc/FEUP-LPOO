@@ -1,15 +1,9 @@
 package com.eduarda.game.States;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.eduarda.game.DisneyCrushDemo;
 import com.eduarda.game.Sprites.Gem;
 
 /**
@@ -20,7 +14,7 @@ public class PlayState extends State {
     private Gem[][] gems;
     private Texture lowerBound;
 
-    private int score;
+    private static int score;
     private int time;
     private String labels;
     private BitmapFont b;
@@ -45,7 +39,7 @@ public class PlayState extends State {
 
         score = 0;
         time = 18000;
-        labels = "score: " + score + "\n" + "time: " + time;
+        labels = "score: " + getScore() + "\n" + "time: " + time;
         b = new BitmapFont();
         b.setColor(1, 1, 1, 1);
         b.getData().scale(3);
@@ -107,7 +101,7 @@ public class PlayState extends State {
             }
         }
 
-        labels = "score: " + score + "\n" + "time: " + time;
+        labels = "score: " + getScore() + "\n" + "time: " + time;
 
         timeRunningOut();
     }
@@ -201,5 +195,9 @@ public class PlayState extends State {
                 (gems[x][y].getTexture() == gems[x+1][y].getTexture() && gems[x][y].getTexture() == gems[x+2][y].getTexture())) return true;
 
        return false;
+    }
+
+    public static int getScore() {
+        return score;
     }
 }
