@@ -69,10 +69,9 @@ public class ScoreState extends State{
         sb.begin();
             sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             sb.draw(back, 0, 0, 2*WIDTH, WIDTH);
-        float factor = (float) ((6.7 - (villains.length() - 1) * 0.25) / 10.0);
-        b.draw(sb, villains, (float) factor*Gdx.graphics.getWidth(), (float) 7/12*Gdx.graphics.getHeight());
-         b.draw(sb, princesses, (float) factor*Gdx.graphics.getWidth(), (float) 6.10/12*Gdx.graphics.getHeight());
-
+            float factor = (float) ((6.7 - (villains.length() - 1) * 0.25) / 10.0);
+            b.draw(sb, villains, (float) factor*Gdx.graphics.getWidth(), (float) 7/12*Gdx.graphics.getHeight());
+             b.draw(sb, princesses, (float) factor*Gdx.graphics.getWidth(), (float) 6.10/12*Gdx.graphics.getHeight());
         sb.end();
     }
 
