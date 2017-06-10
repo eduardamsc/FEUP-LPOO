@@ -70,8 +70,9 @@ public class PlayState extends State {
                                 x = i;
                                 y = j;
                             } else if (gemAux2.getPosition().x == 0) {
-                                if (consecutiveMove(i,j) && (hasMatch(i, j, gems[x][y].getTexture()) || hasMatch(x, y, gems[i][j].getTexture())))
+                                if (consecutiveMove(i,j) /*&& (hasMatch(i, j, gems[x][y].getTexture()) || hasMatch(x, y, gems[i][j].getTexture()))*/)
                                 {
+                                    System.out.println("ola");
                                     gemAux2 = gems[i][j];
                                     gemAux2.setGem(gems[i][j].getTexture());
                                     Texture aux = gems[i][j].getTexture();
@@ -193,22 +194,22 @@ public class PlayState extends State {
     /**
      * Checks if the attempted move causes a horizontal match.
      *
-     * @param i Collumn.
-     * @param j Line.
+     * @param x Collumn.
+     * @param y Line.
      * @param texture Texture that falls into that place if the move is done.
      *
      * @return True if move causes match.
      */
     public boolean isHorizontalMatch(int x, int y, Texture texture){
-        if (x < 0 || y + 2 > 7) return false;
+        if (x < 0 || x + 2 > 7) return false;
         return (texture.equals(gems[x+1][y].getTexture()) && texture.equals(gems[x+2][y].getTexture()));
     }
 
     /**
      * Checks if the attempted move causes a vertical match.
      *
-     * @param i Collumn.
-     * @param j Line.
+     * @param x Collumn.
+     * @param y Line.
      * @param texture Texture that falls into that place if the move is done.
      *
      * @return True if move causes match.
@@ -221,15 +222,15 @@ public class PlayState extends State {
     /**
      * Checks if the attempted move causes any matches. If not, the move is not allowed.
      *
-     * @param i Collumn.
-     * @param j Line.
+     * @param x Collumn.
+     * @param y Line.
      * @param texture Texture that falls into that place if the move is done.
      *
      * @return True if move causes any matches which means it is allowed.
      */
     public boolean hasMatch(int x, int y, Texture texture) {
         for(int i = -2; i <= 0; i++){
-            if(isHorizontalMatch(x, y, texture) || isVerticalMatch(x, y, texture)) return true;
+            if(isHorizontalMatch(x + i, y, texture) || isVerticalMatch(x, y + i, texture)) return true;
         }
         return false;
     }
