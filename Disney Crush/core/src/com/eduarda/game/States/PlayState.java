@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.eduarda.game.Sprites.Gem;
 
 /**
@@ -22,11 +25,14 @@ public class PlayState extends State {
     private String labels;
     private BitmapFont b;
 
-    public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
+    public float WIDTH = (float) ((((float) 8/10)*Gdx.graphics.getWidth())/8);
 
     private Gem gemAux1 = new Gem(0,0);
     private Gem gemAux2 = new Gem(0,0);
     private int x = 0, y = 0;
+
+    private Stage stage;
+    private Viewport vp;
 
     /**
      * Constructor for PlayState.
@@ -38,7 +44,7 @@ public class PlayState extends State {
         gems = new Gem[8][13];
         for (int i = 0; i < gems.length; i++) {
             for (int j = 0; j < gems[i].length; j++) {
-                gems[i][j] = new Gem(((float) 1/10) * Gdx.graphics.getWidth()+(i * WIDTH), ((float) 9/10) * Gdx.graphics.getHeight()-(j * WIDTH));
+                gems[i][j] = new Gem(((float) 1/10)*Gdx.graphics.getWidth()+(i*WIDTH), ((float) 9/10)*Gdx.graphics.getHeight()-(j*WIDTH));
             }
         }
         lowerBound = new Texture ("lowerBound.png");
@@ -49,6 +55,11 @@ public class PlayState extends State {
         b = new BitmapFont();
         b.setColor(1, 1, 1, 1);
         b.getData().scale(3);
+
+        vp = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        stage = new Stage(vp);
+
+        Gdx.input.setInputProcessor(stage);
     }
 
     /**
@@ -128,7 +139,7 @@ public class PlayState extends State {
         sb.draw(lowerBound, 0, 0, Gdx.graphics.getWidth(), 3*WIDTH);
         b.draw(sb, labels, (float) 1/10*Gdx.graphics.getWidth(), (float) 11/12*Gdx.graphics.getHeight());
         sb.end();
-
+        stage.draw();
     }
 
     /**
@@ -136,6 +147,8 @@ public class PlayState extends State {
      */
     @Override
     public void dispose() {
+        stage.dispose();
+
         for (int i = 0; i < gems.length; i++) {
             for (int j = 3; j < gems[i].length; j++) {
                 gems[i][j].getTexture().dispose();

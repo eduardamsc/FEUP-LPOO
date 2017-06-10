@@ -8,11 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.eduarda.game.DisneyCrushDemo;
 import com.eduarda.game.Social.Facebook;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Created by eduardacunha on 31/05/2017.
@@ -47,15 +45,15 @@ public class MenuState extends State {
 
         stage = new Stage(vp);
 
-        float xButton = Gdx.graphics.getWidth() * 1/4;
+        float xButton = Gdx.graphics.getWidth()*1/4;
 
-        float wButton = Gdx.graphics.getWidth() * 1/2;
-        float hButton = Gdx.graphics.getHeight() * 5/40;
+        float wButton = Gdx.graphics.getWidth()*1/2;
+        float hButton = Gdx.graphics.getHeight()*5/40;
 
 
-        float buttonPlay = ((float) 3/5 * Gdx.graphics.getHeight());
-        float buttonScore = ((float) 2/5 * Gdx.graphics.getHeight());
-        float buttonHelp = ((float) 1/5 * Gdx.graphics.getHeight());
+        float buttonPlay = ((float) 3/5*Gdx.graphics.getHeight());
+        float buttonScore = ((float) 2/5*Gdx.graphics.getHeight());
+        float buttonHelp = ((float) 1/5*Gdx.graphics.getHeight());
 
         background = new Texture("background.png");
         button = new Texture("play.png");
@@ -102,6 +100,8 @@ public class MenuState extends State {
                 setHelpState();
             }
         });
+
+        //Gdx.input.setInputProcessor(stage);
     }
 
     public void setPlayState(){
@@ -147,5 +147,7 @@ public class MenuState extends State {
      */
     @Override
     public void dispose() {
+        background.dispose();
+        stage.dispose();
     }
 }
