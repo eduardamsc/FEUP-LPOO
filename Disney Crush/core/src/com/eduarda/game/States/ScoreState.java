@@ -7,15 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-//@@ -10,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.eduarda.game.DisneyCrushDemo;
 
 /**
  * Created by beatrizHm on 02/06/17.
@@ -43,15 +37,13 @@ public class ScoreState extends State{
         super(game);
 
         vp = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        vp.apply();
-
         stage = new Stage(vp);
 
         float hButton = (float) ((((float) 1f)*Gdx.graphics.getHeight())/8);
         float wButton = (float) ((((float) 4/3)*Gdx.graphics.getWidth())/8);
 
-        float xButton = 0.5f; //Gdx.graphics.getWidth();
-        float yButton = 0.5f; //Gdx.graphics.getHeight();
+        float xButton = 0.5f;
+        float yButton = 0.5f;
 
         background = new Texture("scoreBackground.png");
         button = new Texture("back.png");
@@ -69,6 +61,8 @@ public class ScoreState extends State{
                 setMenuState();
             }
         });
+
+        Gdx.input.setInputProcessor(stage);
     }
 
     public void setMenuState(){
@@ -119,5 +113,6 @@ public class ScoreState extends State{
      */
     @Override
     public void dispose() {
+        stage.dispose();
     }
 }
