@@ -81,7 +81,7 @@ public class PlayState extends State {
                                 x = i;
                                 y = j;
                             } else if (gemAux2.getPosition().x == 0) {
-                                if (consecutiveMove(i,j) && (hasMatch(i, j, gems[x][y].getTexture()) || hasMatch(x, y, gems[i][j].getTexture())))
+                                if (consecutiveMove(i,j) && (hasMatch(i, j, gems[x][y].l) || hasMatch(x, y, gems[i][j].l)))
                                 {
                                     gemAux2 = gems[i][j];
                                     gemAux2.setGem(gems[i][j].getTexture());
@@ -212,9 +212,9 @@ public class PlayState extends State {
      *
      * @return True if move causes match.
      */
-    public boolean isHorizontalMatch(int x, int y, Texture texture){
+    public boolean isHorizontalMatch(int x, int y, String texture){
         if (x < 0 || x + 2 > 7) return false;
-        return (texture.equals(gems[x+1][y].getTexture()) && texture.equals(gems[x+2][y].getTexture()));
+        return (texture == gems[x+1][y].l && texture == gems[x+2][y].l);
     }
 
     /**
@@ -226,9 +226,9 @@ public class PlayState extends State {
      *
      * @return True if move causes match.
      */
-    public boolean isVerticalMatch(int x, int y, Texture texture){
+    public boolean isVerticalMatch(int x, int y, String texture){
         if (y < 0 || y + 2 > 13) return false;
-        return (texture.equals(gems[x][y+1].getTexture()) && texture.equals(gems[x][y+2].getTexture()));
+        return (texture == gems[x][y+1].l && texture == gems[x][y+2].l);
     }
 
     /**
@@ -240,10 +240,11 @@ public class PlayState extends State {
      *
      * @return True if move causes any matches which means it is allowed.
      */
-    public boolean hasMatch(int x, int y, Texture texture) {
+    public boolean hasMatch(int x, int y, String texture) {
         for(int i = -2; i <= 0; i++){
             if(isHorizontalMatch(x + i, y, texture) || isVerticalMatch(x, y + i, texture)) return true;
         }
+
         return false;
     }
 }

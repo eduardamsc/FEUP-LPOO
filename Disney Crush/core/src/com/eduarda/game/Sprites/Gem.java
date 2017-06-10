@@ -19,6 +19,7 @@ public class Gem {
     private Vector3 position;
     private Vector3 velocity;
     private int symbol;
+    public String l;
 
     private Rectangle bounds;
 
@@ -106,6 +107,7 @@ public class Gem {
      */
     public java.lang.String chooseTexture() {
         java.lang.String[] textures = {"p_ariel.png", "p_belle.png", "p_cinderella.png", "p_snowWhite.png", "p_rapunzel.png"};
+        l = textures[this.symbol];
         return textures[this.symbol];
     }
 
