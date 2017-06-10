@@ -213,15 +213,9 @@ public class PlayState extends State {
      * @return True if move causes match.
      */
     public boolean isHorizontalMatch(int x, int y, String texture){
-        if (x == 0) {
-            System.out.println("x= "+x);
-            return (texture == gems[x+1][y].l && texture == gems[x+2][y].l);
-        }
+        if (x == 0) return (texture == gems[x+1][y].l && texture == gems[x+2][y].l);
         else if (x == 7) return (texture == gems[x-1][y].l && texture == gems[x-2][y].l);
-        else if (x == 1) {
-            System.out.println("x= "+x);
-            return ((texture == gems[x+1][y].l && texture == gems[x+2][y].l) || (texture == gems[x-1][y].l && texture == gems[x+1][y].l));
-        }
+        else if (x == 1) return ((texture == gems[x+1][y].l && texture == gems[x+2][y].l) || (texture == gems[x-1][y].l && texture == gems[x+1][y].l));
         else if (x == 6) return ((texture == gems[x-1][y].l && texture == gems[x-2][y].l) || (texture == gems[x-1][y].l && texture == gems[x+1][y].l));
         else return ((texture == gems[x+1][y].l && texture == gems[x+2][y].l)
                     || (texture == gems[x-1][y].l && texture == gems[x+1][y].l)
@@ -257,10 +251,7 @@ public class PlayState extends State {
      * @return True if move causes any matches which means it is allowed.
      */
     public boolean hasMatch(int x, int y, String texture) {
-        for(int i = -2; i <= 0; i++){
-            if(isHorizontalMatch(x + i, y, texture) || isVerticalMatch(x, y + i, texture)) return true;
-        }
-
-        return false;
+        if(isHorizontalMatch(x, y, texture) || isVerticalMatch(x, y, texture)) return true;
+        else return false;
     }
 }
