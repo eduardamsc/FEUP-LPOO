@@ -213,8 +213,19 @@ public class PlayState extends State {
      * @return True if move causes match.
      */
     public boolean isHorizontalMatch(int x, int y, String texture){
-        if (x < 0 || x + 2 > 7) return false;
-        return (texture == gems[x+1][y].l && texture == gems[x+2][y].l);
+        if (x == 0) {
+            System.out.println("x= "+x);
+            return (texture == gems[x+1][y].l && texture == gems[x+2][y].l);
+        }
+        else if (x == 7) return (texture == gems[x-1][y].l && texture == gems[x-2][y].l);
+        else if (x == 1) {
+            System.out.println("x= "+x);
+            return ((texture == gems[x+1][y].l && texture == gems[x+2][y].l) || (texture == gems[x-1][y].l && texture == gems[x+1][y].l));
+        }
+        else if (x == 6) return ((texture == gems[x-1][y].l && texture == gems[x-2][y].l) || (texture == gems[x-1][y].l && texture == gems[x+1][y].l));
+        else return ((texture == gems[x+1][y].l && texture == gems[x+2][y].l)
+                    || (texture == gems[x-1][y].l && texture == gems[x+1][y].l)
+                    || (texture == gems[x-1][y].l && texture == gems[x-2][y].l));
     }
 
     /**
@@ -227,8 +238,13 @@ public class PlayState extends State {
      * @return True if move causes match.
      */
     public boolean isVerticalMatch(int x, int y, String texture){
-        if (y < 0 || y + 2 > 13) return false;
-        return (texture == gems[x][y+1].l && texture == gems[x][y+2].l);
+        if (y == 0) return (texture == gems[x][y+1].l && texture == gems[x][y+2].l);
+        else if (y == 12) return (texture == gems[x][y-1].l && texture == gems[x][y-2].l);
+        else if (y == 1) return ((texture == gems[x][y+1].l && texture == gems[x][y+2].l) || (texture == gems[x][y-1].l && texture == gems[x][y+1].l));
+        else if (y == 11) return ((texture == gems[x][y-1].l && texture == gems[x][y-2].l) || (texture == gems[x][y-1].l && texture == gems[x][y+1].l));
+        else return  ((texture == gems[x][y+1].l && texture == gems[x][y+2].l)
+                    || (texture == gems[x][y-1].l && texture == gems[x][y+1].l)
+                    || (texture == gems[x][y-1].l && texture == gems[x][y-2].l));
     }
 
     /**
