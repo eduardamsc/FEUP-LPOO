@@ -81,14 +81,13 @@ public class PlayState extends State {
                                 x = i;
                                 y = j;
                             } else if (gemAux2.getPosition().x == 0) {
-                                if (consecutiveMove(i,j) /*&& (hasMatch(i, j, gems[x][y].getTexture()) || hasMatch(x, y, gems[i][j].getTexture()))*/)
+                                if (consecutiveMove(i,j) && (hasMatch(i, j, gems[x][y].getTexture()) || hasMatch(x, y, gems[i][j].getTexture())))
                                 {
-                                    System.out.println("ola");
                                     gemAux2 = gems[i][j];
                                     gemAux2.setGem(gems[i][j].getTexture());
                                     Texture aux = gems[i][j].getTexture();
                                     gems[i][j].setGem(gemAux1.getTexture());
-                                    gems[i][j].setGem(aux);
+                                    gems[x][y].setGem(aux);
                                 } else gemAux2 = gems[i][j];
                             } else {
                                 gemAux1 = new Gem(0,0);
@@ -201,7 +200,7 @@ public class PlayState extends State {
         if (i == 7) return x <= i;
         if (j == 13) return y <= j;
 
-        return false;
+        return true;
     }
 
     /**
