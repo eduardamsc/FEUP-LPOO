@@ -4,19 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Path;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.eduarda.game.Sprites.Gem;
-
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  * Created by eduardacunha on 31/05/2017.
@@ -90,16 +82,35 @@ public class PlayState extends State {
                                 x = i;
                                 y = j;
                             } else if (gemAux2.getPosition().x == 0) {
-                                if (consecutiveMove(i,j) && (hasMatch(i, j, gems[x][y].l) || hasMatch(x, y, gems[i][j].l)))
-                                {
+                                if (consecutiveMove(i,j)) {
                                     gemAux2 = gems[i][j];
                                     gemAux2.setGem(gems[i][j].getTexture());
+
                                     Texture aux = gems[i][j].getTexture();
-                                    gems[i][j].setGem(gemAux1.getTexture());
+                                    Texture aux2 = gems[x][y].getTexture();
+
+                                    gems[i][j].setGem(aux2);
+                                    String a = gems[i][j].l;
+                                    gems[i][j].setL(gems[x][y].l);
                                     gems[x][y].setGem(aux);
-                                    if (hasMatch(i, j, gems[x][y].l)) gems[i][j].getTexture().dispose();
-                                    else gems[x][y].getTexture().dispose();
+                                    gems[x][y].setL(a);
+
+                                    if (!hasMatch(i, j, gems[i][j].l) && !hasMatch(x, y, gems[x][y].l)) {
+                                        gems[i][j].setGem(aux);
+                                        gems[x][y].setGem(aux2);
+
+                                    } else {
+                                        if (hasMatch(i, j, gems[x][y].l)) {
+                                            gems[x][y].getTexture().dispose();
+                                            gems[x][y].setBounds(new Rectangle(gems[x][y+1].getPosition().x, gems[x][y+1].getPosition().y, WIDTH, WIDTH));
+                                        }
+                                        else {
+                                            gems[i][j].getTexture().dispose();
+                                            gems[i][j].setBounds(new Rectangle(gems[i][j+1].getPosition().x,gems[i][j+1].getPosition().y, WIDTH, WIDTH));
+                                        }
+                                    }
                                 } else gemAux2 = gems[i][j];
+
                             } else {
                                 gemAux1 = new Gem(0,0);
                                 gemAux2 = new Gem(0,0);
@@ -250,6 +261,8 @@ public class PlayState extends State {
         if (texture == gems[x1][y1].l && texture==gems[x2][y2].l) {
             gems[x1][y1].getTexture().dispose();
             gems[x2][y2].getTexture().dispose();
+            gems[x1][y1].setBounds(new Rectangle(gems[x1][y+1].getPosition().x,gems[x1][y+1].getPosition().y, WIDTH, WIDTH));
+            gems[x2][y2].setBounds(new Rectangle(gems[x2][y+1].getPosition().x,gems[x2][y+1].getPosition().y, WIDTH, WIDTH));
             score += 50;
         }
         return (texture == gems[x1][y1].l && texture==gems[x2][y2].l);

@@ -19,6 +19,11 @@ public class Gem {
     private Vector3 position;
     private Vector3 velocity;
     private int symbol;
+
+    public void setL(String l) {
+        this.l = l;
+    }
+
     public String l;
 
     private Rectangle bounds;
@@ -26,6 +31,8 @@ public class Gem {
     public float WIDTH = (float) ((((float) 8/10) * Gdx.graphics.getWidth())/8);
 
     private Texture gem;
+
+    java.lang.String[] textures = {"p_ariel.png", "p_belle.png", "p_cinderella.png", "p_snowWhite.png", "p_rapunzel.png"};
 
     /**
      * Constructor for a gem.
@@ -77,7 +84,11 @@ public class Gem {
     }
 
     public Rectangle getBounds() { return bounds; }
-    
+
+    public void setBounds(Rectangle bounds) {
+        this.bounds = bounds;
+    }
+
     /**
      * Sets the texture for a gem.
      *
@@ -106,7 +117,6 @@ public class Gem {
      * @return String which represents a texture.
      */
     public java.lang.String chooseTexture() {
-        java.lang.String[] textures = {"p_ariel.png", "p_belle.png", "p_cinderella.png", "p_snowWhite.png", "p_rapunzel.png"};
         l = textures[this.symbol];
         return textures[this.symbol];
     }
