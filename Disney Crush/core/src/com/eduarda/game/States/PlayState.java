@@ -4,10 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Path;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.eduarda.game.Sprites.Gem;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Created by eduardacunha on 31/05/2017.
@@ -88,6 +97,8 @@ public class PlayState extends State {
                                     Texture aux = gems[i][j].getTexture();
                                     gems[i][j].setGem(gemAux1.getTexture());
                                     gems[x][y].setGem(aux);
+                                    if (hasMatch(i, j, gems[x][y].l)) gems[i][j].getTexture().dispose();
+                                    else gems[x][y].getTexture().dispose();
                                 } else gemAux2 = gems[i][j];
                             } else {
                                 gemAux1 = new Gem(0,0);
@@ -204,44 +215,6 @@ public class PlayState extends State {
     }
 
     /**
-     * Checks if the attempted move causes a horizontal match.
-     *
-     * @param x Collumn.
-     * @param y Line.
-     * @param texture Texture that falls into that place if the move is done.
-     *
-     * @return True if move causes match.
-     */
-    public boolean isHorizontalMatch(int x, int y, String texture){
-        if (x == 0) return (texture == gems[x+1][y].l && texture == gems[x+2][y].l);
-        else if (x == 7) return (texture == gems[x-1][y].l && texture == gems[x-2][y].l);
-        else if (x == 1) return ((texture == gems[x+1][y].l && texture == gems[x+2][y].l) || (texture == gems[x-1][y].l && texture == gems[x+1][y].l));
-        else if (x == 6) return ((texture == gems[x-1][y].l && texture == gems[x-2][y].l) || (texture == gems[x-1][y].l && texture == gems[x+1][y].l));
-        else return ((texture == gems[x+1][y].l && texture == gems[x+2][y].l)
-                    || (texture == gems[x-1][y].l && texture == gems[x+1][y].l)
-                    || (texture == gems[x-1][y].l && texture == gems[x-2][y].l));
-    }
-
-    /**
-     * Checks if the attempted move causes a vertical match.
-     *
-     * @param x Collumn.
-     * @param y Line.
-     * @param texture Texture that falls into that place if the move is done.
-     *
-     * @return True if move causes match.
-     */
-    public boolean isVerticalMatch(int x, int y, String texture){
-        if (y == 0) return (texture == gems[x][y+1].l && texture == gems[x][y+2].l);
-        else if (y == 12) return (texture == gems[x][y-1].l && texture == gems[x][y-2].l);
-        else if (y == 1) return ((texture == gems[x][y+1].l && texture == gems[x][y+2].l) || (texture == gems[x][y-1].l && texture == gems[x][y+1].l));
-        else if (y == 11) return ((texture == gems[x][y-1].l && texture == gems[x][y-2].l) || (texture == gems[x][y-1].l && texture == gems[x][y+1].l));
-        else return  ((texture == gems[x][y+1].l && texture == gems[x][y+2].l)
-                    || (texture == gems[x][y-1].l && texture == gems[x][y+1].l)
-                    || (texture == gems[x][y-1].l && texture == gems[x][y-2].l));
-    }
-
-    /**
      * Checks if the attempted move causes any matches. If not, the move is not allowed.
      *
      * @param x Collumn.
@@ -251,7 +224,35 @@ public class PlayState extends State {
      * @return True if move causes any matches which means it is allowed.
      */
     public boolean hasMatch(int x, int y, String texture) {
-        if(isHorizontalMatch(x, y, texture) || isVerticalMatch(x, y, texture)) return true;
-        else return false;
+        if(isMatch(x-2, y, x-1, y, texture)) return true;
+        if(isMatch(x-1, y, x+1, y, texture)) return true;
+        if(isMatch(x+1, y, x+2, y, texture)) return true;
+        if(isMatch(x, y-2, x, y-1, texture)) return true;
+        if(isMatch(x, y-1, x, y+1, texture)) return true;
+        if(isMatch(x, y+1, x, y+2, texture)) return true;
+        return false;
     }
+
+    /**
+     * Checks if the attempted move causes a match.
+     *
+     * @param x1 Collumn.
+     * @param y1 Line.
+     * @param x2 Collumn.
+     * @param y2 Line.
+     * @param texture Texture that falls into that place if the move is done.
+     *
+     * @return True if move causes match.
+     */
+    boolean isMatch(int x1, int y1, int x2, int y2, String texture) {
+        if(x1 < 0 || x2 < 0 || x1 > 7 || x2 > 7 ||
+                y1 < 0 || y2 < 0 || y1 > 12 || y2 > 12) return false;
+        if (texture == gems[x1][y1].l && texture==gems[x2][y2].l) {
+            gems[x1][y1].getTexture().dispose();
+            gems[x2][y2].getTexture().dispose();
+            score += 50;
+        }
+        return (texture == gems[x1][y1].l && texture==gems[x2][y2].l);
+    }
+
 }
