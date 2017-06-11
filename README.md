@@ -61,7 +61,9 @@ Setup/Installation procedure for both project and game/app:
 -Android: Install apk file on phone;
 
 Development documentation:
-<img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Disney%20Crush/uml.png?raw=true" width="650">
+<img src="https://github.com/eduardamsc/LPOO1617_T4G3/blob/master/Disney%20Crush/UML.png?raw=true" width="650">
+
+
 Design Patterns used:
 -data arrays;
 
