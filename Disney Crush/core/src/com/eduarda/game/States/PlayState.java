@@ -34,6 +34,9 @@ public class PlayState extends State {
 
     private Stage stage;
     private Viewport vp;
+    
+    private int limitX=7;
+    private int limitY=12;
 
     /**
      * Constructor for PlayState.
@@ -136,7 +139,7 @@ public class PlayState extends State {
 
         for (int i = 0; i < gems.length; i++) {
             for (int j = 0; j < gems[i].length; j++) {
-                if (j!=12) if(!gems[i][j].collides(gems[i][j+1].getBounds())) gems[i][j].update(dt);
+                if (j!=limitY) if(!gems[i][j].collides(gems[i][j+1].getBounds())) gems[i][j].update(dt);
             }
         }
 
@@ -218,9 +221,9 @@ public class PlayState extends State {
     public boolean consecutiveMove(int i, int j) {
         if (Math.abs(i-x) + Math.abs(j-y) != 1) return false;
         if (i == 0 && j == 0) return x > i || y > j;
-        if (i == 7 && j == 3) return x < i || y < j;
-        if (i == 7) return x <= i;
-        if (j == 13) return y <= j;
+        if (i == limitX && j == limitY) return x < i || y < j;
+        if (i == limitX) return x <= i;
+        if (j == limitY) return y <= j;
 
         return true;
     }
@@ -256,8 +259,8 @@ public class PlayState extends State {
      * @return True if move causes match.
      */
     boolean isMatch(int x1, int y1, int x2, int y2, String texture) {
-        if(x1 < 0 || x2 < 0 || x1 > 7 || x2 > 7 ||
-                y1 < 0 || y2 < 0 || y1 > 12 || y2 > 12) return false;
+        if(x1 < 0 || x2 < 0 || x1 > limitX || x2 > limitX ||
+                y1 < 0 || y2 < 0 || y1 > limitY || y2 > limitY) return false;
         if (texture == gems[x1][y1].l && texture==gems[x2][y2].l) {
             gems[x1][y1].getTexture().dispose();
             gems[x2][y2].getTexture().dispose();
