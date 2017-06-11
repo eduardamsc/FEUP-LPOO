@@ -192,7 +192,7 @@ public class PlayState extends State {
     public void timeRunningOut() {
         time --;
         if (time==0) {
-            game.set(new GameOverState(game));
+            game.set(new GameOverState(game, 0));
             dispose();
         }
     }
@@ -202,7 +202,7 @@ public class PlayState extends State {
      */
     public void victory() {
         if (getScore() >= 5000) {
-            game.set(new victoryState(game));
+            game.set(new GameOverState(game, 1));
             dispose();
         }
     }

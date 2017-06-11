@@ -19,9 +19,10 @@ public class GameOverState extends State{
      * 
      * @param game GameStateManager.
      */
-    protected GameOverState(GameStateManager game) {
+    protected GameOverState(GameStateManager game, int i) {
         super(game);
-        background = new Texture("gameOverBackground.png");
+        if (i==0) background = new Texture("gameOverBackground.png");
+        else background = new Texture("victory.png");
     }
 
     @Override

@@ -36,7 +36,7 @@ public class MenuState extends State {
      */
     public MenuState(GameStateManager game) {
         super(game);
-
+        fb = new Facebook();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -73,7 +73,6 @@ public class MenuState extends State {
         help.setWidth(wButton);
         help.setHeight(hButton);
         help.setPosition(xButton, buttonHelp);
-        //fb = new Facebook();
 
         Gdx.input.setInputProcessor(stage);
         stage.addActor(play);
@@ -84,6 +83,7 @@ public class MenuState extends State {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 setPlayState();
+                //fb.logIn();
             }
         });
 
