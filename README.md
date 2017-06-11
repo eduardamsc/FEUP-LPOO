@@ -65,5 +65,10 @@ Development documentation:
 
 
 Design Patterns used:
--data arrays;
+-Replace "code array" with "data array";
+-Replace magic number with symbolic constant;
+-Pull up method;
+-Extract method;
+-Encapsulate field;
+-...
 
